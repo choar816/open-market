@@ -26,8 +26,12 @@ module.exports = {
       },
       {
         test: /\.(png|jpe?g|gif|svg|webp)$/i,
-        use: ['file-loader']
-      }
+        use: [{ loader: 'file-loader' }]
+      },
+      {
+        test: /\.html$/i,
+        loader: 'html-loader'
+      },
     ],
   },
   plugins: [
@@ -36,7 +40,7 @@ module.exports = {
       template: './public/index.html',
     }),
     new webpack.DefinePlugin({
-      process: {env: {}}
-    })
+      process: { env: {} },
+    }),
   ],
 };

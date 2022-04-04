@@ -3,6 +3,8 @@ import styled from 'styled-components';
 import IconButton from './IconButton';
 import Logo from './Logo';
 import SearchBar from './SearchBar';
+import ImgCart from '../../public/assets/icon-shopping-cart.svg';
+import ImgUser from '../../public/assets/icon-user.svg';
 
 function Header() {
   return (
@@ -12,8 +14,8 @@ function Header() {
         <SearchBar />
       </section>
       <section>
-        <IconButton src="assets/icon-shopping-cart.svg" title="장바구니" />
-        <IconButton src="assets/icon-user.svg" title="로그인" />
+        <IconButton src={ImgCart} title="장바구니" />
+        <IconButton src={ImgUser} title="로그인" />
       </section>
     </Container>
   );

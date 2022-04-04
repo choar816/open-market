@@ -1,9 +1,10 @@
 import React from 'react';
 import styled from 'styled-components';
+import ImgLogo from '../../public/assets/Logo-hodu.png';
 
 function Logo() {
   return (
-    <Img src="assets/Logo-hodu.png"/>
+    <Img src={ImgLogo}/>
   );
 }
 
