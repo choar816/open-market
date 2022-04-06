@@ -1,12 +1,12 @@
 import React from 'react';
 import styled from 'styled-components';
-import IconButton from './IconButton';
 import Logo from './Logo';
 import SearchBar from './SearchBar';
+import IconButton from './IconButton';
 import ImgCart from '../../public/assets/icon-shopping-cart.svg';
 import ImgUser from '../../public/assets/icon-user.svg';
 
-function Header() {
+function Header(props) {
   return (
     <Container>
       <section>

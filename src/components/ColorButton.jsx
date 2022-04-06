@@ -33,6 +33,10 @@ const handleColor = (color) => {
         background-color: #FFFFFF;
         color: #767676;
         border: 1px solid #C4C4C4;
+        &:hover {
+          color: #000000;
+          border: 1px solid #767676;
+        }
       `;
     default:
       return "background-color: #21BF48;";
