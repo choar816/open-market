@@ -1,17 +1,16 @@
 import React from 'react';
 import styled from 'styled-components';
 
-function IconButton(props) {
+function IconButton({ src, children }) {
   return (
     <Container>
-      <img src={props.src}></img>
-      <p>{props.title}</p>
+      <img src={src}></img>
+      <p>{children}</p>
     </Container>
   )
 }
 
 const Container = styled.article`
-  width: 50px;
   display: flex;
   flex-direction: column;
   text-align: center;

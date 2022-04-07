@@ -11,6 +11,7 @@ function TestPage() {
   return (
     <Container>
       <Header></Header>
+      <Header buyer></Header>
       <ProductItem src={Product1} desc="우당탕탕 라이캣의 실험실" title="Hack Your Life 개발자 노트북 파우치" price={29000}/>
       <SideBar></SideBar>
       <TabBar></TabBar>

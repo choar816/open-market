@@ -5,8 +5,11 @@ import SearchBar from './SearchBar';
 import IconButton from './IconButton';
 import ImgCart from '../../public/assets/icon-shopping-cart.svg';
 import ImgUser from '../../public/assets/icon-user.svg';
+import ImgBag from '../../public/assets/icon-shopping-bag.svg';
+import ColorButton from './ColorButton';
 
-function Header(props) {
+function Header({ buyer }) {
+  console.log(buyer);
   return (
     <Container>
       <section>
@@ -14,8 +17,9 @@ function Header(props) {
         <SearchBar />
       </section>
       <section>
-        <IconButton src={ImgCart} title="장바구니" />
-        <IconButton src={ImgUser} title="로그인" />
+        {buyer || <IconButton src={ImgCart}>장바구니</IconButton>}
+        <IconButton src={ImgUser}>마이페이지</IconButton>
+        {buyer && <ColorButton src={ImgBag} size="icon">판매자 센터</ColorButton>}
       </section>
     </Container>
   );
