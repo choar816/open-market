@@ -6,6 +6,7 @@ import Product1 from '../../public/assets/product-1.jpg';
 import ColorButton from '../components/ColorButton';
 import TabBar from '../components/TabBar';
 import SideBar from '../components/SideBar';
+import AmountPicker from '../components/AmountPicker';
 
 function TestPage() {
   return (
@@ -13,6 +14,8 @@ function TestPage() {
       <Header></Header>
       <Header buyer></Header>
       <ProductItem src={Product1} desc="우당탕탕 라이캣의 실험실" title="Hack Your Life 개발자 노트북 파우치" price={29000}/>
+      <AmountPicker />
+      <AmountPicker disabled />
       <SideBar></SideBar>
       <TabBar></TabBar>
       <ColorButton size="L">L버튼</ColorButton>
