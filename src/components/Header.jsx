@@ -34,6 +34,7 @@ const Container = styled.header`
   align-items: center;
   background-color: #fff;
   box-shadow: 0px 4px 5px rgba(0, 0, 0, 0.1);
+  z-index: 10;
 
   section {
     display: flex;
