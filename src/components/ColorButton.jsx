@@ -1,10 +1,9 @@
 import React from 'react';
 import styled from 'styled-components';
 
-function ColorButton({src, size, color, children}) {
+function ColorButton({width, size, color, children}) {
   return (
-    <Container size={size} color={color}>
-      {src && <img src={src} />}
+    <Container width={width} size={size} color={color}>
       {children}
     </Container>
   )
@@ -49,14 +48,12 @@ const handleColor = (color) => {
 }
 
 const Container = styled.button`
-  display: flex;
-  align-items: center;
-  gap: 8px;
   border: none;
   border-radius: 5px;
   color: #FFFFFF;
   font-weight: 700;
 
+  ${({ width }) => `width: ${width || '100%'};`}
   ${({ size }) => handleSize(size)}
   ${({ color }) => handleColor(color)}
 `;

@@ -7,6 +7,7 @@ import ImgCart from '../../public/assets/icon-shopping-cart.svg';
 import ImgUser from '../../public/assets/icon-user.svg';
 import ImgBag from '../../public/assets/icon-shopping-bag.svg';
 import ColorButton from './ColorButton';
+import ColorIconButton from './ColorIconButton';
 
 function Header({ buyer }) {
   console.log(buyer);
@@ -19,7 +20,7 @@ function Header({ buyer }) {
       <section>
         {buyer || <IconButton src={ImgCart}>장바구니</IconButton>}
         <IconButton src={ImgUser}>마이페이지</IconButton>
-        {buyer && <ColorButton src={ImgBag} size="icon">판매자 센터</ColorButton>}
+        {buyer && <ColorIconButton iconSrc={ImgBag}>판매자 센터</ColorIconButton>}
       </section>
     </Container>
   );

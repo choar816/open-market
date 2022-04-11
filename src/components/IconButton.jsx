@@ -13,6 +13,7 @@ function IconButton({ src, children }) {
 const Container = styled.article`
   display: flex;
   flex-direction: column;
+  flex-shrink: 0;
   text-align: center;
   img {
     margin: 0 auto;

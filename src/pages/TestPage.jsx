@@ -19,7 +19,7 @@ function TestPage() {
       <SideBar></SideBar>
       <TabBar></TabBar>
       <ColorButton size="L">L버튼</ColorButton>
-      <ColorButton size="L" color="white">L버튼 white</ColorButton>
+      <ColorButton size="L" width="50%" color="white">L버튼 white</ColorButton>
       <ColorButton size="L" color="gray">L버튼 gray</ColorButton>
       <ColorButton size="L" color="charcoal">L버튼 charcoal</ColorButton>
       <ColorButton size="M">M버튼</ColorButton>
