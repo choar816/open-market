@@ -6,7 +6,6 @@ import IconButton from './IconButton';
 import ImgCart from '../../public/assets/icon-shopping-cart.svg';
 import ImgUser from '../../public/assets/icon-user.svg';
 import ImgBag from '../../public/assets/icon-shopping-bag.svg';
-import ColorButton from './ColorButton';
 import ColorIconButton from './ColorIconButton';
 
 function Header({ buyer }) {
