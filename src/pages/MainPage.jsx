@@ -1,11 +1,13 @@
 import React from 'react';
 import styled from 'styled-components';
 import Header from '../components/Header';
+import Carousel from '../components/Carousel';
 
 function MainPage() {
   return (
     <Container>
-      <Header></Header>
+      <Header />
+      <Carousel />
     </Container>
   )
 }
