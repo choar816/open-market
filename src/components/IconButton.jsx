@@ -26,6 +26,11 @@ const Container = styled.article`
     font-size: 12px;
     line-height: 14px;
   }
+  @media screen and (max-width: 768px) {
+    img {
+      width: 20px;
+    }
+  }
 `;
 
 export default IconButton;

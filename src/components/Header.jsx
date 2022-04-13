@@ -1,26 +1,25 @@
 import React from 'react';
 import styled from 'styled-components';
-import Logo from './Logo';
 import SearchBar from './SearchBar';
 import IconButton from './IconButton';
+import ImgLogo from '../../public/assets/Logo-hodu.png';
 import ImgCart from '../../public/assets/icon-shopping-cart.svg';
 import ImgUser from '../../public/assets/icon-user.svg';
 import ImgBag from '../../public/assets/icon-shopping-bag.svg';
 import ColorIconButton from './ColorIconButton';
 
 function Header({ buyer }) {
-  console.log(buyer);
   return (
     <Container>
-      <section>
-        <Logo />
+      <SubContainer left>
+        <Logo src={ImgLogo} />
         <SearchBar />
-      </section>
-      <section>
+      </SubContainer>
+      <SubContainer>
         {buyer || <IconButton src={ImgCart}>장바구니</IconButton>}
         <IconButton src={ImgUser}>마이페이지</IconButton>
         {buyer && <ColorIconButton iconSrc={ImgBag}>판매자 센터</ColorIconButton>}
-      </section>
+      </SubContainer>
     </Container>
   );
 }
@@ -36,12 +35,36 @@ const Container = styled.header`
   box-shadow: 0px 4px 5px rgba(0, 0, 0, 0.1);
   z-index: 10;
 
-  section {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    article + article {
-      margin-left: 20px;
+  @media screen and (max-width: 768px) {
+    padding: 10px 22px;
+  }
+`;
+
+const SubContainer = styled.article`
+  ${({ left }) => left && `
+    width: 600px;
+    @media screen and (max-width: 768px) {
+      width: 350px;
     }
+  `}
+ 
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  article + article {
+    margin-left: 20px;
+  }
+  @media screen and (max-width: 768px) {
+    article + article {
+      margin-left: 10px;
+    }
+  }
+`;
+
+const Logo = styled.img`
+  width: 124px;
+  object-fit: contain;
+  @media screen and (max-width: 768px) {
+    width: 80px;
   }
 `;
