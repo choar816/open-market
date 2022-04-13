@@ -37,13 +37,13 @@ function Carousel() {
   return (
     <Container>
       <ImageContainer activeIdx={activeIdx}>
-        {carouselImgs.map((img) => (
-          <Image src={img.src} alt={img.alt} />
+        {carouselImgs.map((img, idx) => (
+          <Image key={idx} src={img.src} alt={img.alt} />
         ))}
       </ImageContainer>
       <IndicatorContainer activeIdx={activeIdx}>
         {carouselImgs.map((img, idx) => (
-          <CarouselIndicator onClick={() => changeImg(idx)} />
+          <CarouselIndicator key={idx} onClick={() => changeImg(idx)} />
         ))}
       </IndicatorContainer>
       <ButtonPrev onClick={() => {
@@ -87,6 +87,7 @@ const Image = styled.div`
   height: 500px;
   background-image: url(${(props) => props.src});
   background-size: cover;
+  background-position: center center;
   flex-shrink: 0;
 `;
 
