@@ -72,6 +72,10 @@ const Container = styled.section`
     padding: 0;
     cursor: pointer;
   }
+
+  @media screen and (max-width: 768px) {
+    height: 300px;
+  }
 `;
 
 const ImageContainer = styled.section`
@@ -89,6 +93,10 @@ const Image = styled.div`
   background-size: cover;
   background-position: center center;
   flex-shrink: 0;
+  
+  @media screen and (max-width: 768px) {
+    height: 300px;
+  }
 `;
 
 const Button = styled.button`
