@@ -1,5 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
+import IconSearch from '../../public/assets/icon-search.svg';
 
 function SearchBar() {
   return (
@@ -34,7 +35,7 @@ const Container = styled.article`
     margin-left: 10px;
     width: 28px;
     height: 28px;
-    background: url('assets/icon-search.svg') center/100% no-repeat;
+    background: url(${IconSearch}) center/100% no-repeat;
     border: none;
   }
 
