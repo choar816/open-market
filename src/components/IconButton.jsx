@@ -15,6 +15,7 @@ const Container = styled.article`
   flex-direction: column;
   flex-shrink: 0;
   text-align: center;
+  cursor: pointer;
   img {
     margin: 0 auto;
     width: 32px;

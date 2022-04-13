@@ -64,6 +64,7 @@ const SubContainer = styled.article`
 const Logo = styled.img`
   width: 124px;
   object-fit: contain;
+  cursor: pointer;
   @media screen and (max-width: 768px) {
     width: 80px;
   }
