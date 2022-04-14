@@ -3,6 +3,7 @@ import styled from 'styled-components';
 import Header from '../components/Header';
 import Carousel from '../components/Carousel';
 import ProductList from '../components/ProductList';
+import Footer from '../components/Footer';
 
 function MainPage() {
   return (
@@ -10,6 +11,7 @@ function MainPage() {
       <Header />
       <Carousel />
       <ProductList />
+      <Footer />
     </Container>
   )
 }
