@@ -20,6 +20,12 @@ const Container = styled.article`
   justify-self: center;
   display: flex;
   flex-direction: column;
+  @media screen and (max-width: 768px) {
+    width: 200px;
+  }
+  @media screen and (max-width: 576px) {
+    width: 150px;
+  }
 `;
 
 const Img = styled.img`

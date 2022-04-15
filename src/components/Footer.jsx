@@ -129,6 +129,15 @@ const LinkContainer = styled.ul`
   @media screen and (max-width: 768px) {
     gap: 10px;
   }
+  @media screen and (max-width: 576px) {
+    gap: 5px;
+    li + li::before {
+      margin-right: 5px;
+    }
+    a {
+      font-size: 12px;
+    }
+  }
 `;
 
 const SocialContainer = styled.ul`
@@ -166,6 +175,12 @@ const LowerContainer = styled.ul`
     line-height: 24px;
     &:first-child {
       font-weight: 700;
+    }
+  }
+  @media screen and (max-width: 576px) {
+    li {
+      font-size: 12px;
+      line-height: 20px;
     }
   }
 `;

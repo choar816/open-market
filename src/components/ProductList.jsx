@@ -73,7 +73,9 @@ const Container = styled.section`
     grid-row-gap: 30px;
   }
   @media screen and (max-width: 576px) {
-    padding: 15px 10px;
+    padding: 10px;
+    padding-top: 20px;
+    padding-bottom: 60px;
     grid-row-gap: 20px;
     grid-column-gap: 10px;
   }
