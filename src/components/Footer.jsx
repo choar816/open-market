@@ -49,6 +49,13 @@ const socials = [
   },
 ];
 
+const lowerList = [
+  "(주)HODU SHOP",
+  "제주특별자치도 제주시 동광고 137 제주코딩베이스캠프",
+  "사업자 번호 : 000-0000-0000 | 통신판매업",
+  "대표 : 김호두"
+];
+
 function onSocialClick(url) {
 
 };
@@ -73,7 +80,9 @@ function Footer() {
         </SocialContainer>
       </UpperContainer>
       <Divider />
-      Ahra Cho ⓒ 2022 All rights reserved.
+      <LowerContainer>
+        {lowerList.map((item) => <li>{item}</li>)}
+      </LowerContainer>
     </Container>
   );
 }
@@ -81,10 +90,13 @@ function Footer() {
 export default Footer;
 
 const Container = styled.footer`
+  padding: 60px;
   display: flex;
   flex-direction: column;
-  padding: 60px;
   background-color: #f2f2f2;
+  @media screen and (max-width: 768px) {
+    padding: 20px;
+  }
 `;
 
 const UpperContainer = styled.section`
@@ -114,6 +126,9 @@ const LinkContainer = styled.ul`
       font-weight: 700;
     }
   }
+  @media screen and (max-width: 768px) {
+    gap: 10px;
+  }
 `;
 
 const SocialContainer = styled.ul`
@@ -136,4 +151,21 @@ const Divider = styled.div`
   width: 100%;
   height: 1px;
   background-color: #c4c4c4;
+  @media screen and (max-width: 768px) {
+    margin-top: 16px;
+    margin-bottom: 20px;
+  }
+`;
+
+const LowerContainer = styled.ul`
+  display: flex;
+  flex-direction: column;
+  li {
+    color: #767676;
+    font-size: 14px;
+    line-height: 24px;
+    &:first-child {
+      font-weight: 700;
+    }
+  }
 `;
