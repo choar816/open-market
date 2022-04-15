@@ -32,6 +32,13 @@ const Container = styled.article`
       width: 20px;
     }
   }
+  @media screen and (max-width: 576px) {
+    p {
+      margin-top: 0;
+      font-size: 10px;
+      line-height: 12px;
+    }
+  }
 `;
 
 export default IconButton;

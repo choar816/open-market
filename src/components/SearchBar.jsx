@@ -53,4 +53,10 @@ const Container = styled.article`
       height: 20px;
     }
   }
+
+  @media screen and (max-width: 576px) {
+    margin-left: 10px;
+    margin-right: 10px;
+    padding: 6px 10px;
+  }
 `;

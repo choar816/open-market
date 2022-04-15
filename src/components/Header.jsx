@@ -15,7 +15,7 @@ function Header({ buyer }) {
         <Logo src={ImgLogo} />
         <SearchBar />
       </SubContainer>
-      <SubContainer>
+      <SubContainer right>
         {buyer || <IconButton src={ImgCart}>장바구니</IconButton>}
         <IconButton src={ImgUser}>마이페이지</IconButton>
         {buyer && <ColorIconButton iconSrc={ImgBag}>판매자 센터</ColorIconButton>}
@@ -38,6 +38,9 @@ const Container = styled.header`
   @media screen and (max-width: 768px) {
     padding: 10px 22px;
   }
+  @media screen and (max-width: 576px) {
+    padding: 6px 10px;
+  }
 `;
 
 const SubContainer = styled.article`
@@ -47,7 +50,11 @@ const SubContainer = styled.article`
       width: 350px;
     }
   `}
- 
+
+  ${({ right }) => right && `
+    flex-shrink: 0;
+  `}
+
   display: flex;
   justify-content: space-between;
   align-items: center;

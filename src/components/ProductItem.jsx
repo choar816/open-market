@@ -33,6 +33,10 @@ const Img = styled.img`
     width: 200px;
     height: 200px;
   }
+  @media screen and (max-width: 576px) {
+    width: 150px;
+    height: 150px;
+  }
 `;
 
 const Desc = styled.p`
