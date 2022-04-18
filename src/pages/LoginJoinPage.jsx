@@ -10,11 +10,11 @@ import JoinLower from '../components/JoinLower';
 function LoginJoinPage() {
   const [info, setInfo] = useState({
     pageType: 'login',
-    userType: 'buyer',
+    userType: 'BUYER',
   });
 
   const changeUserType = (type) => {
-    setInfo({...info, userType: type});
+    setInfo({ ...info, userType: type });
   };
 
   return (
@@ -22,15 +22,19 @@ function LoginJoinPage() {
       <img src={ImgLogo} />
       <FormContainer>
         <FormType selected={info.userType}>
-          <button onClick={() => changeUserType('buyer')}>
+          <button onClick={() => changeUserType('BUYER')}>
             구매{info.pageType === 'login' ? '회원 로그인' : '회원가입'}
           </button>
-          <button onClick={() => changeUserType('seller')}>
+          <button onClick={() => changeUserType('SELLER')}>
             판매{info.pageType === 'login' ? '회원 로그인' : '회원가입'}
           </button>
         </FormType>
         <FormContent>
-          {info.pageType === 'login' ? <LoginForm /> : <JoinForm />}
+          {info.pageType === 'login' ? (
+            <LoginForm userType={info.userType} />
+          ) : (
+            <JoinForm />
+          )}
         </FormContent>
       </FormContainer>
       {info.pageType === 'login' ? <LoginLower /> : <LowerJoin />}
@@ -68,7 +72,7 @@ const FormType = styled.article`
     width: 100%;
     font-size: 18px;
     background: none;
-    border: 1px solid #C4C4C4;
+    border: 1px solid #c4c4c4;
     border-bottom: none;
     border-radius: 10px;
     border-bottom-left-radius: 0;
@@ -76,11 +80,11 @@ const FormType = styled.article`
   }
 
   ${({ selected }) => `
-    button:nth-child(${1 + +(selected === 'seller')}) {
+    button:nth-child(${1 + +(selected === 'SELLER')}) {
       z-index: 20;
       background: #fff;
     }
-    button:nth-child(${1 + +(selected === 'buyer')}) {
+    button:nth-child(${1 + +(selected === 'BUYER')}) {
       z-index: 0;
       background: #F2F2F2;
     }
@@ -104,6 +108,6 @@ const FormContent = styled.section`
   z-index: 10;
   padding: 35px;
   background: #ffffff;
-  border: 1px solid #C4C4C4;
+  border: 1px solid #c4c4c4;
   border-radius: 10px;
 `;

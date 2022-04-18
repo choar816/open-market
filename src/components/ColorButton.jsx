@@ -1,9 +1,9 @@
 import React from 'react';
 import styled from 'styled-components';
 
-function ColorButton({width, size, color, children}) {
+function ColorButton({ width, size, color, onClick, children }) {
   return (
-    <Container width={width} size={size} color={color}>
+    <Container width={width} size={size} color={color} onClick={onClick}>
       {children}
     </Container>
   )

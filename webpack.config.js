@@ -26,11 +26,11 @@ module.exports = {
       },
       {
         test: /\.(png|jpe?g|gif|svg|webp)$/i,
-        use: [{ loader: 'file-loader' }]
+        use: [{ loader: 'file-loader' }],
       },
       {
         test: /\.html$/i,
-        loader: 'html-loader'
+        loader: 'html-loader',
       },
     ],
   },
