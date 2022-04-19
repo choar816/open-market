@@ -50,38 +50,38 @@ const socials = [
 ];
 
 const lowerList = [
-  "(주)HODU SHOP",
-  "제주특별자치도 제주시 동광고 137 제주코딩베이스캠프",
-  "사업자 번호 : 000-0000-0000 | 통신판매업",
-  "대표 : 김호두"
+  '(주)HODU SHOP',
+  '제주특별자치도 제주시 동광고 137 제주코딩베이스캠프',
+  '사업자 번호 : 000-0000-0000 | 통신판매업',
+  '대표 : 김호두',
 ];
 
-function onSocialClick(url) {
-
-};
+function onSocialClick(url) {}
 
 function Footer() {
   return (
     <Container>
       <UpperContainer>
         <LinkContainer>
-          {links.map((item) => (
-            <li>
+          {links.map((item, idx) => (
+            <li key={idx}>
               <a href={item.url}>{item.link}</a>
             </li>
           ))}
         </LinkContainer>
         <SocialContainer>
-          {socials.map((item) => (
-            <li>
-              <Button imgSrc={item.imgSrc}/>
+          {socials.map((item, idx) => (
+            <li key={idx}>
+              <Button imgSrc={item.imgSrc} />
             </li>
           ))}
         </SocialContainer>
       </UpperContainer>
       <Divider />
       <LowerContainer>
-        {lowerList.map((item) => <li>{item}</li>)}
+        {lowerList.map((item, idx) => (
+          <li key={idx}>{item}</li>
+        ))}
       </LowerContainer>
     </Container>
   );

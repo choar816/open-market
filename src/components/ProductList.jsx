@@ -9,30 +9,35 @@ import Product5 from '../../public/assets/product-5.jpg';
 
 const products = [
   {
+    id: 1,
     imgSrc: Product1,
     desc: '우당탕탕 라이캣의 실험실',
     title: 'Hack Your Life 개발자 노트북 파우치',
     price: 29000,
   },
   {
+    id: 2,
     imgSrc: Product2,
     desc: 'desc22222222222',
     title: 'title2222222222',
     price: 12345678,
   },
   {
+    id: 3,
     imgSrc: Product3,
     desc: 'desc3333333333',
     title: 'title33333333',
     price: 239874689,
   },
   {
+    id: 4,
     imgSrc: Product4,
     desc: 'desc444444',
     title: 'title444444',
     price: 101010101,
   },
   {
+    id: 5,
     imgSrc: Product5,
     desc: 'desc55555',
     title: 'title55555',
@@ -45,6 +50,7 @@ function ProductList() {
     <Container>
       {products.map((item) => (
         <ProductItem
+          key={item.id}
           imgSrc={item.imgSrc}
           desc={item.desc}
           title={item.title}
