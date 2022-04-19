@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import styled from 'styled-components';
-import InputText from './InputText';
+import InputText from './input/InputText';
 import ColorButton from './ColorButton';
 import regeneratorRuntime from 'regenerator-runtime';
 

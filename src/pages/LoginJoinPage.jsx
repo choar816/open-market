@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
 import styled from 'styled-components';
-import '../App.css';
 import ImgLogo from '../../public/assets/Logo-hodu.png';
 import LoginForm from '../components/LoginForm';
 import LoginLower from '../components/LoginLower';
@@ -9,7 +8,7 @@ import JoinLower from '../components/JoinLower';
 
 function LoginJoinPage() {
   const [info, setInfo] = useState({
-    pageType: 'login',
+    pageType: 'join',
     userType: 'BUYER',
   });
 
@@ -37,7 +36,7 @@ function LoginJoinPage() {
           )}
         </FormContent>
       </FormContainer>
-      {info.pageType === 'login' ? <LoginLower /> : <LowerJoin />}
+      {info.pageType === 'login' ? <LoginLower /> : <JoinLower />}
     </Container>
   );
 }
@@ -51,7 +50,7 @@ const Container = styled.div`
   padding-top: 100px;
   padding-bottom: 100px;
 
-  img {
+  & > img {
     width: 230px;
   }
 `;
