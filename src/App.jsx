@@ -3,13 +3,14 @@ import './App.css';
 import MainPage from './pages/MainPage';
 import LoginJoinPage from './pages/LoginJoinPage';
 import TestPage from './pages/TestPage';
+import { Routes, Route, Link } from 'react-router-dom';
 
 function App() {
-
   return (
-    <>
-      <LoginJoinPage />
-    </>
+    <Routes>
+      <Route path="/" element={<MainPage />} />
+      <Route path="login" element={<LoginJoinPage />} />
+    </Routes>
   );
 }
 

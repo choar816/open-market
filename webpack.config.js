@@ -43,4 +43,7 @@ module.exports = {
       process: { env: {} },
     }),
   ],
+  devServer: {
+    historyApiFallback: true,
+  },
 };
