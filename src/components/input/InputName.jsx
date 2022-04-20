@@ -1,16 +1,12 @@
 import React from 'react';
 import styled from 'styled-components';
 import InputBox from './InputBox';
-import ColorButton from '../ColorButton';
 
-function InputWithBtn({ title, btnMsg, msgInfo, borderRed }) {
+function InputName({ title, msgInfo, borderRed }) {
   return (
     <Container>
       <Title>{title}</Title>
-      <div>
-        <InputBox borderRed={borderRed} />
-        <ColorButton width="122px" size="MS">{btnMsg}</ColorButton>
-      </div>
+      <InputBox borderRed={borderRed} />
       {msgInfo && <Message msgColor={msgInfo.msgColor}>
         {msgInfo.msgContent}
       </Message>}
@@ -18,7 +14,7 @@ function InputWithBtn({ title, btnMsg, msgInfo, borderRed }) {
   );
 }
 
-export default InputWithBtn;
+export default InputName;
 
 const Container = styled.article`
   display: flex;
@@ -30,6 +26,9 @@ const Container = styled.article`
     button {
       margin-left: 12px;
     }
+  }
+  input {
+    margin-top: 10px;
   }
   & + article {
     margin-top: 16px;

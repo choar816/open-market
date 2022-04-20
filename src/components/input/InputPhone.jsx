@@ -1,24 +1,24 @@
 import React from 'react';
 import styled from 'styled-components';
 import InputBox from './InputBox';
-import ColorButton from '../ColorButton';
 
-function InputWithBtn({ title, btnMsg, msgInfo, borderRed }) {
+function InputPhone({ title, borderRed, msgInfo }) {
   return (
     <Container>
       <Title>{title}</Title>
       <div>
         <InputBox borderRed={borderRed} />
-        <ColorButton width="122px" size="MS">{btnMsg}</ColorButton>
+        <InputBox borderRed={borderRed} />
+        <InputBox borderRed={borderRed} />
       </div>
-      {msgInfo && <Message msgColor={msgInfo.msgColor}>
-        {msgInfo.msgContent}
-      </Message>}
+      {msgInfo && (
+        <Message msgColor={msgInfo.msgColor}>{msgInfo.msgContent}</Message>
+      )}
     </Container>
   );
 }
 
-export default InputWithBtn;
+export default InputPhone;
 
 const Container = styled.article`
   display: flex;
@@ -27,8 +27,13 @@ const Container = styled.article`
   div {
     margin-top: 10px;
     display: flex;
-    button {
-      margin-left: 12px;
+    align-items: center;
+    gap: 11px;
+    span {
+      color: #767676;
+      font-size: 16px;
+      line-height: 20px;
+      font-weight: 700;
     }
   }
   & + article {

@@ -2,11 +2,11 @@ import React from 'react';
 import styled from 'styled-components';
 import InputBox from './InputBox';
 
-function InputPassword({ title, hasValidCheck, isValid, showMsg, msgContent, msgColor }) {
+function InputPassword({ title, hasValidCheck, isValid, borderRed, showMsg, msgContent, msgColor }) {
   return (
     <Container>
       <Title>{title}</Title>
-      <InputBox type="password" hasValidCheck={hasValidCheck} isValid={isValid} />
+      <InputBox type="password" hasValidCheck={hasValidCheck} isValid={isValid} borderRed={borderRed} />
       <Message showMsg={showMsg} msgColor={msgColor}>
         {msgContent}
       </Message>
@@ -21,6 +21,9 @@ const Container = styled.article`
   display: flex;
   flex-direction: column;
 
+  input {
+    margin-top: 10px;
+  }
   & + article {
     margin-top: 16px;
   }

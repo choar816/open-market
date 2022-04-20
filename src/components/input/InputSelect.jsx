@@ -3,16 +3,16 @@ import styled from 'styled-components';
 import ImgValid from '../../../public/assets/icon-check-on.svg';
 import ImgInvalid from '../../../public/assets/icon-check-off.svg';
 
-function InputBox(props) {
+function InputSelect(props) {
   return (
     <>
       <Input {...props} />
-      {props.hasValidCheck && <IconValid isValid={props.isValid} />}
+      <IconValid isValid={props.isValid} />
     </>
   );
 }
 
-export default InputBox;
+export default InputSelect;
 
 const Input = styled.input`
   position: relative;
@@ -33,7 +33,7 @@ const Input = styled.input`
   `}
 `;
 
-const IconValid = styled.img`
+const IconDrop = styled.img`
   position: absolute;
   content: url(${({ isValid }) => isValid ? ImgValid : ImgInvalid});
   bottom: 13px;
