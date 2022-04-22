@@ -1,13 +1,14 @@
 import React from 'react';
 import styled from 'styled-components';
 import InputBox from './InputBox';
+import SelectBox from './SelectBox';
 
 function InputPhone({ title, borderRed, msgInfo }) {
   return (
     <Container>
       <Title>{title}</Title>
       <div>
-        <InputBox borderRed={borderRed} />
+        <SelectBox borderRed={borderRed} />
         <InputBox borderRed={borderRed} />
         <InputBox borderRed={borderRed} />
       </div>
@@ -29,11 +30,8 @@ const Container = styled.article`
     display: flex;
     align-items: center;
     gap: 11px;
-    span {
-      color: #767676;
-      font-size: 16px;
-      line-height: 20px;
-      font-weight: 700;
+    & > * {
+      flex: 1;
     }
   }
   & + article {

@@ -1,9 +1,9 @@
 import React from 'react';
 import styled from 'styled-components';
 
-function DropdownPhone({ onClick, width }) {
+function DropdownPhone({ isOn, onSelect, width }) {
   return (
-    <Container onClick={onClick} width={width}>
+    <Container isOn={isOn} onClick={onSelect} width={width}>
       <Item>010</Item>
       <Item>011</Item>
       <Item>016</Item>
@@ -17,8 +17,14 @@ function DropdownPhone({ onClick, width }) {
 export default DropdownPhone;
 
 const Container = styled.ul`
+  ${({ isOn }) => isOn ? `display: block;` : `display: none;`}
+  position: absolute;
+  z-index: 10;
+  top: 64px;
   overflow-y: scroll;
+  width: 100%;
   height: 150px;
+  background-color: #FFF;
   border: 1px solid #C4C4C4;
   border-radius: 5px;
   &::-webkit-scrollbar {

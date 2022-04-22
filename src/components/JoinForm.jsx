@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import styled from 'styled-components';
-import DropdownNum from './DropdownPhone';
+import DropdownNum from './input/DropdownPhone';
 import InputEmail from './input/InputEmail';
 import InputName from './input/InputName';
 import InputPassword from './input/InputPassword';
