@@ -8,11 +8,7 @@ import InputPhone from './input/InputPhone';
 import InputWithBtn from './input/InputWithBtn';
 
 function JoinForm() {
-  const [phone, usePhone] = useState('010');
-
-  function onPhoneSelect(e) {
-    console.log(e.target.textContent);
-  }
+  const [idMsgInfo, setIdMsgInfo] = useState(null);
 
   const msgInfo = {
     idValid: {
@@ -23,26 +19,16 @@ function JoinForm() {
       msgContent: 'ID is invalid',
       msgColor: 'red',
     },
+    pwInvalid: {
+      msgContent: '비밀번호가 일치하지 않습니다.',
+      msgColor: 'red',
+    },
   };
 
   return (
     <Container>
-      <InputWithBtn title="아이디" btnMsg="중복확인" />
-      <InputWithBtn
-        title="아이디"
-        btnMsg="중복확인"
-        msgInfo={msgInfo.idValid}
-      />
-      <InputWithBtn
-        title="아이디"
-        btnMsg="중복확인"
-        msgInfo={msgInfo.idInvalid}
-      />
-      <InputPassword
-        title="비밀번호"
-        hasValidCheck={true}
-        isValid={true}
-      />
+      <InputWithBtn title="아이디" btnMsg="중복확인" msgInfo={idMsgInfo} />
+      <InputPassword title="비밀번호" hasValidCheck={true} isValid={true} />
       <InputPassword
         title="비밀번호 재확인"
         hasValidCheck={true}
@@ -51,7 +37,6 @@ function JoinForm() {
       <InputName title="이름" />
       <InputPhone title="휴대폰번호" />
       <InputEmail title="이메일" />
-      <DropdownNum onClick={onPhoneSelect} />
     </Container>
   );
 }
