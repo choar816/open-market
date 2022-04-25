@@ -1,15 +1,17 @@
-import React, { useState } from 'react';
+import React, { useState, useRef } from 'react';
 import styled from 'styled-components';
 import InputText from './input/InputText';
 import ColorButton from './ColorButton';
 import regeneratorRuntime from 'regenerator-runtime';
 
 function LoginForm({ userType }) {
+  const idRef = useRef();
+  const pwRef = useRef();
+
   const [loginInfo, setLoginInfo] = useState({
     id: '',
     pw: '',
   });
-
   const [message, setMessage] = useState({
     show: false,
     content: 'alert',
@@ -24,7 +26,7 @@ function LoginForm({ userType }) {
 
   const checkLogin = async () => {
     const url = 'https://openmarket.weniv.co.kr';
-    const res = await fetch(`${url}/accounts/login/`, {
+    fetch(`${url}/accounts/login/`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
@@ -34,37 +36,43 @@ function LoginForm({ userType }) {
         password: loginInfo.pw,
         login_type: userType,
       }),
-    });
-    const data = await res.json();
-    console.log(data);
-
-    if (data.username)
-      setMessage({ content: '아이디를 입력해 주세요.', show: true });
-    else if (data.password)
-      setMessage({ content: '비밀번호를 입력해 주세요.', show: true });
-    else if (data.FAIL_Message)
-      setMessage({
-        content: '아이디 또는 비밀번호가 일치하지 않습니다.',
-        show: true,
+    })
+      .then(res => res.json())
+      .then(data => {
+        console.log(data);
+        if (data.username) {
+          setMessage({ content: '아이디를 입력해 주세요.', show: true });
+          idRef.current.focus();
+        } else if (data.password) {
+          setMessage({ content: '비밀번호를 입력해 주세요.', show: true });
+          pwRef.current.focus();
+        } else if (data.FAIL_Message) {
+          setMessage({
+            content: '아이디 또는 비밀번호가 일치하지 않습니다.',
+            show: true,
+          });
+        }
+        else setMessage({ ...message, show: false });
       });
-    else setMessage({ ...message, show: false });
   };
 
   return (
     <Container>
       <InputText
         type="text"
-        placeholder="아이디"
         name="id"
+        placeholder="아이디"
         value={loginInfo.id}
         onChange={handleInputChange}
+        ref={idRef}
       />
       <InputText
         type="password"
-        placeholder="비밀번호"
         name="pw"
+        placeholder="비밀번호"
         value={loginInfo.pw}
         onChange={handleInputChange}
+        ref={pwRef}
       />
       <Message show={message.show}>{message.content}</Message>
       <ColorButton size="M" onClick={checkLogin}>

@@ -8,7 +8,7 @@ import JoinLower from '../components/JoinLower';
 
 function LoginJoinPage() {
   const [info, setInfo] = useState({
-    pageType: 'join',
+    pageType: 'login',
     userType: 'BUYER',
   });
 
