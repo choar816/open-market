@@ -16,6 +16,10 @@ function LoginJoinPage() {
     setInfo({ ...info, userType: type });
   };
 
+  const changePageType = (type) => {
+    setInfo({ ...info, pageType: type });
+  };
+
   return (
     <Container>
       <img src={ImgLogo} />
@@ -36,7 +40,11 @@ function LoginJoinPage() {
           )}
         </FormContent>
       </FormContainer>
-      {info.pageType === 'login' ? <LoginLower /> : <JoinLower />}
+      {info.pageType === 'login' ? (
+        <LoginLower onJoinClick={() => changePageType('join')} />
+      ) : (
+        <JoinLower />
+      )}
     </Container>
   );
 }

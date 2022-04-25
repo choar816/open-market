@@ -18,7 +18,7 @@ function Header({ buyer }) {
       </SubContainer>
       <SubContainer right>
         {buyer || <IconButton src={ImgCart}>장바구니</IconButton>}
-        <IconButton src={ImgUser}>마이페이지</IconButton>
+        <StyledLink to="/login"><IconButton src={ImgUser}>마이페이지</IconButton></StyledLink>
         {buyer && <ColorIconButton iconSrc={ImgBag}>판매자 센터</ColorIconButton>}
       </SubContainer>
     </Container>
@@ -67,6 +67,10 @@ const SubContainer = styled.article`
       margin-left: 10px;
     }
   }
+`;
+
+const StyledLink = styled(Link)`
+  margin-left: 20px;
 `;
 
 const Logo = styled.img`

@@ -20,7 +20,7 @@ const Container = styled.ul`
   ${({ isOn }) => isOn ? `display: block;` : `display: none;`}
   position: absolute;
   z-index: 10;
-  top: 64px;
+  top: 60px;
   overflow-y: scroll;
   width: 100%;
   height: 150px;
