@@ -29,7 +29,10 @@ const handleSize = (size) => {
 const handleColor = (color) => {
   switch (color) {
     case "gray":
-      return "background-color: #C4C4C4;";
+      return `
+        background-color: #C4C4C4;
+        cursor: default;
+      `;
     case "charcoal":
       return "background-color: #767676;";
     case "white":

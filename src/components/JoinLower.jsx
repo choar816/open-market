@@ -13,7 +13,7 @@ function JoinLower() {
   return (
     <Container>
       <div>
-        <Checkbox type="checkbox" id="checkTerms" />
+        <Checkbox type="checkbox" id="checkTerms" onClick={toggleCanJoin} />
         <label htmlFor="checkTerms" />
         <p>호두샵의 <span>이용약관</span> 및 <span>개인정보처리방침</span>에 대한 내용을 확인하였고 동의합니다.</p>
       </div>
