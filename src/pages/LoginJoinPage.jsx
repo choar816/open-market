@@ -8,16 +8,80 @@ import JoinLower from '../components/JoinLower';
 
 function LoginJoinPage() {
   const [info, setInfo] = useState({
-    pageType: 'login',
+    pageType: 'join',
     userType: 'BUYER',
   });
 
   const changeUserType = (type) => {
     setInfo({ ...info, userType: type });
   };
-
   const changePageType = (type) => {
     setInfo({ ...info, pageType: type });
+  };
+
+  const [joinInfo, setJoinInfo] = useState({
+    id: '',
+    pw: '',
+    pwCheck: '',
+    name: '',
+    phone: '',
+    email: '',
+  });
+
+  const [msgJoin, setMsgJoin] = useState({
+    id: null,
+    pw: null,
+    pwCheck: null,
+    name: null,
+    phone: null,
+    email: null,
+  });
+
+  const msgList = {
+    idValid: {
+      msgContent: '멋진 아이디네요 :)',
+      msgColor: 'green',
+    },
+    idInvalid: {
+      msgContent: 'ID is invalid',
+      msgColor: 'red',
+    },
+    pwInvalid: {
+      msgContent: '비밀번호가 일치하지 않습니다.',
+      msgColor: 'red',
+    },
+  };
+
+  const checkEmail = () => {};
+
+  const checkJoinBuyer = async () => {
+    const url = 'https://openmarket.weniv.co.kr';
+    fetch(`${url}/accounts/signup/`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        username: joinInfo.id,
+        password: joinInfo.pw,
+        password2: joinInfo.pwCheck,
+        phone_number: joinInfo.phone,
+        name: joinInfo.name,
+      }),
+    })
+      .then((res) => res.json())
+      .then((data) => {
+        console.log(data);
+
+        if (data.username) {
+          // 아이디 밑에 메시지 띄우기
+          setMsgJoin({ ...msgJoin, id: msgList.idInvalid });
+        }
+      });
+  };
+
+  const checkJoinSeller = () => {
+    console.log('checkJoinSeller');
   };
 
   return (
@@ -36,14 +100,22 @@ function LoginJoinPage() {
           {info.pageType === 'login' ? (
             <LoginForm userType={info.userType} />
           ) : (
-            <JoinForm />
+            <JoinForm
+              joinInfo={joinInfo}
+              msgJoin={msgJoin}
+              setMsgJoin={setMsgJoin}
+            />
           )}
         </FormContent>
       </FormContainer>
       {info.pageType === 'login' ? (
-        <LoginLower onJoinClick={() => changePageType('join')} />
+        <LoginLower goToJoin={() => changePageType('join')} />
       ) : (
-        <JoinLower />
+        <JoinLower
+          onJoinClick={
+            info.userType === 'BUYER' ? checkJoinBuyer : checkJoinSeller
+          }
+        />
       )}
     </Container>
   );

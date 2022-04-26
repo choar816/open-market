@@ -3,14 +3,14 @@ import styled from 'styled-components';
 import ImgValid from '../../../public/assets/icon-check-on.svg';
 import ImgInvalid from '../../../public/assets/icon-check-off.svg';
 
-function InputBox(props) {
+const InputBox = React.forwardRef((props, ref) => {
   return (
     <>
-      <Input {...props} />
+      <Input {...props} ref={ref} />
       {props.hasValidCheck && <IconValid isValid={props.isValid} />}
     </>
   );
-}
+});
 
 export default InputBox;
 
@@ -28,14 +28,16 @@ const Input = styled.input`
     border: 1px solid #21bf48;
   }
 
-  ${({ borderRed }) => borderRed && `
+  ${({ borderRed }) =>
+    borderRed &&
+    `
     border: 1px solid #EB5757;
   `}
 `;
 
 const IconValid = styled.img`
   position: absolute;
-  content: url(${({ isValid }) => isValid ? ImgValid : ImgInvalid});
+  content: url(${({ isValid }) => (isValid ? ImgValid : ImgInvalid)});
   bottom: 13px;
   right: 13px;
   width: 28px;

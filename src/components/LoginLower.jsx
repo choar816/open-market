@@ -2,10 +2,10 @@ import React from 'react';
 import styled from 'styled-components';
 import { Link } from 'react-router-dom';
 
-function LoginLower({ onJoinClick }) {
+function LoginLower({ goToJoin }) {
   return (
     <Container>
-      <li onClick={onJoinClick}><a>회원가입</a></li>
+      <li onClick={goToJoin}><a>회원가입</a></li>
       <li><a>비밀번호 찾기</a></li>
     </Container>
   );
