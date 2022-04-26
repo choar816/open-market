@@ -1,10 +1,12 @@
 import React, { useState, useRef } from 'react';
+import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
 import InputText from './input/InputText';
 import ColorButton from './ColorButton';
 import regeneratorRuntime from 'regenerator-runtime';
 
 function LoginForm({ userType }) {
+  const navigate = useNavigate();
   const idRef = useRef();
   const pwRef = useRef();
 
@@ -52,7 +54,10 @@ function LoginForm({ userType }) {
             show: true,
           });
         }
-        else setMessage({ ...message, show: false });
+        else {
+          setMessage({ ...message, show: false });
+          navigate(-1);
+        }
       });
   };
 
