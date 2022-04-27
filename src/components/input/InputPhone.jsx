@@ -1,16 +1,39 @@
-import React from 'react';
+import React, { useState } from 'react';
 import styled from 'styled-components';
 import InputBox from './InputBox';
 import SelectBox from './SelectBox';
 
-function InputPhone({ title, borderRed, msgInfo }) {
+function InputPhone({ ...props }) {
+  const { title, msgInfo, phone, setPhone, handleChangePhone } = props;
+
+  const onSelect = (e) => {
+    const newPhone = [...phone];
+    newPhone[0] = e.target.textContent;
+    setPhone(newPhone);
+  };
+
   return (
     <Container>
       <Title>{title}</Title>
       <div>
-        <SelectBox borderRed={borderRed} />
-        <InputBox borderRed={borderRed} />
-        <InputBox borderRed={borderRed} />
+        <SelectBox
+          name="phoneFirst"
+          phoneFirst={phone[0]}
+          onSelect={onSelect}
+          {...props}
+        />
+        <InputBox
+          name="phoneSecond"
+          value={phone[1]}
+          onChange={handleChangePhone}
+          {...props}
+        />
+        <InputBox
+          name="phoneThird"
+          value={phone[2]}
+          onChange={handleChangePhone}
+          {...props}
+        />
       </div>
       {msgInfo && (
         <Message msgColor={msgInfo.msgColor}>{msgInfo.msgContent}</Message>

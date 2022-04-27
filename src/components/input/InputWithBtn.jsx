@@ -3,17 +3,21 @@ import styled from 'styled-components';
 import InputBox from './InputBox';
 import ColorButton from '../ColorButton';
 
-function InputWithBtn({ title, btnMsg, msgInfo, borderRed }) {
+function InputWithBtn({ ...props }) {
+  const { title, btnMsg, msgInfo } = props;
+
   return (
     <Container>
       <Title>{title}</Title>
       <div>
-        <InputBox borderRed={borderRed} />
-        <ColorButton width="122px" size="MS">{btnMsg}</ColorButton>
+        <InputBox {...props} />
+        <ColorButton width="122px" size="MS">
+          {btnMsg}
+        </ColorButton>
       </div>
-      {msgInfo && <Message msgColor={msgInfo.msgColor}>
-        {msgInfo.msgContent}
-      </Message>}
+      {msgInfo && (
+        <Message msgColor={msgInfo.msgColor}>{msgInfo.msgContent}</Message>
+      )}
     </Container>
   );
 }

@@ -1,9 +1,16 @@
 import React from 'react';
 import styled from 'styled-components';
 
-function DropdownPhone({ isOn, onSelect, width }) {
+function DropdownPhone({ isOn, toggleIsOn, onSelect }) {
+  const onClick = (e) => {
+    onSelect(e);
+    toggleIsOn();
+  }
   return (
-    <Container isOn={isOn} onClick={onSelect} width={width}>
+    <Container
+      isOn={isOn}
+      onClick={onClick}
+    >
       <Item>010</Item>
       <Item>011</Item>
       <Item>016</Item>
@@ -11,33 +18,33 @@ function DropdownPhone({ isOn, onSelect, width }) {
       <Item>018</Item>
       <Item>019</Item>
     </Container>
-  )
+  );
 }
 
 export default DropdownPhone;
 
 const Container = styled.ul`
-  ${({ isOn }) => isOn ? `display: block;` : `display: none;`}
+  ${({ isOn }) => (isOn ? `display: block;` : `display: none;`)}
   position: absolute;
   z-index: 10;
   top: 60px;
   overflow-y: scroll;
   width: 100%;
   height: 150px;
-  background-color: #FFF;
-  border: 1px solid #C4C4C4;
+  background-color: #fff;
+  border: 1px solid #c4c4c4;
   border-radius: 5px;
   &::-webkit-scrollbar {
     width: 18px;
   }
   &::-webkit-scrollbar-thumb {
     background-clip: padding-box;
-    background-color: #C4C4C4;
+    background-color: #c4c4c4;
     border: 6px solid transparent;
     border-radius: 10px;
   }
   &::-webkit-scrollbar-track {
-    background-color: #F2F2F2;
+    background-color: #f2f2f2;
   }
 `;
 
@@ -49,6 +56,6 @@ const Item = styled.li`
   text-align: center;
   user-select: none;
   &:hover {
-    background-color: #E0E0E0;
+    background-color: #e0e0e0;
   }
 `;

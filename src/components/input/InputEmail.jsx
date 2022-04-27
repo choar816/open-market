@@ -2,14 +2,26 @@ import React from 'react';
 import styled from 'styled-components';
 import InputBox from './InputBox';
 
-function InputEmail({ title, borderRed, msgInfo }) {
+function InputEmail({ ...props }) {
+  const { title, msgInfo, email, handleChangeEmail } = props;
+
   return (
     <Container>
       <Title>{title}</Title>
       <div>
-        <InputBox borderRed={borderRed} />
+        <InputBox
+          name="emailFirst"
+          value={email[0]}
+          onChange={handleChangeEmail}
+          {...props}
+        />
         <span>@</span>
-        <InputBox borderRed={borderRed} />
+        <InputBox
+          name="emailSecond"
+          value={email[1]}
+          onChange={handleChangeEmail}
+          {...props}
+        />
       </div>
       {msgInfo && (
         <Message msgColor={msgInfo.msgColor}>{msgInfo.msgContent}</Message>

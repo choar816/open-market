@@ -73,10 +73,10 @@ function LoginJoinPage() {
       .then((data) => {
         console.log(data);
 
-        if (data.username) {
-          // 아이디 밑에 메시지 띄우기
-          setMsgJoin({ ...msgJoin, id: msgList.idInvalid });
-        }
+        // if (data.username) {
+        //   아이디 밑에 메시지 띄우기
+        //   setMsgJoin({ ...msgJoin, id: msgList.idInvalid });
+        // }
       });
   };
 
@@ -102,6 +102,7 @@ function LoginJoinPage() {
           ) : (
             <JoinForm
               joinInfo={joinInfo}
+              setJoinInfo={setJoinInfo}
               msgJoin={msgJoin}
               setMsgJoin={setMsgJoin}
             />

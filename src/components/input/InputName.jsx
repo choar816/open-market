@@ -2,14 +2,16 @@ import React from 'react';
 import styled from 'styled-components';
 import InputBox from './InputBox';
 
-function InputName({ title, msgInfo, borderRed }) {
+function InputName({ ...props }) {
+  const { title, msgInfo } = props;
+
   return (
     <Container>
       <Title>{title}</Title>
-      <InputBox borderRed={borderRed} />
-      {msgInfo && <Message msgColor={msgInfo.msgColor}>
-        {msgInfo.msgContent}
-      </Message>}
+      <InputBox {...props} />
+      {msgInfo && (
+        <Message msgColor={msgInfo.msgColor}>{msgInfo.msgContent}</Message>
+      )}
     </Container>
   );
 }

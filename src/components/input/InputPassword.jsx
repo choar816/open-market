@@ -2,14 +2,16 @@ import React from 'react';
 import styled from 'styled-components';
 import InputBox from './InputBox';
 
-function InputPassword({ title, hasValidCheck, isValid, borderRed, showMsg, msgContent, msgColor }) {
+function InputPassword({ ...props }) {
+  const { title, msgInfo } = props;
+
   return (
     <Container>
       <Title>{title}</Title>
-      <InputBox type="password" hasValidCheck={hasValidCheck} isValid={isValid} borderRed={borderRed} />
-      <Message showMsg={showMsg} msgColor={msgColor}>
-        {msgContent}
-      </Message>
+      <InputBox type="password" {...props} />
+      {msgInfo && (
+        <Message msgColor={msgInfo.msgColor}>{msgInfo.msgContent}</Message>
+      )}
     </Container>
   );
 }
@@ -36,7 +38,7 @@ const Title = styled.p`
 `;
 
 const Message = styled.p`
-  ${({ showMsg }) => showMsg ? `display: visible;` : `display: none;`}
+  ${({ showMsg }) => (showMsg ? `display: visible;` : `display: none;`)}
   ${({ msgColor }) => msgColor && `color: ${msgColor};`}
   margin-top: 10px;
   margin-bottom: -4px;
