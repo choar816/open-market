@@ -29,7 +29,6 @@ function JoinForm({ joinInfo, setJoinInfo, msgJoin, setMsgJoin }) {
     title: '아이디',
     name: 'id',
     value: joinInfo.id,
-    msgInfo: msgJoin.id,
     onChange: handleChangeInfo,
     btnMsg: '중복확인',
   };
@@ -37,7 +36,6 @@ function JoinForm({ joinInfo, setJoinInfo, msgJoin, setMsgJoin }) {
     title: '비밀번호',
     name: 'pw',
     value: joinInfo.pw,
-    msgInfo: msgJoin.pw,
     onChange: handleChangeInfo,
     hasValidCheck: true,
     isValid: true, // temporary
@@ -46,7 +44,6 @@ function JoinForm({ joinInfo, setJoinInfo, msgJoin, setMsgJoin }) {
     title: '비밀번호 재확인',
     name: 'pwCheck',
     value: joinInfo.pwCheck,
-    msgInfo: msgJoin.pwCheck,
     onChange: handleChangeInfo,
     hasValidCheck: true,
     isValid: false, // temporary
@@ -56,11 +53,17 @@ function JoinForm({ joinInfo, setJoinInfo, msgJoin, setMsgJoin }) {
     name: 'name',
     value: joinInfo.name,
     msgInfo: msgJoin.name,
-    onChange: handleChangeInfo,
+    onChange: handleChangeEmail,
   };
 
   // Phone
   const [phone, setPhone] = useState(['010', '', '']);
+  useEffect(() => {
+    setJoinInfo({
+      ...joinInfo,
+      phone: phone.join(''), // ['010', '1234', '5678'] -> '01012345678'
+    });
+  }, [...phone]);
   const handleChangePhone = (e) => {
     const newPhone = [...phone];
     if (e.target.name === 'phoneSecond') {
@@ -70,10 +73,21 @@ function JoinForm({ joinInfo, setJoinInfo, msgJoin, setMsgJoin }) {
     }
     setPhone(newPhone);
   };
-  const phoneProps = { title: '휴대폰번호', phone, setPhone, handleChangePhone };
+  const phoneProps = {
+    title: '휴대폰번호',
+    phone,
+    setPhone,
+    handleChangePhone,
+  };
 
   // Email
   const [email, setEmail] = useState(['', '']);
+  useEffect(() => {
+    setJoinInfo({
+      ...joinInfo,
+      email: email.join('@'), // email 비어있는게 '@'
+    });
+  }, [...email]);
   const handleChangeEmail = (e) => {
     const newEmail = [...email];
     if (e.target.name === 'emailFirst') {
@@ -87,9 +101,9 @@ function JoinForm({ joinInfo, setJoinInfo, msgJoin, setMsgJoin }) {
 
   return (
     <Container>
-      <InputWithBtn {...idProps} />
-      <InputPassword {...pwProps} />
-      <InputPassword {...pwCheckProps} />
+      <InputWithBtn {...idProps} msgInfo={msgJoin.id} />
+      <InputPassword {...pwProps} msgInfo={msgJoin.pw} />
+      <InputPassword {...pwCheckProps} msgInfo={msgJoin.pwCheck} />
       <InputName {...nameProps} />
       <InputPhone {...phoneProps} />
       <InputEmail {...emailProps} />
