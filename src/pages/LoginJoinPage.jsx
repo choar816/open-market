@@ -37,21 +37,6 @@ function LoginJoinPage() {
     email: null,
   });
 
-  const msgList = {
-    idValid: {
-      msgContent: '멋진 아이디네요 :)',
-      msgColor: 'green',
-    },
-    idInvalid: {
-      msgContent: 'ID is invalid',
-      msgColor: 'red',
-    },
-    pwInvalid: {
-      msgContent: '비밀번호가 일치하지 않습니다.',
-      msgColor: 'red',
-    },
-  };
-
   const checkEmail = () => {};
 
   const checkIdDup = async () => {
@@ -71,7 +56,7 @@ function LoginJoinPage() {
           setMsgJoin({
             ...msgJoin,
             id: {
-              msgContent: '중복된 아이디',
+              msgContent: '이미 사용 중인 아이디입니다.',
               msgColor: 'red',
             },
           });
@@ -79,7 +64,7 @@ function LoginJoinPage() {
           setMsgJoin({
             ...msgJoin,
             id: {
-              msgContent: '멋진 아이디에요 :)',
+              msgContent: '멋진 아이디네요 :)',
               msgColor: 'green',
             },
           });
@@ -104,23 +89,7 @@ function LoginJoinPage() {
     })
       .then((res) => res.json())
       .then((data) => {
-        // console.log(data);
 
-        // if (data.username) {
-        // 아이디 밑에 메시지 띄우기
-        // setMsgJoin({ ...msgJoin, id: msgList.idInvalid });
-        // }
-
-        // console.log(data.username);
-        // if (data.username.includes('해당 사용자 아이디는 이미 존재합니다.')) {
-        //   setMsgJoin({
-        //     ...msgJoin,
-        //     id: {
-        //       msgContent: '중복된 아이디',
-        //       msgColor: 'red',
-        //     },
-        //   });
-        // }
       });
   };
 
