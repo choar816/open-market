@@ -54,6 +54,39 @@ function LoginJoinPage() {
 
   const checkEmail = () => {};
 
+  const checkIdDup = async () => {
+    const url = 'https://openmarket.weniv.co.kr';
+    fetch(`${url}/accounts/signup/`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        username: joinInfo.id,
+      }),
+    })
+      .then((res) => res.json())
+      .then((data) => {
+        if (data?.username?.includes('해당 사용자 아이디는 이미 존재합니다.')) {
+          setMsgJoin({
+            ...msgJoin,
+            id: {
+              msgContent: '중복된 아이디',
+              msgColor: 'red',
+            },
+          });
+        } else {
+          setMsgJoin({
+            ...msgJoin,
+            id: {
+              msgContent: '멋진 아이디에요 :)',
+              msgColor: 'green',
+            },
+          });
+        }
+      });
+  };
+
   const checkJoinBuyer = async () => {
     const url = 'https://openmarket.weniv.co.kr';
     fetch(`${url}/accounts/signup/`, {
@@ -71,11 +104,22 @@ function LoginJoinPage() {
     })
       .then((res) => res.json())
       .then((data) => {
-        console.log(data);
+        // console.log(data);
 
         // if (data.username) {
-        //   아이디 밑에 메시지 띄우기
-        //   setMsgJoin({ ...msgJoin, id: msgList.idInvalid });
+        // 아이디 밑에 메시지 띄우기
+        // setMsgJoin({ ...msgJoin, id: msgList.idInvalid });
+        // }
+
+        // console.log(data.username);
+        // if (data.username.includes('해당 사용자 아이디는 이미 존재합니다.')) {
+        //   setMsgJoin({
+        //     ...msgJoin,
+        //     id: {
+        //       msgContent: '중복된 아이디',
+        //       msgColor: 'red',
+        //     },
+        //   });
         // }
       });
   };
@@ -105,6 +149,7 @@ function LoginJoinPage() {
               setJoinInfo={setJoinInfo}
               msgJoin={msgJoin}
               setMsgJoin={setMsgJoin}
+              checkIdDup={checkIdDup}
             />
           )}
         </FormContent>

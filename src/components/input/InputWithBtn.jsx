@@ -2,21 +2,22 @@ import React from 'react';
 import styled from 'styled-components';
 import InputBox from './InputBox';
 import ColorButton from '../ColorButton';
+import Message from './Message';
 
 function InputWithBtn({ ...props }) {
-  const { title, btnMsg, msgInfo } = props;
+  const { title, btnMsg, msgInfo, checkIdDup } = props;
 
   return (
     <Container>
       <Title>{title}</Title>
       <div>
         <InputBox {...props} />
-        <ColorButton width="122px" size="MS">
+        <ColorButton width="122px" size="MS" onClick={checkIdDup}>
           {btnMsg}
         </ColorButton>
       </div>
       {msgInfo && (
-        <Message msgColor={msgInfo.msgColor}>{msgInfo.msgContent}</Message>
+        <Message msgColor={msgInfo.msgColor} msgContent={msgInfo.msgContent} />
       )}
     </Container>
   );
@@ -42,21 +43,6 @@ const Container = styled.article`
 
 const Title = styled.p`
   color: #767676;
-  font-size: 16px;
-  line-height: 20px;
-`;
-
-const Message = styled.p`
-  ${({ msgColor }) => {
-    switch (msgColor) {
-      case 'green':
-        return 'color: #21BF48;';
-      case 'red':
-        return 'color: #EB5757;';
-    }
-  }}
-  margin-top: 10px;
-  margin-bottom: -4px;
   font-size: 16px;
   line-height: 20px;
 `;

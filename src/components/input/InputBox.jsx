@@ -28,11 +28,10 @@ const Input = styled.input`
     border: 1px solid #21bf48;
   }
 
-  ${({ borderRed }) =>
-    borderRed &&
-    `
-    border: 1px solid #EB5757;
-  `}
+  ${({ msgInfo }) => {
+    if (msgInfo?.msgColor === 'red')
+      return `border: 1px solid #EB5757;`;
+  }}
 `;
 
 const IconValid = styled.img`

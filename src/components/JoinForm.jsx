@@ -6,17 +6,34 @@ import InputPassword from './input/InputPassword';
 import InputPhone from './input/InputPhone';
 import InputWithBtn from './input/InputWithBtn';
 
-function JoinForm({ joinInfo, setJoinInfo, msgJoin, setMsgJoin }) {
+const checkId = (id) => {
+  const idRegex = /^[a-zA-Z0-9]+/;
+  return idRegex.test(id);
+};
+
+function JoinForm({ joinInfo, setJoinInfo, msgJoin, setMsgJoin, checkIdDup }) {
+  const { id, pw, pwCheck, name } = joinInfo;
+
+  // id
   useEffect(() => {
-    console.log(joinInfo);
-  }, [
-    joinInfo.id,
-    joinInfo.pw,
-    joinInfo.pwCheck,
-    joinInfo.name,
-    joinInfo.phone,
-    joinInfo.email,
-  ]);
+    if (id === '') {
+      setMsgJoin({ ...msgJoin, id: null });
+      return;
+    }
+
+    if (id.length > 20 || !checkId(id)) {
+      setMsgJoin({
+        ...msgJoin,
+        id: {
+          msgContent:
+            '20자 이내의 영문 소문자, 대문자, 숫자만 사용 가능합니다.',
+          msgColor: 'red',
+        },
+      });
+    }
+  }, [id]);
+
+  // pw
 
   const handleChangeInfo = (e) => {
     setJoinInfo({
@@ -101,7 +118,7 @@ function JoinForm({ joinInfo, setJoinInfo, msgJoin, setMsgJoin }) {
 
   return (
     <Container>
-      <InputWithBtn {...idProps} msgInfo={msgJoin.id} />
+      <InputWithBtn {...idProps} msgInfo={msgJoin.id} checkIdDup={checkIdDup} />
       <InputPassword {...pwProps} msgInfo={msgJoin.pw} />
       <InputPassword {...pwCheckProps} msgInfo={msgJoin.pwCheck} />
       <InputName {...nameProps} />
