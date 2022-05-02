@@ -5,14 +5,14 @@ import ColorButton from '../ColorButton';
 import Message from './Message';
 
 function InputWithBtn({ ...props }) {
-  const { title, btnMsg, msgInfo, checkIdDup } = props;
+  const { title, btnMsg, msgInfo, onBtnClick } = props;
 
   return (
     <Container>
       <Title>{title}</Title>
       <div>
         <InputBox {...props} />
-        <ColorButton width="122px" size="MS" onClick={checkIdDup}>
+        <ColorButton width="122px" size="MS" onClick={onBtnClick}>
           {btnMsg}
         </ColorButton>
       </div>

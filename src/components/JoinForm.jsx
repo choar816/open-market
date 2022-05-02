@@ -11,7 +11,7 @@ const checkId = (id) => {
   return idRegex.test(id);
 };
 
-function JoinForm({ joinInfo, setJoinInfo, msgJoin, setMsgJoin, checkIdDup }) {
+function JoinForm({ userType, joinInfo, setJoinInfo, msgJoin, setMsgJoin, checkIdDup }) {
   const { id, pw, pwCheck, name } = joinInfo;
 
   // id
@@ -32,8 +32,6 @@ function JoinForm({ joinInfo, setJoinInfo, msgJoin, setMsgJoin, checkIdDup }) {
       });
     }
   }, [id]);
-
-  // pw
 
   const handleChangeInfo = (e) => {
     setJoinInfo({
@@ -69,9 +67,21 @@ function JoinForm({ joinInfo, setJoinInfo, msgJoin, setMsgJoin, checkIdDup }) {
     title: '이름',
     name: 'name',
     value: joinInfo.name,
-    msgInfo: msgJoin.name,
-    onChange: handleChangeEmail,
+    onChange: handleChangeInfo,
   };
+  const sellerNumProps = {
+    title: '사업자 등록번호',
+    name: 'sellerNum',
+    value: joinInfo.sellerNum,
+    onChange: handleChangeInfo,
+    btnMsg: '인증',
+  }
+  const storeNameProps = {
+    title: '스토어 이름',
+    name: 'storeName',
+    value: joinInfo.storeName,
+    onChange: handleChangeInfo,
+  }
 
   // Phone
   const [phone, setPhone] = useState(['010', '', '']);
@@ -118,12 +128,16 @@ function JoinForm({ joinInfo, setJoinInfo, msgJoin, setMsgJoin, checkIdDup }) {
 
   return (
     <Container>
-      <InputWithBtn {...idProps} msgInfo={msgJoin.id} checkIdDup={checkIdDup} />
+      <InputWithBtn {...idProps} msgInfo={msgJoin.id} onBtnClick={checkIdDup} />
       <InputPassword {...pwProps} msgInfo={msgJoin.pw} />
       <InputPassword {...pwCheckProps} msgInfo={msgJoin.pwCheck} />
-      <InputName {...nameProps} />
-      <InputPhone {...phoneProps} />
-      <InputEmail {...emailProps} />
+      <InputName {...nameProps} msgInfo={msgJoin.name} />
+      <InputPhone {...phoneProps} msgInfo={msgJoin.phone} />
+      <InputEmail {...emailProps} msgInfo={msgJoin.email} />
+      {userType === 'SELLER' && <>
+        <InputWithBtn {...sellerNumProps} msgInfo={msgJoin.sellerNum} />
+        <InputName {...storeNameProps} msgInfo={msgJoin.storeName} />
+      </>}
     </Container>
   );
 }

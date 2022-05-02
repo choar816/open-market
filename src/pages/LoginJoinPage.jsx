@@ -9,7 +9,7 @@ import JoinLower from '../components/JoinLower';
 function LoginJoinPage() {
   const [info, setInfo] = useState({
     pageType: 'join',
-    userType: 'BUYER',
+    userType: 'SELLER',
   });
 
   const changeUserType = (type) => {
@@ -26,6 +26,8 @@ function LoginJoinPage() {
     name: '',
     phone: '',
     email: '',
+    sellerNum: '',
+    storeName: '',
   });
 
   const [msgJoin, setMsgJoin] = useState({
@@ -35,6 +37,8 @@ function LoginJoinPage() {
     name: null,
     phone: null,
     email: null,
+    sellerNum: null,
+    storeName: null,
   });
 
   const checkEmail = () => {};
@@ -114,6 +118,7 @@ function LoginJoinPage() {
             <LoginForm userType={info.userType} />
           ) : (
             <JoinForm
+              userType={info.userType}
               joinInfo={joinInfo}
               setJoinInfo={setJoinInfo}
               msgJoin={msgJoin}
