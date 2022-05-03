@@ -37,7 +37,7 @@ const Input = styled.input`
 const IconValid = styled.img`
   position: absolute;
   content: url(${({ isValid }) => (isValid ? ImgValid : ImgInvalid)});
-  bottom: 13px;
+  top: 43px;
   right: 13px;
   width: 28px;
   height: 28px;
