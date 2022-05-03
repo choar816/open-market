@@ -7,11 +7,23 @@ import InputPhone from './input/InputPhone';
 import InputWithBtn from './input/InputWithBtn';
 
 const checkId = (id) => {
-  const idRegex = /^[a-zA-Z0-9]+/;
+  const idRegex = /^[a-zA-Z0-9]{1,20}$/;
   return idRegex.test(id);
 };
 
-function JoinForm({ userType, joinInfo, setJoinInfo, msgJoin, setMsgJoin, checkIdDup }) {
+const checkPw = (pw) => {
+  const pwRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[a-zA-Z\d]{8,}$/;
+  return pwRegex.test(pw);
+};
+
+function JoinForm({
+  userType,
+  joinInfo,
+  setJoinInfo,
+  msgJoin,
+  setMsgJoin,
+  checkIdDup,
+}) {
   const { id, pw, pwCheck, name } = joinInfo;
 
   // id
@@ -21,7 +33,7 @@ function JoinForm({ userType, joinInfo, setJoinInfo, msgJoin, setMsgJoin, checkI
       return;
     }
 
-    if (id.length > 20 || !checkId(id)) {
+    if (!checkId(id)) {
       setMsgJoin({
         ...msgJoin,
         id: {
@@ -32,6 +44,33 @@ function JoinForm({ userType, joinInfo, setJoinInfo, msgJoin, setMsgJoin, checkI
       });
     }
   }, [id]);
+
+  // pw
+  const [isPwValid, setIsPwValid] = useState(false);
+  const [isPwCheckValid, setIsPwCheckValid] = useState(false);
+
+  useEffect(() => {
+    if (pw === '') {
+      setMsgJoin({ ...msgJoin, pw: null });
+      return;
+    }
+    
+    if (!checkPw(pw)) {
+      setMsgJoin({
+        ...msgJoin,
+        pw: {
+          msgContent: '8자 이상, 영문 대 소문자, 숫자, 특수문자를 사용하세요.',
+          msgColor: 'red',
+        },
+      });
+    } else {
+      setMsgJoin({
+        ...msgJoin,
+        pw: null,
+      });
+      setIsPwValid(true);
+    }
+  }, [pw]);
 
   const handleChangeInfo = (e) => {
     setJoinInfo({
@@ -53,7 +92,6 @@ function JoinForm({ userType, joinInfo, setJoinInfo, msgJoin, setMsgJoin, checkI
     value: joinInfo.pw,
     onChange: handleChangeInfo,
     hasValidCheck: true,
-    isValid: true, // temporary
   };
   const pwCheckProps = {
     title: '비밀번호 재확인',
@@ -61,7 +99,6 @@ function JoinForm({ userType, joinInfo, setJoinInfo, msgJoin, setMsgJoin, checkI
     value: joinInfo.pwCheck,
     onChange: handleChangeInfo,
     hasValidCheck: true,
-    isValid: false, // temporary
   };
   const nameProps = {
     title: '이름',
@@ -75,13 +112,13 @@ function JoinForm({ userType, joinInfo, setJoinInfo, msgJoin, setMsgJoin, checkI
     value: joinInfo.sellerNum,
     onChange: handleChangeInfo,
     btnMsg: '인증',
-  }
+  };
   const storeNameProps = {
     title: '스토어 이름',
     name: 'storeName',
     value: joinInfo.storeName,
     onChange: handleChangeInfo,
-  }
+  };
 
   // Phone
   const [phone, setPhone] = useState(['010', '', '']);
@@ -129,15 +166,17 @@ function JoinForm({ userType, joinInfo, setJoinInfo, msgJoin, setMsgJoin, checkI
   return (
     <Container>
       <InputWithBtn {...idProps} msgInfo={msgJoin.id} onBtnClick={checkIdDup} />
-      <InputPassword {...pwProps} msgInfo={msgJoin.pw} />
-      <InputPassword {...pwCheckProps} msgInfo={msgJoin.pwCheck} />
+      <InputPassword {...pwProps} msgInfo={msgJoin.pw} isValid={isPwValid} />
+      <InputPassword {...pwCheckProps} msgInfo={msgJoin.pwCheck} isValid={isPwCheckValid} />
       <InputName {...nameProps} msgInfo={msgJoin.name} />
       <InputPhone {...phoneProps} msgInfo={msgJoin.phone} />
       <InputEmail {...emailProps} msgInfo={msgJoin.email} />
-      {userType === 'SELLER' && <>
-        <InputWithBtn {...sellerNumProps} msgInfo={msgJoin.sellerNum} />
-        <InputName {...storeNameProps} msgInfo={msgJoin.storeName} />
-      </>}
+      {userType === 'SELLER' && (
+        <>
+          <InputWithBtn {...sellerNumProps} msgInfo={msgJoin.sellerNum} />
+          <InputName {...storeNameProps} msgInfo={msgJoin.storeName} />
+        </>
+      )}
     </Container>
   );
 }
