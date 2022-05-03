@@ -42,6 +42,11 @@ function JoinForm({
           msgColor: 'red',
         },
       });
+    } else {
+      setMsgJoin({
+        ...msgJoin,
+        id: null,
+      });
     }
   }, [id]);
 
