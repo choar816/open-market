@@ -9,7 +9,7 @@ import { Routes, Route, Link } from 'react-router-dom';
 function App() {
   return (
     <Routes>
-      <Route path="dist/index.html" element={<MainPage />} />
+      <Route path="/" element={<MainPage />} />
       {/* <Route path="/" element={<LoginJoinPage />} /> */}
       <Route path="login" element={<LoginJoinPage />} />
       <Route path="*" element={<NotFoundPage />} />
