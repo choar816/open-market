@@ -1,18 +1,31 @@
 import React from 'react';
 import styled from 'styled-components';
 import InputBox from './InputBox';
+import Message from './Message';
 
-function InputEmail({ title, borderRed, msgInfo }) {
+function InputEmail({ ...props }) {
+  const { title, msgInfo, email, handleChangeEmail } = props;
+
   return (
     <Container>
       <Title>{title}</Title>
       <div>
-        <InputBox borderRed={borderRed} />
+        <InputBox
+          name="emailFirst"
+          value={email[0]}
+          onChange={handleChangeEmail}
+          {...props}
+        />
         <span>@</span>
-        <InputBox borderRed={borderRed} />
+        <InputBox
+          name="emailSecond"
+          value={email[1]}
+          onChange={handleChangeEmail}
+          {...props}
+        />
       </div>
       {msgInfo && (
-        <Message msgColor={msgInfo.msgColor}>{msgInfo.msgContent}</Message>
+        <Message msgColor={msgInfo.msgColor} msgContent={msgInfo.msgContent} />
       )}
     </Container>
   );
@@ -43,21 +56,6 @@ const Container = styled.article`
 
 const Title = styled.p`
   color: #767676;
-  font-size: 16px;
-  line-height: 20px;
-`;
-
-const Message = styled.p`
-  ${({ msgColor }) => {
-    switch (msgColor) {
-      case 'green':
-        return 'color: #21BF48;';
-      case 'red':
-        return 'color: #EB5757;';
-    }
-  }}
-  margin-top: 10px;
-  margin-bottom: -4px;
   font-size: 16px;
   line-height: 20px;
 `;

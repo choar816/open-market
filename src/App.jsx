@@ -4,7 +4,7 @@ import MainPage from './pages/MainPage';
 import LoginJoinPage from './pages/LoginJoinPage';
 import NotFoundPage from './pages/NotFoundPage';
 import TestPage from './pages/TestPage';
-import { Routes, Route, Link } from 'react-router-dom';
+import { Routes, Route } from 'react-router-dom';
 
 function App() {
   return (

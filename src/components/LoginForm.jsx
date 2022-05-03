@@ -39,9 +39,9 @@ function LoginForm({ userType }) {
         login_type: userType,
       }),
     })
-      .then(res => res.json())
-      .then(data => {
-        console.log(data);
+      .then((res) => res.json())
+      .then((data) => {
+        // console.log(data);
         if (data.username) {
           setMessage({ content: '아이디를 입력해 주세요.', show: true });
           idRef.current.focus();
@@ -53,8 +53,7 @@ function LoginForm({ userType }) {
             content: '아이디 또는 비밀번호가 일치하지 않습니다.',
             show: true,
           });
-        }
-        else {
+        } else {
           setMessage({ ...message, show: false });
           navigate(-1);
         }

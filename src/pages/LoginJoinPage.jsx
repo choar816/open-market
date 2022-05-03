@@ -8,16 +8,97 @@ import JoinLower from '../components/JoinLower';
 
 function LoginJoinPage() {
   const [info, setInfo] = useState({
-    pageType: 'login',
-    userType: 'BUYER',
+    pageType: 'join',
+    userType: 'SELLER',
   });
 
   const changeUserType = (type) => {
     setInfo({ ...info, userType: type });
   };
-
   const changePageType = (type) => {
     setInfo({ ...info, pageType: type });
+  };
+
+  const [joinInfo, setJoinInfo] = useState({
+    id: '',
+    pw: '',
+    pwCheck: '',
+    name: '',
+    phone: '',
+    email: '',
+    sellerNum: '',
+    storeName: '',
+  });
+
+  const [msgJoin, setMsgJoin] = useState({
+    id: null,
+    pw: null,
+    pwCheck: null,
+    name: null,
+    phone: null,
+    email: null,
+    sellerNum: null,
+    storeName: null,
+  });
+
+  const checkEmail = () => {};
+
+  const checkIdDup = async () => {
+    const url = 'https://openmarket.weniv.co.kr';
+    fetch(`${url}/accounts/signup/`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        username: joinInfo.id,
+      }),
+    })
+      .then((res) => res.json())
+      .then((data) => {
+        if (data?.username?.includes('해당 사용자 아이디는 이미 존재합니다.')) {
+          setMsgJoin({
+            ...msgJoin,
+            id: {
+              msgContent: '이미 사용 중인 아이디입니다.',
+              msgColor: 'red',
+            },
+          });
+        } else {
+          setMsgJoin({
+            ...msgJoin,
+            id: {
+              msgContent: '멋진 아이디네요 :)',
+              msgColor: 'green',
+            },
+          });
+        }
+      });
+  };
+
+  const checkJoinBuyer = async () => {
+    const url = 'https://openmarket.weniv.co.kr';
+    fetch(`${url}/accounts/signup/`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        username: joinInfo.id,
+        password: joinInfo.pw,
+        password2: joinInfo.pwCheck,
+        phone_number: joinInfo.phone,
+        name: joinInfo.name,
+      }),
+    })
+      .then((res) => res.json())
+      .then((data) => {
+
+      });
+  };
+
+  const checkJoinSeller = () => {
+    console.log('checkJoinSeller');
   };
 
   return (
@@ -36,14 +117,25 @@ function LoginJoinPage() {
           {info.pageType === 'login' ? (
             <LoginForm userType={info.userType} />
           ) : (
-            <JoinForm />
+            <JoinForm
+              userType={info.userType}
+              joinInfo={joinInfo}
+              setJoinInfo={setJoinInfo}
+              msgJoin={msgJoin}
+              setMsgJoin={setMsgJoin}
+              checkIdDup={checkIdDup}
+            />
           )}
         </FormContent>
       </FormContainer>
       {info.pageType === 'login' ? (
-        <LoginLower onJoinClick={() => changePageType('join')} />
+        <LoginLower goToJoin={() => changePageType('join')} />
       ) : (
-        <JoinLower />
+        <JoinLower
+          onJoinClick={
+            info.userType === 'BUYER' ? checkJoinBuyer : checkJoinSeller
+          }
+        />
       )}
     </Container>
   );
