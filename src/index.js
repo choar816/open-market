@@ -6,7 +6,9 @@ import App from './App';
 const root = createRoot(document.getElementById('root'));
 
 root.render(
-  <BrowserRouter basename={process.env.PUBLIC_URL}>
-    <App />
-  </BrowserRouter>,
+  <React.StrictMode>
+    <BrowserRouter basename={process.env.PUBLIC_URL}>
+      <App />
+    </BrowserRouter>
+  </React.StrictMode>,
 );
