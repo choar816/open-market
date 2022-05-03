@@ -12,7 +12,7 @@ const checkId = (id) => {
 };
 
 const checkPw = (pw) => {
-  const pwRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[a-zA-Z\d]{8,}$/;
+  const pwRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/;
   return pwRegex.test(pw);
 };
 
