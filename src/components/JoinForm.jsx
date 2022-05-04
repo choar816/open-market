@@ -7,7 +7,7 @@ import InputWithBtn from './input/InputWithBtn';
 
 const checkPw = (pw) => {
   const pwRegex =
-    /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/;
+    /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[#?!@$%^&*-])[A-Za-z\d#?!@$%^&*-]{8,}$/;
   return pwRegex.test(pw);
 };
 
@@ -57,6 +57,7 @@ function JoinForm({
   const onBlurPwCheck = () => {
     if (pw === '') {
       setMsgJoin({ ...msgJoin, pw: null });
+      setIsPwValid(false);
       return;
     }
 
@@ -68,11 +69,9 @@ function JoinForm({
           msgColor: 'red',
         },
       });
+      setIsPwValid(false);
     } else {
-      setMsgJoin({
-        ...msgJoin,
-        pw: null,
-      });
+      setMsgJoin({ ...msgJoin, pw: null });
       setIsPwValid(true);
     }
   };
