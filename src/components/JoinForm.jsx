@@ -54,13 +54,7 @@ function JoinForm({
   const [isPwValid, setIsPwValid] = useState(false);
   const [isPwCheckValid, setIsPwCheckValid] = useState(false);
 
-  const onBlurPwCheck = () => {
-    if (pw === '') {
-      setMsgJoin({ ...msgJoin, pw: null });
-      setIsPwValid(false);
-      return;
-    }
-
+  const pwRegexCheck = () => {
     if (!checkPw(pw)) {
       setMsgJoin({
         ...msgJoin,
@@ -74,7 +68,109 @@ function JoinForm({
       setMsgJoin({ ...msgJoin, pw: null });
       setIsPwValid(true);
     }
+  }
+
+  const pwMatchCheck = () => {
+    if (pw === pwCheck) {
+      setMsgJoin({ ...msgJoin, pwCheck: null });
+      setIsPwCheckValid(true);
+    } else {
+      setMsgJoin({
+        ...msgJoin,
+        pwCheck: {
+          msgContent: '비밀번호가 일치하지 않습니다.',
+          msgColor: 'red',
+        },
+      });
+      setIsPwCheckValid(false);
+    }
+  }
+
+  const onBlurPwCheck = () => {
+    if (pw === '') {
+      setMsgJoin({ ...msgJoin, pw: null });
+      setIsPwValid(false);
+      return;
+    }
+
+    pwRegexCheck();
+
+    if (pwCheck !== '') {
+      pwMatchCheck();
+    }
   };
+
+  // pwCheck
+  const onBlurPwDoubleCheck = () => {
+    if (pwCheck === '') {
+      setMsgJoin({ ...msgJoin, pwCheck: null });
+      setIsPwCheckValid(false);
+      return;
+    }
+
+    if (pw === '') {
+      setMsgJoin({
+        ...msgJoin,
+        pw: {
+          msgContent: '필수 정보입니다.',
+          msgColor: 'red',
+        },
+        pwCheck: {
+          msgContent: '비밀번호가 일치하지 않습니다.',
+          msgColor: 'red',
+        },
+      });
+      setIsPwCheckValid(false);
+      return;
+    }
+
+    pwMatchCheck();
+  };
+
+  // Phone
+  const [phone, setPhone] = useState(['010', '', '']);
+  useEffect(() => {
+    setJoinInfo({
+      ...joinInfo,
+      phone: phone.join(''), // ['010', '1234', '5678'] -> '01012345678'
+    });
+  }, [...phone]);
+  const handleChangePhone = (e) => {
+    const newPhone = [...phone];
+    if (e.target.name === 'phoneSecond') {
+      newPhone[1] = e.target.value;
+    } else if (e.target.name === 'phoneThird') {
+      newPhone[2] = e.target.value;
+    }
+    setPhone(newPhone);
+  };
+  const phoneProps = {
+    title: '휴대폰번호',
+    phone,
+    setPhone,
+    handleChangePhone,
+  };
+
+  // Email
+  const [email, setEmail] = useState(['', '']);
+  useEffect(() => {
+    setJoinInfo({
+      ...joinInfo,
+      email: email.join('@'), // email 비어있는게 '@'
+    });
+  }, [...email]);
+  const handleChangeEmail = (e) => {
+    const newEmail = [...email];
+    if (e.target.name === 'emailFirst') {
+      newEmail[0] = e.target.value;
+    } else if (e.target.name === 'emailSecond') {
+      newEmail[1] = e.target.value;
+    }
+    setEmail(newEmail);
+  };
+  const emailProps = { title: '이메일', email, handleChangeEmail };
+
+  ////////////////////////////////////
 
   const handleChangeInfo = (e) => {
     setJoinInfo({
@@ -123,49 +219,6 @@ function JoinForm({
     onChange: handleChangeInfo,
   };
 
-  // Phone
-  const [phone, setPhone] = useState(['010', '', '']);
-  useEffect(() => {
-    setJoinInfo({
-      ...joinInfo,
-      phone: phone.join(''), // ['010', '1234', '5678'] -> '01012345678'
-    });
-  }, [...phone]);
-  const handleChangePhone = (e) => {
-    const newPhone = [...phone];
-    if (e.target.name === 'phoneSecond') {
-      newPhone[1] = e.target.value;
-    } else if (e.target.name === 'phoneThird') {
-      newPhone[2] = e.target.value;
-    }
-    setPhone(newPhone);
-  };
-  const phoneProps = {
-    title: '휴대폰번호',
-    phone,
-    setPhone,
-    handleChangePhone,
-  };
-
-  // Email
-  const [email, setEmail] = useState(['', '']);
-  useEffect(() => {
-    setJoinInfo({
-      ...joinInfo,
-      email: email.join('@'), // email 비어있는게 '@'
-    });
-  }, [...email]);
-  const handleChangeEmail = (e) => {
-    const newEmail = [...email];
-    if (e.target.name === 'emailFirst') {
-      newEmail[0] = e.target.value;
-    } else if (e.target.name === 'emailSecond') {
-      newEmail[1] = e.target.value;
-    }
-    setEmail(newEmail);
-  };
-  const emailProps = { title: '이메일', email, handleChangeEmail };
-
   return (
     <div>
       <InputWithBtn
@@ -186,6 +239,7 @@ function JoinForm({
         {...pwCheckProps}
         msgInfo={msgJoin.pwCheck}
         isValid={isPwCheckValid}
+        onBlur={onBlurPwDoubleCheck}
       />
       <InputName {...nameProps} msgInfo={msgJoin.name} />
       <InputPhone {...phoneProps} msgInfo={msgJoin.phone} />
