@@ -4,15 +4,15 @@ import InputBox from './InputBox';
 import ColorButton from '../ColorButton';
 import Message from './Message';
 
-function InputWithBtn({ ...props }) {
-  const { title, btnMsg, msgInfo, onBtnClick } = props;
+const InputWithBtn = React.forwardRef((props, ref) => {
+  const { title, btnMsg, msgInfo, BtnClick } = props;
 
   return (
     <Container>
       <Title>{title}</Title>
       <div>
-        <InputBox {...props} />
-        <ColorButton width="122px" size="MS" onClick={onBtnClick}>
+        <InputBox ref={ref} {...props} />
+        <ColorButton width="122px" size="MS" onClick={BtnClick}>
           {btnMsg}
         </ColorButton>
       </div>
@@ -21,7 +21,7 @@ function InputWithBtn({ ...props }) {
       )}
     </Container>
   );
-}
+});
 
 export default InputWithBtn;
 

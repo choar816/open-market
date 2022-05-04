@@ -6,6 +6,11 @@ import LoginLower from '../components/LoginLower';
 import JoinForm from '../components/JoinForm';
 import JoinLower from '../components/JoinLower';
 
+const checkIdRegex = (id) => {
+  const idRegex = /^[a-zA-Z0-9]{1,20}$/;
+  return idRegex.test(id);
+};
+
 function LoginJoinPage() {
   const [info, setInfo] = useState({
     pageType: 'join',
@@ -42,6 +47,21 @@ function LoginJoinPage() {
   });
 
   const checkEmail = () => {};
+
+  const checkId = () => {
+    if (!checkIdRegex(joinInfo.id)) {
+      setMsgJoin({
+        ...msgJoin,
+        id: {
+          msgContent:
+            '20자 이내의 영문 소문자, 대문자, 숫자만 사용 가능합니다.',
+          msgColor: 'red',
+        },
+      });
+      return;
+    }
+    checkIdDup();
+  }
 
   const checkIdDup = async () => {
     const url = 'https://openmarket.weniv.co.kr';
@@ -123,7 +143,8 @@ function LoginJoinPage() {
               setJoinInfo={setJoinInfo}
               msgJoin={msgJoin}
               setMsgJoin={setMsgJoin}
-              checkIdDup={checkIdDup}
+              checkId={checkId}
+              checkIdRegex={checkIdRegex}
             />
           )}
         </FormContent>

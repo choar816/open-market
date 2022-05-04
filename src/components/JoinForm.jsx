@@ -1,18 +1,13 @@
-import React, { useEffect, useState } from 'react';
-import styled from 'styled-components';
+import React, { useEffect, useRef, useState } from 'react';
 import InputEmail from './input/InputEmail';
 import InputName from './input/InputName';
 import InputPassword from './input/InputPassword';
 import InputPhone from './input/InputPhone';
 import InputWithBtn from './input/InputWithBtn';
 
-const checkId = (id) => {
-  const idRegex = /^[a-zA-Z0-9]{1,20}$/;
-  return idRegex.test(id);
-};
-
 const checkPw = (pw) => {
-  const pwRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/;
+  const pwRegex =
+    /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/;
   return pwRegex.test(pw);
 };
 
@@ -22,18 +17,23 @@ function JoinForm({
   setJoinInfo,
   msgJoin,
   setMsgJoin,
-  checkIdDup,
+  checkId,
+  checkIdRegex,
 }) {
   const { id, pw, pwCheck, name } = joinInfo;
+  const idRef = useRef(null);
 
-  // id
-  useEffect(() => {
+  // id (check regex)
+  const onBlurIdCheck = () => {
     if (id === '') {
-      setMsgJoin({ ...msgJoin, id: null });
+      setMsgJoin({
+        ...msgJoin,
+        id: null,
+      });
       return;
     }
 
-    if (!checkId(id)) {
+    if (!checkIdRegex(id)) {
       setMsgJoin({
         ...msgJoin,
         id: {
@@ -48,7 +48,7 @@ function JoinForm({
         id: null,
       });
     }
-  }, [id]);
+  };
 
   // pw
   const [isPwValid, setIsPwValid] = useState(false);
@@ -59,7 +59,7 @@ function JoinForm({
       setMsgJoin({ ...msgJoin, pw: null });
       return;
     }
-    
+
     if (!checkPw(pw)) {
       setMsgJoin({
         ...msgJoin,
@@ -87,7 +87,6 @@ function JoinForm({
   const idProps = {
     title: '아이디',
     name: 'id',
-    value: joinInfo.id,
     onChange: handleChangeInfo,
     btnMsg: '중복확인',
   };
@@ -169,10 +168,21 @@ function JoinForm({
   const emailProps = { title: '이메일', email, handleChangeEmail };
 
   return (
-    <Container>
-      <InputWithBtn {...idProps} msgInfo={msgJoin.id} onBtnClick={checkIdDup} />
+    <div>
+      <InputWithBtn
+        {...idProps}
+        msgInfo={msgJoin.id}
+        BtnClick={checkId}
+        ref={idRef}
+        value={id}
+        onBlur={onBlurIdCheck}
+      />
       <InputPassword {...pwProps} msgInfo={msgJoin.pw} isValid={isPwValid} />
-      <InputPassword {...pwCheckProps} msgInfo={msgJoin.pwCheck} isValid={isPwCheckValid} />
+      <InputPassword
+        {...pwCheckProps}
+        msgInfo={msgJoin.pwCheck}
+        isValid={isPwCheckValid}
+      />
       <InputName {...nameProps} msgInfo={msgJoin.name} />
       <InputPhone {...phoneProps} msgInfo={msgJoin.phone} />
       <InputEmail {...emailProps} msgInfo={msgJoin.email} />
@@ -182,10 +192,8 @@ function JoinForm({
           <InputName {...storeNameProps} msgInfo={msgJoin.storeName} />
         </>
       )}
-    </Container>
+    </div>
   );
 }
 
 export default JoinForm;
-
-const Container = styled.div``;
