@@ -54,7 +54,7 @@ function JoinForm({
   const [isPwValid, setIsPwValid] = useState(false);
   const [isPwCheckValid, setIsPwCheckValid] = useState(false);
 
-  useEffect(() => {
+  const onBlurPwCheck = () => {
     if (pw === '') {
       setMsgJoin({ ...msgJoin, pw: null });
       return;
@@ -75,7 +75,7 @@ function JoinForm({
       });
       setIsPwValid(true);
     }
-  }, [pw]);
+  };
 
   const handleChangeInfo = (e) => {
     setJoinInfo({
@@ -177,7 +177,12 @@ function JoinForm({
         value={id}
         onBlur={onBlurIdCheck}
       />
-      <InputPassword {...pwProps} msgInfo={msgJoin.pw} isValid={isPwValid} />
+      <InputPassword
+        {...pwProps}
+        msgInfo={msgJoin.pw}
+        isValid={isPwValid}
+        onBlur={onBlurPwCheck}
+      />
       <InputPassword
         {...pwCheckProps}
         msgInfo={msgJoin.pwCheck}
