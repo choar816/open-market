@@ -4,7 +4,7 @@ import ColorButton from './ColorButton';
 import IconUnchecked from '../../public/assets/check-box.svg';
 import IconChecked from '../../public/assets/check-fill-box.svg';
 
-function JoinLower({ onJoinClick }) {
+function JoinFooter({ onJoinClick }) {
   const [canJoin, setCanJoin] = useState(false);
   const toggleCanJoin = () => {
     setCanJoin(!canJoin);
@@ -31,7 +31,7 @@ function JoinLower({ onJoinClick }) {
   );
 }
 
-export default JoinLower;
+export default JoinFooter;
 
 const Container = styled.div`
   display: flex;

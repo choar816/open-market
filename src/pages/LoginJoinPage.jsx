@@ -2,9 +2,9 @@ import React, { useState } from 'react';
 import styled from 'styled-components';
 import ImgLogo from '../../public/assets/Logo-hodu.png';
 import LoginForm from '../components/LoginForm';
-import LoginLower from '../components/LoginLower';
+import LoginLower from '../components/LoginFooter';
 import JoinForm from '../components/JoinForm';
-import JoinLower from '../components/JoinLower';
+import JoinLower from '../components/JoinFooter';
 
 const checkIdRegex = (id) => {
   const idRegex = /^[a-zA-Z0-9]{1,20}$/;

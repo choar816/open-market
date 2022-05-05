@@ -2,7 +2,7 @@ import React from 'react';
 import styled from 'styled-components';
 import { Link } from 'react-router-dom';
 
-function LoginLower({ goToJoin }) {
+function LoginFooter({ goToJoin }) {
   return (
     <Container>
       <li onClick={goToJoin}><a>회원가입</a></li>
@@ -11,7 +11,7 @@ function LoginLower({ goToJoin }) {
   );
 }
 
-export default LoginLower;
+export default LoginFooter;
 
 const Container = styled.ul`
   margin-top: 30px;
