@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
 import ImgLogo from '../../public/assets/Logo-hodu.png';
 import LoginForm from '../components/LoginForm';
@@ -29,11 +29,48 @@ function LoginJoinPage() {
     pw: '',
     pwCheck: '',
     name: '',
-    phone: '',
-    email: '',
+    phone: '010',
+    email: '@',
     sellerNum: '',
     storeName: '',
   });
+
+  useEffect(() => {
+    if (info.userType === 'SELLER') {
+      if (joinInfo.id.length === 0 ||
+        joinInfo.pw.length === 0 ||
+        joinInfo.pwCheck.length === 0 ||
+        joinInfo.name.length === 0 ||
+        joinInfo.phone.length === 3 ||
+        joinInfo.email.length === 1 || 
+        joinInfo.sellerNum.length === 0 ||
+        joinInfo.storeName.length === 0 ||
+        termCheck === false)
+        setCanJoin(false);
+      else
+        setCanJoin(true);
+    } else {
+      if (joinInfo.id.length === 0 ||
+        joinInfo.pw.length === 0 ||
+        joinInfo.pwCheck.length === 0 ||
+        joinInfo.name.length === 0 ||
+        joinInfo.phone.length === 3 ||
+        joinInfo.email.length === 1 || 
+        termCheck === false)
+        setCanJoin(false);
+      else
+        setCanJoin(true);
+    }
+  }, [joinInfo.id, 
+    joinInfo.pw, 
+    joinInfo.pwCheck,
+    joinInfo.name, 
+    joinInfo.phone,
+    joinInfo.email,
+    joinInfo.sellerNum,
+    joinInfo.storeName,
+    termCheck
+  ]);
 
   const [msgJoin, setMsgJoin] = useState({
     id: null,
@@ -45,6 +82,9 @@ function LoginJoinPage() {
     sellerNum: null,
     storeName: null,
   });
+
+  const [canJoin, setCanJoin] = useState(false);
+  const [termCheck, setTermCheck] = useState(false);
 
   const checkId = () => {
     if (!checkIdRegex(joinInfo.id)) {
@@ -208,6 +248,9 @@ function LoginJoinPage() {
           onJoinClick={
             info.userType === 'BUYER' ? checkJoinBuyer : checkJoinSeller
           }
+          canJoin={canJoin}
+          termCheck={termCheck}
+          setTermCheck={setTermCheck}
         />
       )}
     </Container>
