@@ -5,7 +5,7 @@ import InputPassword from './input/InputPassword';
 import InputPhone from './input/InputPhone';
 import InputWithBtn from './input/InputWithBtn';
 
-const checkPw = (pw) => {
+const checkPwRegex = (pw) => {
   const pwRegex =
     /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[#?!@$%^&*-])[A-Za-z\d#?!@$%^&*-]{8,}$/;
   return pwRegex.test(pw);
@@ -55,7 +55,7 @@ function JoinForm({
   const [isPwCheckValid, setIsPwCheckValid] = useState(false);
 
   const pwRegexCheck = () => {
-    if (!checkPw(pw)) {
+    if (!checkPwRegex(pw)) {
       setMsgJoin({
         ...msgJoin,
         pw: {
@@ -73,7 +73,8 @@ function JoinForm({
   const pwMatchCheck = () => {
     if (pw === pwCheck) {
       setMsgJoin({ ...msgJoin, pwCheck: null });
-      setIsPwCheckValid(true);
+      if (checkPwRegex(pwCheck))
+        setIsPwCheckValid(true);
     } else {
       setMsgJoin({
         ...msgJoin,
@@ -86,7 +87,7 @@ function JoinForm({
     }
   }
 
-  const onBlurPwCheck = () => {
+  const onBlurPw = () => {
     if (pw === '') {
       setMsgJoin({ ...msgJoin, pw: null });
       setIsPwValid(false);
@@ -94,14 +95,12 @@ function JoinForm({
     }
 
     pwRegexCheck();
-
-    if (pwCheck !== '') {
+    if (pwCheck !== '')
       pwMatchCheck();
-    }
   };
 
   // pwCheck
-  const onBlurPwDoubleCheck = () => {
+  const onBlurPwCheck = () => {
     if (pwCheck === '') {
       setMsgJoin({ ...msgJoin, pwCheck: null });
       setIsPwCheckValid(false);
@@ -123,7 +122,7 @@ function JoinForm({
       setIsPwCheckValid(false);
       return;
     }
-
+    pwRegexCheck();
     pwMatchCheck();
   };
 
@@ -233,13 +232,13 @@ function JoinForm({
         {...pwProps}
         msgInfo={msgJoin.pw}
         isValid={isPwValid}
-        onBlur={onBlurPwCheck}
+        onBlur={onBlurPw}
       />
       <InputPassword
         {...pwCheckProps}
         msgInfo={msgJoin.pwCheck}
         isValid={isPwCheckValid}
-        onBlur={onBlurPwDoubleCheck}
+        onBlur={onBlurPwCheck}
       />
       <InputName {...nameProps} msgInfo={msgJoin.name} />
       <InputPhone {...phoneProps} msgInfo={msgJoin.phone} />

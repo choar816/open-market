@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import styled from 'styled-components';
 import InputBox from './InputBox';
+import Message from './Message';
 import SelectBox from './SelectBox';
 
 function InputPhone({ ...props }) {
