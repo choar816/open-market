@@ -2,9 +2,9 @@ import React, { useState } from 'react';
 import styled from 'styled-components';
 import ImgLogo from '../../public/assets/Logo-hodu.png';
 import LoginForm from '../components/LoginForm';
-import LoginLower from '../components/LoginFooter';
+import LoginFooter from '../components/LoginFooter';
 import JoinForm from '../components/JoinForm';
-import JoinLower from '../components/JoinFooter';
+import JoinFooter from '../components/JoinFooter';
 
 const checkIdRegex = (id) => {
   const idRegex = /^[a-zA-Z0-9]{1,20}$/;
@@ -202,9 +202,9 @@ function LoginJoinPage() {
         </FormContent>
       </FormContainer>
       {info.pageType === 'login' ? (
-        <LoginLower goToJoin={() => changePageType('join')} />
+        <LoginFooter goToJoin={() => changePageType('join')} />
       ) : (
-        <JoinLower
+        <JoinFooter
           onJoinClick={
             info.userType === 'BUYER' ? checkJoinBuyer : checkJoinSeller
           }
