@@ -1,9 +1,9 @@
 import React from 'react';
 import styled from 'styled-components';
 
-function IconButton({ src, children }) {
+function IconButton({ onClick, src, children }) {
   return (
-    <Container>
+    <Container onClick={onClick}>
       <img src={src}></img>
       <p>{children}</p>
     </Container>
