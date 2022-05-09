@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
 import ImgLogo from '../../public/assets/Logo-hodu.png';
-import JoinForm from '../components/JoinForm';
-import JoinFooter from '../components/JoinFooter';
+import JoinForm from '../components/join/JoinForm';
+import JoinFooter from '../components/join/JoinFooter';
 import { useNavigate } from 'react-router-dom';
 
 const checkIdRegex = (id) => {

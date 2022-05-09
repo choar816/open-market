@@ -1,11 +1,11 @@
 import React from 'react';
 import styled from 'styled-components';
-import ProductItem from '../components/ProductItem';
-import Product1 from '../../public/assets/product-1.jpg';
-import Product2 from '../../public/assets/product-2.jpg';
-import Product3 from '../../public/assets/product-3.jpg';
-import Product4 from '../../public/assets/product-4.jpg';
-import Product5 from '../../public/assets/product-5.jpg';
+import ProductItem from './ProductItem';
+import Product1 from '../../../public/assets/product-1.jpg';
+import Product2 from '../../../public/assets/product-2.jpg';
+import Product3 from '../../../public/assets/product-3.jpg';
+import Product4 from '../../../public/assets/product-4.jpg';
+import Product5 from '../../../public/assets/product-5.jpg';
 
 const products = [
   {

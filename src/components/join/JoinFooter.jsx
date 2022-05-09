@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
 import styled from 'styled-components';
-import ColorButton from './ColorButton';
-import IconUnchecked from '../../public/assets/check-box.svg';
-import IconChecked from '../../public/assets/check-fill-box.svg';
+import ColorButton from '../button/ColorButton';
+import IconUnchecked from '../../../public/assets/check-box.svg';
+import IconChecked from '../../../public/assets/check-fill-box.svg';
 
 function JoinFooter({ onJoinClick, canJoin, termCheck, setTermCheck }) {
   return (

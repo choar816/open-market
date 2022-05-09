@@ -1,9 +1,9 @@
 import React, { useEffect, useRef, useState } from 'react';
-import InputEmail from './input/InputEmail';
-import InputName from './input/InputName';
-import InputPassword from './input/InputPassword';
-import InputPhone from './input/InputPhone';
-import InputWithBtn from './input/InputWithBtn';
+import InputEmail from '../input/InputEmail';
+import InputName from '../input/InputName';
+import InputPassword from '../input/InputPassword';
+import InputPhone from '../input/InputPhone';
+import InputWithBtn from '../input/InputWithBtn';
 
 const checkPwRegex = (pw) => {
   const pwRegex =

@@ -2,7 +2,7 @@ import React from 'react';
 import styled from 'styled-components';
 import Header from '../components/Header';
 import Footer from '../components/Footer';
-import ProductInfo from '../components/ProductInfo';
+import ProductInfo from '../components/product/ProductInfo';
 
 function ProductPage() {
   return (

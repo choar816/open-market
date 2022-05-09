@@ -1,7 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
-import AmountPicker from './AmountPicker';
-import ColorButton from './ColorButton';
+import AmountPicker from '../AmountPicker';
+import ColorButton from '../button/ColorButton';
 
 const ProductSummary = () => {
   return (
