@@ -1,15 +1,19 @@
-import React from 'react';
+import React, { useState } from 'react';
 import styled from 'styled-components';
 import ImgMinus from '../../public/assets/icon-minus-line.svg';
 import ImgPlus from '../../public/assets/icon-plus-line.svg';
 import ImgPlusDisabled from '../../public/assets/icon-plus-line-disabled.svg';
 
 function AmountPicker({ disabled }) {
+  const [amount, setAmount] = useState(1);
+  const increaseAmount = () => setAmount(amount + 1);
+  const decreaseAmount = () => setAmount(amount > 0 ? amount - 1 : 0);
+
   return (
     <Container>
-      <Button src={ImgMinus} />
-      <div>1</div>
-      {disabled || <Button src={ImgPlus} disabled={disabled} />}
+      <Button onClick={decreaseAmount} src={ImgMinus} />
+      <div>{amount}</div>
+      {disabled || <Button onClick={increaseAmount} src={ImgPlus} disabled={disabled} />}
       {disabled && <Button src={ImgPlusDisabled} disabled={disabled} />}
     </Container>
   );
