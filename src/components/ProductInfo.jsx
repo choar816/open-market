@@ -3,7 +3,7 @@ import styled from 'styled-components';
 import ProductSummary from './ProductSummary';
 import Product3 from '../../public/assets/product-3.jpg';
 
-function ProductDetail() {
+function ProductInfo() {
   return (
     <Container>
       <ProductIntro>
@@ -14,7 +14,7 @@ function ProductDetail() {
   );
 }
 
-export default ProductDetail;
+export default ProductInfo;
 
 const Container = styled.section`
   width: 1280px;
