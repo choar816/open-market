@@ -7,13 +7,16 @@ import ImgCart from '../../public/assets/icon-shopping-cart.svg';
 import ImgUser from '../../public/assets/icon-user.svg';
 import ImgBag from '../../public/assets/icon-shopping-bag.svg';
 import ColorIconButton from './ColorIconButton';
+import { useNavigate } from 'react-router';
 import { Link } from 'react-router-dom';
 
 function Header({ buyer }) {
+  const navigate = useNavigate();
+
   return (
     <Container>
       <SubContainer left>
-        <Logo src={ImgLogo} />
+        <Logo onClick={() => navigate('/')} src={ImgLogo} />
         <SearchBar />
       </SubContainer>
       <SubContainer right>

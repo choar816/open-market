@@ -10,8 +10,8 @@ import { Routes, Route } from 'react-router-dom';
 function App() {
   return (
     <Routes>
-      {/* <Route path="/" element={<MainPage />} /> */}
-      <Route path="/" element={<ProductPage />} />
+      <Route path="/" element={<MainPage />} />
+      <Route path="products" element={<ProductPage />} />
       <Route path="login" element={<LoginJoinPage />} />
       <Route path="*" element={<NotFoundPage />} />
     </Routes>
