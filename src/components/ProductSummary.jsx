@@ -69,6 +69,17 @@ const PartPrice = styled.article`
   div {
     display: flex;
     align-items: flex-end;
+    p + p::before {
+      content: '';
+      display: inline-block;
+      position: relative;
+      top: 2px;
+      width: 1px;
+      height: 17px;
+      background-color: #C4C4C4;
+      margin-left: 12px;
+      margin-right: 12px;
+    }
   }
 `;
 
