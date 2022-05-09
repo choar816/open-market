@@ -1,7 +1,8 @@
 import React from 'react';
 import './App.css';
 import MainPage from './pages/MainPage';
-import LoginJoinPage from './pages/LoginJoinPage';
+import LoginPage from './pages/LoginPage';
+import JoinPage from './pages/JoinPage';
 import ProductPage from './pages/ProductPage';
 import NotFoundPage from './pages/NotFoundPage';
 import TestPage from './pages/TestPage';
@@ -12,7 +13,8 @@ function App() {
     <Routes>
       <Route path="/" element={<MainPage />} />
       <Route path="products" element={<ProductPage />} />
-      <Route path="login" element={<LoginJoinPage />} />
+      <Route path="login" element={<LoginPage />} />
+      <Route path="join" element={<JoinPage />} />
       <Route path="*" element={<NotFoundPage />} />
     </Routes>
   );

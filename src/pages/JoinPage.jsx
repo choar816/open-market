@@ -1,28 +1,18 @@
 import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
 import ImgLogo from '../../public/assets/Logo-hodu.png';
-import LoginForm from '../components/LoginForm';
-import LoginFooter from '../components/LoginFooter';
 import JoinForm from '../components/JoinForm';
 import JoinFooter from '../components/JoinFooter';
+import { useNavigate } from 'react-router-dom';
 
 const checkIdRegex = (id) => {
   const idRegex = /^[a-zA-Z0-9]{1,20}$/;
   return idRegex.test(id);
 };
 
-function LoginJoinPage() {
-  const [info, setInfo] = useState({
-    pageType: 'join',
-    userType: 'SELLER',
-  });
-
-  const changeUserType = (type) => {
-    setInfo({ ...info, userType: type });
-  };
-  const changePageType = (type) => {
-    setInfo({ ...info, pageType: type });
-  };
+function JoinPage() {
+  const navigate = useNavigate();
+  const [userType, setUserType] = useState('BUYER');
 
   const [joinInfo, setJoinInfo] = useState({
     id: '',
@@ -36,7 +26,7 @@ function LoginJoinPage() {
   });
 
   useEffect(() => {
-    if (info.userType === 'SELLER') {
+    if (userType === 'SELLER') {
       if (joinInfo.id.length === 0 ||
         joinInfo.pw.length === 0 ||
         joinInfo.pwCheck.length === 0 ||
@@ -217,47 +207,39 @@ function LoginJoinPage() {
     <Container>
       <img src={ImgLogo} />
       <FormContainer>
-        <FormType selected={info.userType}>
-          <button onClick={() => changeUserType('BUYER')}>
-            구매{info.pageType === 'login' ? '회원 로그인' : '회원가입'}
+        <FormType selected={userType}>
+          <button onClick={() => setUserType('BUYER')}>
+            구매회원가입
           </button>
-          <button onClick={() => changeUserType('SELLER')}>
-            판매{info.pageType === 'login' ? '회원 로그인' : '회원가입'}
+          <button onClick={() => setUserType('SELLER')}>
+            판매회원가입
           </button>
         </FormType>
         <FormContent>
-          {info.pageType === 'login' ? (
-            <LoginForm userType={info.userType} />
-          ) : (
-            <JoinForm
-              userType={info.userType}
-              joinInfo={joinInfo}
-              setJoinInfo={setJoinInfo}
-              msgJoin={msgJoin}
-              setMsgJoin={setMsgJoin}
-              checkId={checkId}
-              checkIdRegex={checkIdRegex}
-            />
-          )}
+          <JoinForm
+            userType={userType}
+            joinInfo={joinInfo}
+            setJoinInfo={setJoinInfo}
+            msgJoin={msgJoin}
+            setMsgJoin={setMsgJoin}
+            checkId={checkId}
+            checkIdRegex={checkIdRegex}
+          />
         </FormContent>
       </FormContainer>
-      {info.pageType === 'login' ? (
-        <LoginFooter goToJoin={() => changePageType('join')} />
-      ) : (
-        <JoinFooter
-          onJoinClick={
-            info.userType === 'BUYER' ? checkJoinBuyer : checkJoinSeller
-          }
-          canJoin={canJoin}
-          termCheck={termCheck}
-          setTermCheck={setTermCheck}
-        />
-      )}
+      <JoinFooter
+        onJoinClick={
+          userType === 'BUYER' ? checkJoinBuyer : checkJoinSeller
+        }
+        canJoin={canJoin}
+        termCheck={termCheck}
+        setTermCheck={setTermCheck}
+      />
     </Container>
   );
 }
 
-export default LoginJoinPage;
+export default JoinPage;
 
 const Container = styled.div`
   display: flex;
