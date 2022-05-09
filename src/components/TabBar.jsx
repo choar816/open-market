@@ -1,10 +1,8 @@
-import React, { useState } from 'react';
+import React from 'react';
 import styled from 'styled-components';
 import TabButton from './TabButton';
 
-const TabBar = ({ tabList }) => {
-  const [chosenTab, setChosenTab] = useState(0);
-
+const TabBar = ({ tabList, chosenTab, setChosenTab }) => {
   return (
     <Container>
       {tabList.map((val, idx) => (
