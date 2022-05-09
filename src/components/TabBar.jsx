@@ -21,5 +21,6 @@ const TabBar = ({ tabList, chosenTab, setChosenTab }) => {
 export default TabBar;
 
 const Container = styled.article`
+  margin-bottom: 30px;
   display: flex;
 `;
