@@ -35,7 +35,7 @@ const ProductSummary = () => {
         </PartPrice>
         <PartBtn>
           <ColorButton size="M">바로 구매</ColorButton>
-          <ColorButton size="M" color="gray" width="200px">장바구니</ColorButton>
+          <ColorButton size="M" color="charcoal" width="200px">장바구니</ColorButton>
         </PartBtn>
       </PartThird>
     </Container>
@@ -66,6 +66,11 @@ const PartPrice = styled.article`
   display: flex;
   justify-content: space-between;
   align-items: flex-end;
+  & > p {
+    font-size: 18px;
+    font-weight: 500;
+    line-height: 23px;
+  }
   div {
     display: flex;
     align-items: flex-end;
@@ -97,7 +102,7 @@ const Divider = styled.div`
   margin-top: 30px;
   margin-bottom: 30px;
   width: 100%;
-  height: 1px;
+  height: 2px;
   background-color: #c4c4c4;
 `;
 
