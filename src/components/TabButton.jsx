@@ -1,21 +1,23 @@
 import React from 'react';
 import styled from 'styled-components';
 
-function TabButton({ chosen, children }) {
-  return <Container chosen={chosen}>{children}</Container>;
-}
+const TabButton = (props) => {
+  const { onClick, chosen, children } = props;
+  return <Button onClick={onClick} chosen={chosen} children={children} />;
+};
 
 export default TabButton;
 
-const Container = styled.button`
+const Button = styled.button`
   width: 320px;
   padding: 18px 0 12px;
   font-weight: 700;
   font-size: 18px;
-  color: #21BF48;
-  background-color: #FFFFFF;
+  color: #21bf48;
+  background-color: #ffffff;
   border: none;
-  border-bottom: 6px solid #21BF48;
+  border-bottom: 6px solid #21bf48;
+
   ${({ chosen }) => !chosen && `
     font-weight: 500;
     color: #767676;
