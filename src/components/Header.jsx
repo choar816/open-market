@@ -9,9 +9,10 @@ import ImgBag from '../../public/assets/icon-shopping-bag.svg';
 import ColorIconButton from './button/ColorIconButton';
 import { useNavigate } from 'react-router-dom';
 
-function Header({ buyer }) {
+function Header() {
   const navigate = useNavigate();
   const [showMenu, setShowMenu] = useState(false);
+  const isSeller = localStorage.getItem('userType') === 'SELLER' ? true : false;
 
   const onMypageClick = () => {
     navigate('/mypage');
@@ -28,7 +29,7 @@ function Header({ buyer }) {
         <SearchBar />
       </SubContainer>
       <SubContainer right>
-        {buyer || <IconButton src={ImgCart}>장바구니</IconButton>}
+        {!isSeller && <IconButton src={ImgCart}>장바구니</IconButton>}
         {localStorage.getItem('token') ? (
           <>
             <IconButton
@@ -47,7 +48,7 @@ function Header({ buyer }) {
             children="로그인"
           />
         )}
-        {buyer && (
+        {isSeller && (
           <ColorIconButton iconSrc={ImgBag}>판매자 센터</ColorIconButton>
         )}
       </SubContainer>
