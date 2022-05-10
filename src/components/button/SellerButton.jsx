@@ -29,12 +29,16 @@ const Container = styled.button`
   font-weight: 500;
 
   @media screen and (max-width: 768px) {
+    margin-left: 20px;
+    padding: 10px 16px;
     font-size: 14px;
     img {
       width: 24px;
     }
   }
   @media screen and (max-width: 576px) {
+    margin-left: 10px;
+    padding: 8px 12px;
     font-size: 12px;
     img {
       width: 18px;

@@ -14,6 +14,7 @@ function Header() {
   const navigate = useNavigate();
   const [showMenu, setShowMenu] = useState(false);
   const isSeller = localStorage.getItem('userType') === 'SELLER' ? true : false;
+  console.log(isSeller);
 
   const onMypageClick = () => {
     navigate('/mypage');
@@ -39,7 +40,7 @@ function Header() {
               children="마이페이지"
             />
             {showMenu && (
-              <MypageMenu>
+              <MypageMenu isSeller={isSeller}>
                 <li onClick={onMypageClick}>마이페이지</li>
                 <li onClick={onLogoutClick}>로그아웃</li>
               </MypageMenu>
@@ -118,7 +119,7 @@ const Logo = styled.img`
 const MypageMenu = styled.ul`
   position: absolute;
   top: 90px;
-  right: 15px;
+  right: ${({ isSeller }) => (isSeller ? '210' : '15')}px;
   width: 120px;
   border-radius: 10px;
   background-color: #fff;
@@ -145,7 +146,7 @@ const MypageMenu = styled.ul`
 
   @media screen and (max-width: 768px) {
     top: 75px;
-    right: 12px;
+    right: ${({ isSeller }) => (isSeller ? '141' : '12')}px;
     width: 110px;
     li {
       font-size: 14px;
@@ -153,7 +154,7 @@ const MypageMenu = styled.ul`
   }
   @media screen and (max-width: 576px) {
     top: 66px;
-    right: 10px;
+    right: ${({ isSeller }) => (isSeller ? '100' : '10')}px;
     width: 95px;
   }
 `;
