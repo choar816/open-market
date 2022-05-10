@@ -6,7 +6,6 @@ import ImgLogo from '../../public/assets/Logo-hodu.png';
 import ImgCart from '../../public/assets/icon-shopping-cart.svg';
 import ImgUser from '../../public/assets/icon-user.svg';
 import ImgBag from '../../public/assets/icon-shopping-bag.svg';
-import ColorIconButton from './button/ColorIconButton';
 import { useNavigate } from 'react-router-dom';
 import SellerButton from './button/SellerButton';
 
@@ -14,7 +13,6 @@ function Header() {
   const navigate = useNavigate();
   const [showMenu, setShowMenu] = useState(false);
   const isSeller = localStorage.getItem('userType') === 'SELLER' ? true : false;
-  console.log(isSeller);
 
   const onMypageClick = () => {
     navigate('/mypage');
