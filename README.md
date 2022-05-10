@@ -4,6 +4,17 @@
 - 판매자가 상품을 구매하는 것은 불가능합니다.
 - 오픈마켓에 등록되어 있는 상품을 구매하고자 한다면 상품의 세부사항을 확인한 뒤, 장바구니에 넣어, 상품을 구매할 수 있습니다.
 
+## Tech Stack
+`React`, `JavaScript`, `React Router`
+
+## To do
+- [x] 반응형 레이아웃 구현 (MainPage만 완료)
+- [x] Image Carousel 직접 구현
+- [x] 로그인 기능 (API 연동)
+- [ ] 회원가입 기능 (API 연동)
+- [x] 상품 목록 페이지 구현 (API 연동)
+- [x] 상품 상세 페이지 구현 (API 연동)
+
 ## Available Scripts
 프로젝트 폴더 내에서 실행 가능한 명령어입니다.
 
@@ -13,3 +24,7 @@
 
 ### `yarn run build`
 `dist` 폴더에 앱을 빌드합니다.
+
+- 샘플 회원 id & pw
+  - (구매회원) id: buyer1, pw: hodu0910
+  - (판매회원) id: seller1, pw: hodu0910
