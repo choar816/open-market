@@ -11,7 +11,15 @@ import { useNavigate } from 'react-router-dom';
 
 function Header({ buyer }) {
   const navigate = useNavigate();
-  const [showMenu, setShowMenu] = useState(true);
+  const [showMenu, setShowMenu] = useState(false);
+
+  const onMypageClick = () => {
+    navigate('/mypage');
+  }
+  const onLogoutClick = () => {
+    localStorage.clear();
+    window.location.reload();
+  }
 
   return (
     <Container>
@@ -21,16 +29,15 @@ function Header({ buyer }) {
       </SubContainer>
       <SubContainer right>
         {buyer || <IconButton src={ImgCart}>장바구니</IconButton>}
-        {!localStorage.getItem('token') ? (
+        {localStorage.getItem('token') ? (
           <>
             <IconButton
               src={ImgUser}
               onClick={() => setShowMenu(!showMenu)}
-              children="마이페이지">
-            </IconButton>
+              children="마이페이지" />
             {showMenu && <MypageMenu>
-              <li>마이페이지</li>
-              <li>로그아웃</li>
+              <li onClick={onMypageClick}>마이페이지</li>
+              <li onClick={onLogoutClick}>로그아웃</li>
             </MypageMenu>}
           </>
         ) : (
@@ -119,6 +126,7 @@ const MypageMenu = styled.ul`
     border: 1px solid transparent;
     border-radius: 5px;
     transition: all 0.5s;
+    cursor: pointer;
     & + li {
       margin-top: 10px;
     }

@@ -41,7 +41,6 @@ function LoginForm({ userType }) {
     })
       .then((res) => res.json())
       .then((data) => {
-        // console.log(data);
         if (data.username) {
           setMessage({ content: '아이디를 입력해 주세요.', show: true });
           idRef.current.focus();
@@ -55,6 +54,9 @@ function LoginForm({ userType }) {
           });
         } else {
           setMessage({ ...message, show: false });
+          localStorage.setItem('id', loginInfo.id);
+          localStorage.setItem('token', data.token);
+          localStorage.setItem('userType', userType);
           navigate(-1);
         }
       });
