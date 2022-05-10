@@ -25,13 +25,13 @@ function Header({ buyer }) {
           <>
             <IconButton
               src={ImgUser}
-              onClick={() => navigate('/mypage')}
+              onClick={() => setShowMenu(!showMenu)}
               children="마이페이지">
             </IconButton>
-            <MypageMenu>
+            {showMenu && <MypageMenu>
               <li>마이페이지</li>
               <li>로그아웃</li>
-            </MypageMenu>
+            </MypageMenu>}
           </>
         ) : (
           <IconButton
