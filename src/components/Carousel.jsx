@@ -5,6 +5,7 @@ import Card1 from '../../public/assets/product-1.jpg';
 import Card2 from '../../public/assets/product-2.jpg';
 import Card3 from '../../public/assets/product-3.jpg';
 import Card4 from '../../public/assets/product-4.jpg';
+import Card5 from '../../public/assets/product-5.jpg';
 import BtnPrev from '../../public/assets/arrow-left.svg';
 import BtnNext from '../../public/assets/arrow-right.svg';
 
@@ -24,6 +25,10 @@ const carouselImgs = [
   {
     src: Card4,
     alt: 'img4',
+  },
+  {
+    src: Card5,
+    alt: 'img5',
   },
 ];
 
