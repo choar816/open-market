@@ -8,6 +8,7 @@ import ImgUser from '../../public/assets/icon-user.svg';
 import ImgBag from '../../public/assets/icon-shopping-bag.svg';
 import ColorIconButton from './button/ColorIconButton';
 import { useNavigate } from 'react-router-dom';
+import SellerButton from './button/SellerButton';
 
 function Header() {
   const navigate = useNavigate();
@@ -16,11 +17,11 @@ function Header() {
 
   const onMypageClick = () => {
     navigate('/mypage');
-  }
+  };
   const onLogoutClick = () => {
     localStorage.clear();
     window.location.reload();
-  }
+  };
 
   return (
     <Container>
@@ -35,11 +36,14 @@ function Header() {
             <IconButton
               src={ImgUser}
               onClick={() => setShowMenu(!showMenu)}
-              children="마이페이지" />
-            {showMenu && <MypageMenu>
-              <li onClick={onMypageClick}>마이페이지</li>
-              <li onClick={onLogoutClick}>로그아웃</li>
-            </MypageMenu>}
+              children="마이페이지"
+            />
+            {showMenu && (
+              <MypageMenu>
+                <li onClick={onMypageClick}>마이페이지</li>
+                <li onClick={onLogoutClick}>로그아웃</li>
+              </MypageMenu>
+            )}
           </>
         ) : (
           <IconButton
@@ -48,9 +52,7 @@ function Header() {
             children="로그인"
           />
         )}
-        {isSeller && (
-          <ColorIconButton iconSrc={ImgBag}>판매자 센터</ColorIconButton>
-        )}
+        {isSeller && <SellerButton iconSrc={ImgBag} children="판매자 센터" />}
       </SubContainer>
     </Container>
   );
@@ -76,14 +78,18 @@ const Container = styled.header`
 `;
 
 const SubContainer = styled.article`
-  ${({ left }) => left && `
+  ${({ left }) =>
+    left &&
+    `
     width: 600px;
     @media screen and (max-width: 768px) {
       width: 350px;
     }
   `}
 
-  ${({ right }) => right && `
+  ${({ right }) =>
+    right &&
+    `
     flex-shrink: 0;
   `}
 
@@ -116,7 +122,7 @@ const MypageMenu = styled.ul`
   width: 120px;
   border-radius: 10px;
   background-color: #fff;
-  box-shadow: 0px 0px 10px 4px rgba(0,0,0,0.2);
+  box-shadow: 0px 0px 10px 4px rgba(0, 0, 0, 0.2);
   padding: 10px;
 
   li {
