@@ -1,21 +1,37 @@
-import React from 'react';
+import React, { useState } from 'react';
 import styled from 'styled-components';
 import AmountPicker from '../AmountPicker';
 import ColorButton from '../button/ColorButton';
 
-const ProductSummary = () => {
+const ProductSummary = ({ productData }) => {
+  console.log(productData);
+  const {
+    seller_store,
+    product_name,
+    price,
+    shipping_fee,
+    shipping_method,
+    stock,
+  } = productData;
+  const [amount, setAmount] = useState(1);
+
   return (
     <Container>
       <PartFirst>
         <article>
-          <CompanyName>백엔드글로벌</CompanyName>
-          <ProductName>딥러닝 개발자 무릎 담요</ProductName>
+          <StoreName>{seller_store}</StoreName>
+          <ProductName>{product_name}</ProductName>
           <ProductPrice>
-            <span>17,500</span>원
+            <span>{price.toLocaleString('ko-KR')}</span>원
           </ProductPrice>
         </article>
         <article>
-          <Delivery>택배배송 / 무료배송</Delivery>
+          <Delivery>
+            {shipping_method === 'PARCEL' ? '소포' : '택배'}배송 /{' '}
+            {shipping_fee === 0
+              ? '무료배송'
+              : `${shipping_fee.toLocaleString('ko-KR')}원`}
+          </Delivery>
         </article>
       </PartFirst>
       <Divider />
@@ -26,16 +42,18 @@ const ProductSummary = () => {
           <p>총 상품 금액</p>
           <div>
             <TotalAmount>
-              총 수량 <span>1</span>개
+              총 수량 <span>{amount}</span>개
             </TotalAmount>
             <TotalPrice>
-              <span>17,500</span>원
+              <span>{(price * amount).toLocaleString('ko-KR')}</span>원
             </TotalPrice>
           </div>
         </PartPrice>
         <PartBtn>
           <ColorButton size="M">바로 구매</ColorButton>
-          <ColorButton size="M" color="charcoal" width="200px">장바구니</ColorButton>
+          <ColorButton size="M" color="charcoal" width="200px">
+            장바구니
+          </ColorButton>
         </PartBtn>
       </PartThird>
     </Container>
@@ -81,7 +99,7 @@ const PartPrice = styled.article`
       top: 2px;
       width: 1px;
       height: 17px;
-      background-color: #C4C4C4;
+      background-color: #c4c4c4;
       margin-left: 12px;
       margin-right: 12px;
     }
@@ -106,7 +124,7 @@ const Divider = styled.div`
   background-color: #c4c4c4;
 `;
 
-const CompanyName = styled.p`
+const StoreName = styled.p`
   font-size: 18px;
   line-height: 23px;
 `;

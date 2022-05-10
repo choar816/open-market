@@ -1,12 +1,12 @@
 import React from 'react';
 import styled from 'styled-components';
 
-function ProductItem({ imgSrc, desc, title, price }) {
+function ProductItem({ imgSrc, desc, title, price, onClick }) {
   return (
     <Container>
-      <Img src={imgSrc} />
+      <Img src={imgSrc} onClick={onClick} />
       <Desc>{desc}</Desc>
-      <Title>{title}</Title>
+      <Title onClick={onClick}>{title}</Title>
       <Price>
         <strong>{price.toLocaleString('ko-KR')}</strong>원
       </Price>

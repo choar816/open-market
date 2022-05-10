@@ -1,17 +1,42 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
 import ProductSummary from './ProductSummary';
 import ProductDetail from './ProductDetail';
-import Product3 from '../../../public/assets/product-3.jpg';
 
-function ProductInfo() {
+function ProductInfo({ productId }) {
+  const [productData, setProductData] = useState(null);
+
+  const getProductInfo = async () => {
+    const url = 'https://openmarket.weniv.co.kr';
+    fetch(`${url}/products/`, {
+      method: 'GET',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+    })
+      .then((res) => res.json())
+      .then((data) => data.results)
+      .then((data) => data.filter((it) => it.product_id.toString(10) === productId))
+      .then((data) => setProductData(data[0]));
+  };
+
+  useEffect(() => {
+    getProductInfo();
+  }, []);
+
   return (
     <Container>
-      <ProductIntro>
-        <img src={Product3} />
-        <ProductSummary />
-      </ProductIntro>
-      <ProductDetail />
+      {productData === null ? (
+        <p>해당 상품은 존재하지 않습니다.</p>
+      ) : (
+        <>
+          <ProductIntro>
+            <img src={productData.image} />
+            <ProductSummary productData={productData} />
+          </ProductIntro>
+          <ProductDetail />
+        </>
+      )}
     </Container>
   );
 }

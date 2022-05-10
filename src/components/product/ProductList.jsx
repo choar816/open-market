@@ -1,8 +1,10 @@
 import React, { useEffect, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
 import ProductItem from './ProductItem';
 
 function ProductList() {
+  const navigate = useNavigate();
   const [products, setProducts] = useState([]);
 
   const getProducts = async () => {
@@ -40,6 +42,9 @@ function ProductList() {
             desc={item.product_info}
             title={item.product_name}
             price={item.price}
+            onClick={() => {
+              navigate(`/product/${item.product_id}`);
+            }}
           />
         ))}
       </Container>
