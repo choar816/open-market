@@ -1,13 +1,15 @@
 # open-market
+오픈마켓은 판매자와 구매자를 구별하여 판매자가 상품을 등록, 판매하며 구매자는 구매하는 플랫폼입니다.
+- 상품을 판매하려고 한다면 판매자로 로그인하여 상품 정보를 등록 및 수정할 수 있습니다.
+- 판매자가 상품을 구매하는 것은 불가능합니다.
+- 오픈마켓에 등록되어 있는 상품을 구매하고자 한다면 상품의 세부사항을 확인한 뒤, 장바구니에 넣어, 상품을 구매할 수 있습니다.
 
 ## Available Scripts
-In the project directory, you can run:
+프로젝트 폴더 내에서 실행 가능한 명령어입니다.
 
 ### `yarn run dev`
-Runs the app in the development mode.  
-Open [http://localhost:8080](http://localhost:8080) to view it in your browser.  
-The page will reload when you make changes.  
-You may also see any lint errors in the console.  
+개발모드로 앱을 실행합니다.
+[http://localhost:8080](http://localhost:8080)에서 확인 가능합니다.
 
 ### `yarn run build`
-Builds the app for production to the `dist` folder.
+`dist` 폴더에 앱을 빌드합니다.
