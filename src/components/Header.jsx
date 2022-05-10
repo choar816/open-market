@@ -11,7 +11,7 @@ import { useNavigate } from 'react-router-dom';
 
 function Header({ buyer }) {
   const navigate = useNavigate();
-  const [showMenu, setShowMenu] = useState(false);
+  const [showMenu, setShowMenu] = useState(true);
 
   return (
     <Container>
@@ -115,6 +115,7 @@ const MypageMenu = styled.ul`
     padding: 2px 5px;
     text-align: center;
     color: #767676;
+    font-size: 16px;
     border: 1px solid transparent;
     border-radius: 5px;
     transition: all 0.5s;
@@ -127,4 +128,17 @@ const MypageMenu = styled.ul`
     }
   }
 
+  @media screen and (max-width: 768px) {
+    top: 75px;
+    right: 12px;
+    width: 110px;
+    li {
+      font-size: 14px;
+    }
+  }
+  @media screen and (max-width: 576px) {
+    top: 66px;
+    right: 10px;
+    width: 95px;
+  }
 `;
