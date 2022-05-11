@@ -3,12 +3,13 @@
 - 상품을 판매하려고 한다면 판매자로 로그인하여 상품 정보를 등록 및 수정할 수 있습니다.
 - 판매자가 상품을 구매하는 것은 불가능합니다.
 - 오픈마켓에 등록되어 있는 상품을 구매하고자 한다면 상품의 세부사항을 확인한 뒤, 장바구니에 넣어, 상품을 구매할 수 있습니다.
+- [배포 링크](https://choar816.github.io/open-market)
 
 ## Tech Stack
 `React`, `JavaScript`, `React Router`
 
 ## To do
-- [x] 반응형 레이아웃 구현 (MainPage만 완료)
+- [x] 반응형 레이아웃 구현 (MainPage)
 - [x] Image Carousel 직접 구현
 - [x] 로그인 기능 (API 연동)
 - [ ] 회원가입 기능 (API 연동)
