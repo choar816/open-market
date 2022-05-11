@@ -4,15 +4,8 @@ import AmountPicker from '../AmountPicker';
 import ColorButton from '../button/ColorButton';
 
 const ProductSummary = ({ productData }) => {
-  console.log(productData);
-  const {
-    seller_store,
-    product_name,
-    price,
-    shipping_fee,
-    shipping_method,
-    stock,
-  } = productData;
+  const { seller_store, product_name, price, shipping_method, shipping_fee } =
+    productData;
   const [amount, setAmount] = useState(1);
 
   return (

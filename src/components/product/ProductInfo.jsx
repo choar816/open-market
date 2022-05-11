@@ -2,31 +2,31 @@ import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
 import ProductSummary from './ProductSummary';
 import ProductDetail from './ProductDetail';
+import { useParams } from 'react-router-dom';
 
-function ProductInfo({ productId }) {
+function ProductInfo() {
+  const params = useParams();
   const [productData, setProductData] = useState(null);
 
   const getProductInfo = async () => {
     const url = 'https://openmarket.weniv.co.kr';
-    fetch(`${url}/products/`, {
+    fetch(`${url}/products/${params.id}`, {
       method: 'GET',
       headers: {
         'Content-Type': 'application/json',
       },
     })
       .then((res) => res.json())
-      .then((data) => data.results)
-      .then((data) => data.filter((it) => it.product_id.toString(10) === productId))
-      .then((data) => setProductData(data[0]));
+      .then((data) => setProductData(data));
   };
 
   useEffect(() => {
     getProductInfo();
-  }, []);
+  }, [params.id]);
 
   return (
     <Container>
-      {productData === null ? (
+      {!productData || productData.detail === '찾을 수 없습니다.' ? (
         <p>해당 상품은 존재하지 않습니다.</p>
       ) : (
         <>
