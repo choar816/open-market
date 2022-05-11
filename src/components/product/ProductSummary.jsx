@@ -1,13 +1,22 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
 import AmountPicker from '../AmountPicker';
 import ColorButton from '../button/ColorButton';
 
-const ProductSummary = ({ productData }) => {
-  const { seller_store, product_name, price, shipping_method, shipping_fee } =
-    productData;
-  const [amount, setAmount] = useState(1);
-
+const ProductSummary = ({ id, productData }) => {
+  const {
+    seller_store,
+    product_name,
+    price,
+    shipping_method,
+    shipping_fee,
+    stock,
+  } = productData;
+  const [amount, setAmount] = useState(0);
+  const onIncrease = () => setAmount(amount < stock ? amount + 1 : amount);
+  const onDecrease = () => setAmount(amount > 0 ? amount - 1 : 0);
+  useEffect(() => setAmount(0), [id]);
+  
   return (
     <Container>
       <PartFirst>
@@ -28,7 +37,12 @@ const ProductSummary = ({ productData }) => {
         </article>
       </PartFirst>
       <Divider />
-      <AmountPicker />
+      <AmountPicker
+        amount={amount}
+        stock={stock}
+        onIncrease={onIncrease}
+        onDecrease={onDecrease}
+      />
       <Divider />
       <PartThird>
         <PartPrice>

@@ -33,7 +33,7 @@ function ProductInfo() {
         <>
           <ProductIntro>
             <img src={productData.image} />
-            <ProductSummary productData={productData} />
+            <ProductSummary id={params.id} productData={productData} />
           </ProductIntro>
           <ProductDetail />
         </>
