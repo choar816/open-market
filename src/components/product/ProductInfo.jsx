@@ -3,6 +3,7 @@ import styled from 'styled-components';
 import ProductSummary from './ProductSummary';
 import ProductDetail from './ProductDetail';
 import { useParams } from 'react-router-dom';
+import ErrorMessage from '../ErrorMessage';
 
 function ProductInfo() {
   const params = useParams();
@@ -27,7 +28,7 @@ function ProductInfo() {
   return (
     <Container>
       {!productData || productData.detail === '찾을 수 없습니다.' ? (
-        <p>해당 상품은 존재하지 않습니다.</p>
+        <ErrorMessage emoji="😶‍🌫️" message="해당 상품은 존재하지 않습니다." />
       ) : (
         <>
           <ProductIntro>
