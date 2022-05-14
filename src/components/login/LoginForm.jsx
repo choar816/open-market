@@ -39,7 +39,10 @@ function LoginForm({ userType }) {
         login_type: userType,
       }),
     })
-      .then((res) => res.json())
+      .then((res) => {
+        if (!res.ok) throw new Error('http 에러');
+        return res.json();
+      })
       .then((data) => {
         if (data.username) {
           setMessage({ content: '아이디를 입력해 주세요.', show: true });
@@ -53,13 +56,15 @@ function LoginForm({ userType }) {
             show: true,
           });
         } else {
+          // 로그인 성공
           setMessage({ ...message, show: false });
           localStorage.setItem('id', loginInfo.id);
           localStorage.setItem('token', data.token);
           localStorage.setItem('userType', userType);
           navigate(-1);
         }
-      });
+      })
+      .catch((e) => alert(e.message));
   };
 
   return (

@@ -16,8 +16,12 @@ function ProductList() {
         'Content-Type': 'application/json',
       },
     })
-      .then((res) => res.json())
-      .then((data) => setProducts(data.results));
+      .then((res) => {
+        if (!res.ok) throw new Error('http 에러');
+        return res.json();
+      })
+      .then((data) => setProducts(data.results))
+      .catch((e) => alert(e.message));
   };
 
   useEffect(() => {

@@ -17,8 +17,12 @@ function ProductInfo() {
         'Content-Type': 'application/json',
       },
     })
-      .then((res) => res.json())
-      .then((data) => setProductData(data));
+      .then((res) => {
+        if (!res.ok) throw new Error('http 에러');
+        return res.json();
+      })
+      .then((data) => setProductData(data))
+      .catch((e) => alert(e.message));
   };
 
   useEffect(() => {
