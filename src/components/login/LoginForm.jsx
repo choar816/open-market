@@ -40,10 +40,11 @@ function LoginForm({ userType }) {
       }),
     })
       .then((res) => {
-        if (!res.ok) throw new Error('http 에러');
+        // if (!res.ok) throw new Error('http 에러');
         return res.json();
       })
       .then((data) => {
+        console.log(data);
         if (data.username) {
           setMessage({ content: '아이디를 입력해 주세요.', show: true });
           idRef.current.focus();
