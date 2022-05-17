@@ -26,7 +26,6 @@ const JoinFooter = ({ onJoinClick, canJoin, termCheck, setTermCheck }) => {
           </p>
         </div>
         <ColorButton
-          size="M"
           color={canJoin ? 'green' : 'gray'}
           onClick={canJoin ? onJoinClick : () => {}}
         >

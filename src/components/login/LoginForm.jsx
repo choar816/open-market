@@ -86,9 +86,7 @@ function LoginForm({ userType }) {
         ref={pwRef}
       />
       <Message show={message.show}>{message.content}</Message>
-      <ColorButton size="M" onClick={checkLogin}>
-        로그인
-      </ColorButton>
+      <ColorButton onClick={checkLogin}>로그인</ColorButton>
     </Container>
   );
 }

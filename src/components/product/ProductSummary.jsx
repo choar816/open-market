@@ -16,7 +16,7 @@ const ProductSummary = ({ id, productData }) => {
   const onIncrease = () => setAmount(amount < stock ? amount + 1 : amount);
   const onDecrease = () => setAmount(amount > 0 ? amount - 1 : 0);
   useEffect(() => setAmount(0), [id]);
-  
+
   return (
     <Container>
       <PartFirst>
@@ -57,8 +57,8 @@ const ProductSummary = ({ id, productData }) => {
           </div>
         </PartPrice>
         <PartBtn>
-          <ColorButton size="M">바로 구매</ColorButton>
-          <ColorButton size="M" color="charcoal" width="200px">
+          <ColorButton>바로 구매</ColorButton>
+          <ColorButton color="charcoal" width="200px">
             장바구니
           </ColorButton>
         </PartBtn>
