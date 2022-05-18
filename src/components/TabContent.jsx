@@ -1,6 +1,6 @@
 import React from 'react';
 
-function TabContent({ chosenTab }) {
+const TabContent = ({ chosenTab }) => {
   const tabContents = [];
   tabContents[0] = (
     <article>
@@ -80,6 +80,6 @@ function TabContent({ chosenTab }) {
   );
 
   return <>{tabContents[chosenTab]}</>;
-}
+};
 
 export default TabContent;

@@ -2,14 +2,14 @@
 import React from 'react';
 import styled from 'styled-components';
 
-function SellerButton({ iconSrc, children }) {
+const SellerButton = ({ iconSrc, children }) => {
   return (
     <Container>
       {iconSrc && <img src={iconSrc} />}
       {children}
     </Container>
   );
-}
+};
 
 export default SellerButton;
 

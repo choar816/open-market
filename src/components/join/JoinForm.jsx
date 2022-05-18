@@ -6,14 +6,14 @@ import InputPassword from '../input/InputPassword';
 import InputPhone from '../input/InputPhone';
 import InputWithBtn from '../input/InputWithBtn';
 
-function JoinForm({
+const JoinForm = ({
   userType,
   joinInfo,
   setJoinInfo,
   msgJoin,
   setMsgJoin,
   checkId,
-}) {
+}) => {
   const { id, pw, pwCheck, name } = joinInfo;
   const idRef = useRef(null);
 
@@ -62,13 +62,12 @@ function JoinForm({
       setMsgJoin({ ...msgJoin, pw: null });
       setIsPwValid(true);
     }
-  }
+  };
 
   const pwMatchCheck = () => {
     if (pw === pwCheck) {
       setMsgJoin({ ...msgJoin, pwCheck: null });
-      if (checkPwRegex(pwCheck))
-        setIsPwCheckValid(true);
+      if (checkPwRegex(pwCheck)) setIsPwCheckValid(true);
     } else {
       setMsgJoin({
         ...msgJoin,
@@ -79,7 +78,7 @@ function JoinForm({
       });
       setIsPwCheckValid(false);
     }
-  }
+  };
 
   const onBlurPw = () => {
     if (pw === '') {
@@ -89,8 +88,7 @@ function JoinForm({
     }
 
     pwRegexCheck();
-    if (pwCheck !== '')
-      pwMatchCheck();
+    if (pwCheck !== '') pwMatchCheck();
   };
 
   // pwCheck
@@ -245,6 +243,6 @@ function JoinForm({
       )}
     </div>
   );
-}
+};
 
 export default JoinForm;

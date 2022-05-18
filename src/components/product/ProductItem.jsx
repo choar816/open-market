@@ -1,7 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
 
-function ProductItem({ imgSrc, desc, title, price, onClick }) {
+const ProductItem = ({ imgSrc, desc, title, price, onClick }) => {
   return (
     <Container>
       <Img src={imgSrc} onClick={onClick} />
@@ -12,7 +12,7 @@ function ProductItem({ imgSrc, desc, title, price, onClick }) {
       </Price>
     </Container>
   );
-}
+};
 
 export default ProductItem;
 
@@ -64,7 +64,7 @@ const Title = styled.h2`
   font-weight: 400;
   cursor: pointer;
   &:hover {
-    color: #21BF48;
+    color: #21bf48;
   }
   @media screen and (max-width: 768px) {
     margin-top: 6px;

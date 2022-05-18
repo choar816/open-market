@@ -5,7 +5,7 @@ import ProductDetail from './ProductDetail';
 import { useParams } from 'react-router-dom';
 import ErrorMessage from '../ErrorMessage';
 
-function ProductInfo() {
+const ProductInfo = () => {
   const params = useParams();
   const [productData, setProductData] = useState(null);
 
@@ -44,7 +44,7 @@ function ProductInfo() {
       )}
     </Container>
   );
-}
+};
 
 export default ProductInfo;
 

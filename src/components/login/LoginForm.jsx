@@ -5,7 +5,7 @@ import InputText from '../input/InputText';
 import ColorButton from '../button/ColorButton';
 import regeneratorRuntime from 'regenerator-runtime';
 
-function LoginForm({ userType }) {
+const LoginForm = ({ userType }) => {
   const navigate = useNavigate();
   const idRef = useRef();
   const pwRef = useRef();
@@ -90,7 +90,7 @@ function LoginForm({ userType }) {
       <ColorButton onClick={checkLogin}>로그인</ColorButton>
     </Container>
   );
-}
+};
 
 export default LoginForm;
 

@@ -1,16 +1,13 @@
 import React from 'react';
 import styled from 'styled-components';
 
-function DropdownPhone({ isOn, toggleIsOn, onSelect }) {
+const DropdownPhone = ({ isOn, toggleIsOn, onSelect }) => {
   const onClick = (e) => {
     onSelect(e);
     toggleIsOn();
-  }
+  };
   return (
-    <Container
-      isOn={isOn}
-      onClick={onClick}
-    >
+    <Container isOn={isOn} onClick={onClick}>
       <Item>010</Item>
       <Item>011</Item>
       <Item>016</Item>
@@ -19,7 +16,7 @@ function DropdownPhone({ isOn, toggleIsOn, onSelect }) {
       <Item>019</Item>
     </Container>
   );
-}
+};
 
 export default DropdownPhone;
 

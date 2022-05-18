@@ -4,7 +4,7 @@ import DropdownPhone from './DropdownPhone';
 import IconDown from '../../../public/assets/icon-down-arrow.svg';
 import IconUp from '../../../public/assets/icon-up-arrow.svg';
 
-function SelectBox({ phoneFirst, onSelect }) {
+const SelectBox = ({ phoneFirst, onSelect }) => {
   const [isOn, setIsOn] = useState(false);
   const toggleIsOn = () => {
     setIsOn(!isOn);
@@ -15,14 +15,10 @@ function SelectBox({ phoneFirst, onSelect }) {
       <Button onClick={toggleIsOn} isOn={isOn}>
         {phoneFirst}
       </Button>
-      <DropdownPhone
-        isOn={isOn}
-        toggleIsOn={toggleIsOn}
-        onSelect={onSelect}
-      />
+      <DropdownPhone isOn={isOn} toggleIsOn={toggleIsOn} onSelect={onSelect} />
     </Container>
   );
-}
+};
 
 export default SelectBox;
 

@@ -58,7 +58,7 @@ const lowerList = [
 
 function onSocialClick(url) {}
 
-function Footer() {
+const Footer = () => {
   return (
     <Container>
       <UpperContainer>
@@ -85,7 +85,7 @@ function Footer() {
       </LowerContainer>
     </Container>
   );
-}
+};
 
 export default Footer;
 

@@ -5,7 +5,7 @@ import LoginForm from '../components/login/LoginForm';
 import LoginFooter from '../components/login/LoginFooter';
 import { useNavigate } from 'react-router-dom';
 
-function LoginPage() {
+const LoginPage = () => {
   const navigate = useNavigate();
   const [userType, setUserType] = useState('BUYER');
 
@@ -14,12 +14,8 @@ function LoginPage() {
       <img src={ImgLogo} />
       <FormContainer>
         <FormType selected={userType}>
-          <button onClick={() => setUserType('BUYER')}>
-            구매회원 로그인
-          </button>
-          <button onClick={() => setUserType('SELLER')}>
-            판매회원 로그인
-          </button>
+          <button onClick={() => setUserType('BUYER')}>구매회원 로그인</button>
+          <button onClick={() => setUserType('SELLER')}>판매회원 로그인</button>
         </FormType>
         <FormContent>
           <LoginForm userType={userType} />
@@ -28,7 +24,7 @@ function LoginPage() {
       <LoginFooter goToJoin={() => navigate('/join')} />
     </Container>
   );
-}
+};
 
 export default LoginPage;
 

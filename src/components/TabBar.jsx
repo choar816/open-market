@@ -16,7 +16,7 @@ const TabBar = ({ tabList, chosenTab, setChosenTab }) => {
       ))}
     </Container>
   );
-}
+};
 
 export default TabBar;
 

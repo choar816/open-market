@@ -5,7 +5,7 @@ import Carousel from '../components/Carousel';
 import ProductList from '../components/product/ProductList';
 import Footer from '../components/Footer';
 
-function MainPage() {
+const MainPage = () => {
   return (
     <Container>
       <Header />
@@ -13,8 +13,8 @@ function MainPage() {
       <ProductList />
       <Footer />
     </Container>
-  )
-}
+  );
+};
 
 export default MainPage;
 

@@ -1,13 +1,13 @@
 import React from 'react';
 import styled from 'styled-components';
 
-function ColorButton({ width, size, color, onClick, children }) {
+const ColorButton = ({ width, size, color, onClick, children }) => {
   return (
     <Container width={width} size={size} color={color} onClick={onClick}>
       {children}
     </Container>
   );
-}
+};
 
 export default ColorButton;
 

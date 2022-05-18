@@ -3,7 +3,7 @@ import styled from 'styled-components';
 import InputBox from './InputBox';
 import Message from './Message';
 
-function InputEmail({ ...props }) {
+const InputEmail = (props) => {
   const { title, msgInfo, email, handleChangeEmail } = props;
 
   return (
@@ -29,7 +29,7 @@ function InputEmail({ ...props }) {
       )}
     </Container>
   );
-}
+};
 
 export default InputEmail;
 

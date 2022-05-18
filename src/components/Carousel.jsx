@@ -32,7 +32,7 @@ const carouselImgs = [
   },
 ];
 
-function Carousel() {
+const Carousel = () => {
   const [activeIdx, setActiveIdx] = useState(0);
 
   function changeImg(idx) {
@@ -51,17 +51,21 @@ function Carousel() {
           <CarouselIndicator key={idx} onClick={() => changeImg(idx)} />
         ))}
       </IndicatorContainer>
-      <ButtonPrev onClick={() => {
-        if (activeIdx === 0) return;
-        setActiveIdx(activeIdx - 1)
-      }}/>
-      <ButtonNext onClick={() => {
-        if (activeIdx === carouselImgs.length - 1) return;
-        setActiveIdx(activeIdx + 1)
-      }}/>
+      <ButtonPrev
+        onClick={() => {
+          if (activeIdx === 0) return;
+          setActiveIdx(activeIdx - 1);
+        }}
+      />
+      <ButtonNext
+        onClick={() => {
+          if (activeIdx === carouselImgs.length - 1) return;
+          setActiveIdx(activeIdx + 1);
+        }}
+      />
     </Container>
   );
-}
+};
 
 export default Carousel;
 
@@ -88,7 +92,7 @@ const ImageContainer = styled.section`
   height: 500px;
   display: flex;
   transition: all 1s;
-  transform: ${(props) => `translateX(calc(-${props.activeIdx} * 100%))`}
+  transform: ${(props) => `translateX(calc(-${props.activeIdx} * 100%))`};
 `;
 
 const Image = styled.div`
@@ -98,7 +102,7 @@ const Image = styled.div`
   background-size: cover;
   background-position: center center;
   flex-shrink: 0;
-  
+
   @media screen and (max-width: 768px) {
     height: 300px;
   }
@@ -114,7 +118,7 @@ const Button = styled.button`
   opacity: 0.3;
   background: none;
   background-size: cover;
-  transition: opacity .5s;
+  transition: opacity 0.5s;
   &:hover {
     opacity: 0.5;
   }
@@ -135,8 +139,8 @@ const IndicatorContainer = styled.article`
   left: 50%;
   transform: translateX(-50%);
   bottom: 30px;
-  
-  button:nth-child(${props => props.activeIdx + 1}) {
+
+  button:nth-child(${(props) => props.activeIdx + 1}) {
     background-color: rgba(255, 255, 255, 0.8);
   }
 `;

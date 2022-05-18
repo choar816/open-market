@@ -4,7 +4,7 @@ import ImgMinus from '../../public/assets/icon-minus-line.svg';
 import ImgPlus from '../../public/assets/icon-plus-line.svg';
 import ImgPlusDisabled from '../../public/assets/icon-plus-line-disabled.svg';
 
-function AmountPicker({ amount, stock, onIncrease, onDecrease }) {
+const AmountPicker = ({ amount, stock, onIncrease, onDecrease }) => {
   const [isLimit, setIsLimit] = useState(amount === stock);
   useEffect(() => {
     if (amount >= stock) setIsLimit(true);
@@ -22,7 +22,7 @@ function AmountPicker({ amount, stock, onIncrease, onDecrease }) {
       )}
     </Container>
   );
-}
+};
 
 export default AmountPicker;
 

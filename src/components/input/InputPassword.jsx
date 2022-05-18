@@ -3,7 +3,7 @@ import styled from 'styled-components';
 import InputBox from './InputBox';
 import Message from './Message';
 
-function InputPassword({ isValid, ...props }) {
+const InputPassword = ({ isValid, ...props }) => {
   const { title, msgInfo } = props;
 
   return (
@@ -15,7 +15,7 @@ function InputPassword({ isValid, ...props }) {
       )}
     </Container>
   );
-}
+};
 
 export default InputPassword;
 

@@ -1,7 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
 
-function SideBar() {
+const SideBar = () => {
   return (
     <Container>
       <Button chosen>판매중인 상품</Button>
@@ -10,8 +10,8 @@ function SideBar() {
       <Button>통계</Button>
       <Button>스토어 설정</Button>
     </Container>
-  )
-}
+  );
+};
 
 export default SideBar;
 
@@ -24,11 +24,13 @@ const Button = styled.button`
   padding: 15px 20px;
   font-size: 16px;
   line-height: 20px;
-  color: #FFFFFF;
-  background-color: #21BF48;
+  color: #ffffff;
+  background-color: #21bf48;
   border: none;
   border-radius: 5px;
-  ${({ chosen }) => !chosen && `
+  ${({ chosen }) =>
+    !chosen &&
+    `
     color: #000000;
     background-color: #FFFFFF;
     &:hover {
@@ -38,7 +40,9 @@ const Button = styled.button`
   & + button {
     margin-top: 10px;
   }
-  ${({num}) => num && `
+  ${({ num }) =>
+    num &&
+    `
     &::after {
       content: '${num}';
       font-size: 12px;

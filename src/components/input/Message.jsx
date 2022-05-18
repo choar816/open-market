@@ -1,9 +1,9 @@
 import React from 'react';
 import styled from 'styled-components';
 
-function Message({ msgColor, msgContent }) {
+const Message = ({ msgColor, msgContent }) => {
   return <Paragraph msgColor={msgColor}>{msgContent}</Paragraph>;
-}
+};
 
 export default Message;
 

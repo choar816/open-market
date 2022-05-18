@@ -1,14 +1,14 @@
 import React from 'react';
 import styled from 'styled-components';
 
-function ColorIconButton({ iconSrc, children }) {
+const ColorIconButton = ({ iconSrc, children }) => {
   return (
     <Container>
       {iconSrc && <img src={iconSrc} />}
       {children}
     </Container>
   );
-}
+};
 
 export default ColorIconButton;
 

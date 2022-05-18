@@ -1,14 +1,14 @@
 import React from 'react';
 import styled from 'styled-components';
 
-function IconButton({ onClick, src, children }) {
+const IconButton = ({ onClick, src, children }) => {
   return (
     <Container onClick={onClick}>
       <img src={src}></img>
       <p>{children}</p>
     </Container>
-  )
-}
+  );
+};
 
 const Container = styled.article`
   display: flex;

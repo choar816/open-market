@@ -4,7 +4,7 @@ import styled from 'styled-components';
 import ProductItem from './ProductItem';
 import ErrorMessage from '../ErrorMessage';
 
-function ProductList() {
+const ProductList = () => {
   const navigate = useNavigate();
   const [products, setProducts] = useState([]);
 
@@ -50,7 +50,7 @@ function ProductList() {
       )}
     </>
   );
-}
+};
 
 export default ProductList;
 

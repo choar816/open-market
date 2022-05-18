@@ -4,7 +4,7 @@ import Header from '../components/Header';
 import Footer from '../components/Footer';
 import ProductInfo from '../components/product/ProductInfo';
 
-function ProductPage() {
+const ProductPage = () => {
   useEffect(() => window.scrollTo(0, 0), []);
   return (
     <Container>
@@ -12,8 +12,8 @@ function ProductPage() {
       <ProductInfo />
       <Footer />
     </Container>
-  )
-}
+  );
+};
 
 export default ProductPage;
 

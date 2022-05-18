@@ -9,7 +9,7 @@ import ImgBag from '../../public/assets/icon-shopping-bag.svg';
 import { useNavigate } from 'react-router-dom';
 import SellerButton from './button/SellerButton';
 
-function Header() {
+const Header = () => {
   const navigate = useNavigate();
   const [showMenu, setShowMenu] = useState(false);
   const isSeller = localStorage.getItem('userType') === 'SELLER' ? true : false;
@@ -55,7 +55,7 @@ function Header() {
       </SubContainer>
     </Container>
   );
-}
+};
 
 export default Header;
 

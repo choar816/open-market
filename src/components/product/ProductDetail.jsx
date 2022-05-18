@@ -3,7 +3,7 @@ import styled from 'styled-components';
 import TabBar from '../TabBar';
 import TabContent from '../TabContent';
 
-function ProductDetail() {
+const ProductDetail = () => {
   const [chosenTab, setChosenTab] = useState(0);
   const tabList = ['상세정보', '리뷰', 'Q&A', '반품/교환정보'];
 
@@ -14,9 +14,9 @@ function ProductDetail() {
         chosenTab={chosenTab}
         setChosenTab={setChosenTab}
       />
-      <TabContent chosenTab={chosenTab}/>
+      <TabContent chosenTab={chosenTab} />
     </section>
   );
-}
+};
 
 export default ProductDetail;

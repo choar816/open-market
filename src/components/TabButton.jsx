@@ -18,7 +18,9 @@ const Button = styled.button`
   border: none;
   border-bottom: 6px solid #21bf48;
 
-  ${({ chosen }) => !chosen && `
+  ${({ chosen }) =>
+    !chosen &&
+    `
     font-weight: 500;
     color: #767676;
     border-bottom: 6px solid #E0E0E0;

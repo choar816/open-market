@@ -4,7 +4,7 @@ import InputBox from './InputBox';
 import Message from './Message';
 import SelectBox from './SelectBox';
 
-function InputPhone({ ...props }) {
+const InputPhone = (props) => {
   const { title, msgInfo, phone, setPhone, handleChangePhone } = props;
 
   const onSelect = (e) => {
@@ -41,7 +41,7 @@ function InputPhone({ ...props }) {
       )}
     </Container>
   );
-}
+};
 
 export default InputPhone;
 

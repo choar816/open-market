@@ -2,14 +2,14 @@ import React from 'react';
 import styled from 'styled-components';
 import IconSearch from '../../public/assets/icon-search.svg';
 
-function SearchBar() {
+const SearchBar = () => {
   return (
     <Container>
       <input type="text" placeholder="상품을 검색해보세요!" />
       <button />
     </Container>
   );
-}
+};
 
 export default SearchBar;
 
@@ -22,7 +22,7 @@ const Container = styled.article`
   flex-grow: 1;
   border: 2px solid #21bf48;
   border-radius: 50px;
-  
+
   input {
     width: 100%;
     font-size: 16px;

@@ -3,7 +3,7 @@ import styled from 'styled-components';
 import InputBox from './InputBox';
 import Message from './Message';
 
-function InputName({ ...props }) {
+const InputName = (props) => {
   const { title, msgInfo } = props;
 
   return (
@@ -15,7 +15,7 @@ function InputName({ ...props }) {
       )}
     </Container>
   );
-}
+};
 
 export default InputName;
 

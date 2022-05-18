@@ -8,7 +8,7 @@ import NotFoundPage from './pages/NotFoundPage';
 import TestPage from './pages/TestPage';
 import { Routes, Route } from 'react-router-dom';
 
-function App() {
+const App = () => {
   return (
     <Routes>
       <Route path="/" element={<MainPage />} />
@@ -18,6 +18,6 @@ function App() {
       <Route path="*" element={<NotFoundPage />} />
     </Routes>
   );
-}
+};
 
 export default App;

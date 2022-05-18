@@ -1,9 +1,9 @@
 import React from 'react';
 import styled from 'styled-components';
 
-function CarouselIndicator({ onClick }) {
+const CarouselIndicator = ({ onClick }) => {
   return <Button onClick={onClick} />;
-}
+};
 
 export default CarouselIndicator;
 
@@ -13,7 +13,7 @@ const Button = styled.button`
   border: none;
   border-radius: 50%;
   background-color: rgba(255, 255, 255, 0.5);
-  transition: background-color .5s;
+  transition: background-color 0.5s;
 
   &:hover {
     background-color: rgba(255, 255, 255, 0.8);

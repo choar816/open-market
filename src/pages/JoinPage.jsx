@@ -6,7 +6,7 @@ import JoinForm from '../components/join/JoinForm';
 import JoinFooter from '../components/join/JoinFooter';
 import { useNavigate } from 'react-router-dom';
 
-function JoinPage() {
+const JoinPage = () => {
   const navigate = useNavigate();
   const [userType, setUserType] = useState('BUYER');
 
@@ -264,7 +264,7 @@ function JoinPage() {
       />
     </Container>
   );
-}
+};
 
 export default JoinPage;
 
