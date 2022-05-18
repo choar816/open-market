@@ -1,12 +1,12 @@
-import React, { useState } from 'react';
+import React from 'react';
 import styled from 'styled-components';
 import ColorButton from '../button/ColorButton';
 
-const TermModal = ({ isOn, setIsOn, title, content }) => {
+const TermModal = ({ setIsOn, title, content }) => {
   return (
     <>
-      <Background on={isOn} onClick={() => setIsOn(false)} />
-      <ModalContainer on={isOn}>
+      <Background onClick={() => setIsOn(false)} />
+      <ModalContainer>
         <Title>{title}</Title>
         <TermContainer>{content}</TermContainer>
         <ColorButton size="M" onClick={() => setIsOn(false)}>
@@ -20,7 +20,7 @@ const TermModal = ({ isOn, setIsOn, title, content }) => {
 export default TermModal;
 
 const Background = styled.section`
-  display: ${({ on }) => (on ? 'block' : 'none')};
+  display: block;
   width: 100vw;
   height: 100vh;
   position: fixed;
@@ -31,7 +31,7 @@ const Background = styled.section`
 `;
 
 const ModalContainer = styled.section`
-  display: ${({ on }) => (on ? 'flex' : 'none')};
+  display: flex;
   position: fixed;
   top: 50%;
   left: 50%;
