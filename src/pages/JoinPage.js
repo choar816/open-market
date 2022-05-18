@@ -1,10 +1,10 @@
 import React, { useEffect, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
 import { checkIdRegex } from '../util/regex';
 import ImgLogo from '../../public/assets/Logo-hodu.png';
 import JoinForm from '../components/join/JoinForm';
 import JoinFooter from '../components/join/JoinFooter';
-import { useNavigate } from 'react-router-dom';
 
 const JoinPage = () => {
   const navigate = useNavigate();
@@ -239,7 +239,7 @@ const JoinPage = () => {
 
   return (
     <Container>
-      <img src={ImgLogo} />
+      <Img src={ImgLogo} onClick={() => navigate('/')} />
       <FormContainer>
         <FormType selected={userType}>
           <button onClick={() => setUserType('BUYER')}>구매회원가입</button>
@@ -278,6 +278,10 @@ const Container = styled.div`
   & > img {
     width: 230px;
   }
+`;
+
+const Img = styled.img`
+  cursor: pointer;
 `;
 
 const FormContainer = styled.section`

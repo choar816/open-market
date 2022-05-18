@@ -1,15 +1,17 @@
 import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
 import ImgLogo from '../../public/assets/Logo-hodu.png';
 import LoginForm from '../components/login/LoginForm';
 import LoginFooter from '../components/login/LoginFooter';
 
 const LoginPage = () => {
+  const navigate = useNavigate();
   const [userType, setUserType] = useState('BUYER');
 
   return (
     <Container>
-      <img src={ImgLogo} />
+      <Img src={ImgLogo} onClick={() => navigate('/')} />
       <FormContainer>
         <FormType selected={userType}>
           <button onClick={() => setUserType('BUYER')}>구매회원 로그인</button>
@@ -36,6 +38,10 @@ const Container = styled.div`
   & > img {
     width: 230px;
   }
+`;
+
+const Img = styled.img`
+  cursor: pointer;
 `;
 
 const FormContainer = styled.section`
