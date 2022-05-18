@@ -1,62 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
-import imgInsta from '../../public/assets/icon-insta.svg';
-import imgFacebook from '../../public/assets/icon-fb.svg';
-import imgYoutube from '../../public/assets/icon-yt.svg';
-
-const links = [
-  {
-    link: '호두샵 소개',
-    url: 'https://choar816.github.io/intro-choar/',
-  },
-  {
-    link: '이용약관',
-    url: 'https://choar816.github.io/intro-choar/',
-  },
-  {
-    link: '개인정보처리방침',
-    url: 'https://choar816.github.io/intro-choar/',
-  },
-  {
-    link: '전자금융거래약관',
-    url: 'https://choar816.github.io/intro-choar/',
-  },
-  {
-    link: '청소년보호정책',
-    url: 'https://choar816.github.io/intro-choar/',
-  },
-  {
-    link: '제휴문의',
-    url: 'https://choar816.github.io/intro-choar/',
-  },
-];
-
-const socials = [
-  {
-    type: 'instagram',
-    imgSrc: imgInsta,
-    url: 'https://www.instagram.com/',
-  },
-  {
-    type: 'facebook',
-    imgSrc: imgFacebook,
-    url: 'https://www.facebook.com/',
-  },
-  {
-    type: 'youtube',
-    imgSrc: imgYoutube,
-    url: 'https://www.youtube.com/',
-  },
-];
-
-const lowerList = [
-  '(주)HODU SHOP',
-  '제주특별자치도 제주시 동광고 137 제주코딩베이스캠프',
-  '사업자 번호 : 000-0000-0000 | 통신판매업',
-  '대표 : 김호두',
-];
-
-function onSocialClick(url) {}
+import { links, socials, companyInfo } from '../util/footerData';
 
 const Footer = () => {
   return (
@@ -65,24 +9,29 @@ const Footer = () => {
         <LinkContainer>
           {links.map((item, idx) => (
             <li key={idx}>
-              <a href={item.url}>{item.link}</a>
+              <a href={item.url} target="_blank">
+                {item.desc}
+              </a>
             </li>
           ))}
         </LinkContainer>
         <SocialContainer>
           {socials.map((item, idx) => (
             <li key={idx}>
-              <Button imgSrc={item.imgSrc} />
+              <Button
+                imgSrc={item.imgSrc}
+                onClick={() => window.open(item.url, '_blank')}
+              />
             </li>
           ))}
         </SocialContainer>
       </UpperContainer>
       <Divider />
-      <LowerContainer>
-        {lowerList.map((item, idx) => (
+      <InfoContainer>
+        {companyInfo.map((item, idx) => (
           <li key={idx}>{item}</li>
         ))}
-      </LowerContainer>
+      </InfoContainer>
     </Container>
   );
 };
@@ -166,7 +115,7 @@ const Divider = styled.div`
   }
 `;
 
-const LowerContainer = styled.ul`
+const InfoContainer = styled.ul`
   display: flex;
   flex-direction: column;
   li {
