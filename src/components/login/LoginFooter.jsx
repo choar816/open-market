@@ -1,11 +1,13 @@
 import React from 'react';
 import styled from 'styled-components';
-import { Link } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 
-const LoginFooter = ({ goToJoin }) => {
+const LoginFooter = () => {
+  const navigate = useNavigate();
+
   return (
     <Container>
-      <li onClick={goToJoin}>
+      <li onClick={() => navigate('/join')}>
         <a>회원가입</a>
       </li>
       <li>

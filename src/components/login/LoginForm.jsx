@@ -1,12 +1,10 @@
 import React, { useState, useRef } from 'react';
-import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
 import InputText from '../input/InputText';
 import ColorButton from '../button/ColorButton';
 import regeneratorRuntime from 'regenerator-runtime';
 
 const LoginForm = ({ userType }) => {
-  const navigate = useNavigate();
   const idRef = useRef();
   const pwRef = useRef();
 

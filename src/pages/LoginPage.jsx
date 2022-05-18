@@ -3,10 +3,8 @@ import styled from 'styled-components';
 import ImgLogo from '../../public/assets/Logo-hodu.png';
 import LoginForm from '../components/login/LoginForm';
 import LoginFooter from '../components/login/LoginFooter';
-import { useNavigate } from 'react-router-dom';
 
 const LoginPage = () => {
-  const navigate = useNavigate();
   const [userType, setUserType] = useState('BUYER');
 
   return (
@@ -21,7 +19,7 @@ const LoginPage = () => {
           <LoginForm userType={userType} />
         </FormContent>
       </FormContainer>
-      <LoginFooter goToJoin={() => navigate('/join')} />
+      <LoginFooter />
     </Container>
   );
 };
