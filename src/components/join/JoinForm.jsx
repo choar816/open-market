@@ -1,15 +1,10 @@
 import React, { useEffect, useRef, useState } from 'react';
+import { checkIdRegex, checkPwRegex } from '../../util/regex';
 import InputEmail from '../input/InputEmail';
 import InputName from '../input/InputName';
 import InputPassword from '../input/InputPassword';
 import InputPhone from '../input/InputPhone';
 import InputWithBtn from '../input/InputWithBtn';
-
-const checkPwRegex = (pw) => {
-  const pwRegex =
-    /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[#?!@$%^&*-])[A-Za-z\d#?!@$%^&*-]{8,}$/;
-  return pwRegex.test(pw);
-};
 
 function JoinForm({
   userType,
@@ -18,7 +13,6 @@ function JoinForm({
   msgJoin,
   setMsgJoin,
   checkId,
-  checkIdRegex,
 }) {
   const { id, pw, pwCheck, name } = joinInfo;
   const idRef = useRef(null);

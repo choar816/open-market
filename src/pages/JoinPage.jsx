@@ -1,14 +1,10 @@
 import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
+import { checkIdRegex } from '../util/regex';
 import ImgLogo from '../../public/assets/Logo-hodu.png';
 import JoinForm from '../components/join/JoinForm';
 import JoinFooter from '../components/join/JoinFooter';
 import { useNavigate } from 'react-router-dom';
-
-const checkIdRegex = (id) => {
-  const idRegex = /^[a-zA-Z0-9]{1,20}$/;
-  return idRegex.test(id);
-};
 
 function JoinPage() {
   const navigate = useNavigate();
@@ -257,7 +253,6 @@ function JoinPage() {
             msgJoin={msgJoin}
             setMsgJoin={setMsgJoin}
             checkId={checkId}
-            checkIdRegex={checkIdRegex}
           />
         </FormContent>
       </FormContainer>

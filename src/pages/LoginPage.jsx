@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import styled from 'styled-components';
 import ImgLogo from '../../public/assets/Logo-hodu.png';
 import LoginForm from '../components/login/LoginForm';
