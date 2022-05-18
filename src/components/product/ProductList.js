@@ -3,9 +3,11 @@ import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
 import ProductItem from './ProductItem';
 import ErrorMessage from '../ErrorMessage';
+import Loading from '../Loading';
 
 const ProductList = () => {
   const navigate = useNavigate();
+  const [loading, setLoading] = useState(true);
   const [products, setProducts] = useState([]);
 
   const getProducts = async () => {
@@ -20,7 +22,10 @@ const ProductList = () => {
         if (!res.ok) throw new Error('http 에러');
         return res.json();
       })
-      .then((data) => setProducts(data.results))
+      .then((data) => {
+        setProducts(data.results);
+        setLoading(false);
+      })
       .catch((e) => alert(e.message));
   };
 
@@ -30,7 +35,9 @@ const ProductList = () => {
 
   return (
     <>
-      {products.length === 0 ? (
+      {loading ? (
+        <Loading />
+      ) : products.length === 0 ? (
         <ErrorMessage emoji="😭" message="등록된 상품이 없어요!" />
       ) : (
         <Container>

@@ -4,9 +4,11 @@ import ProductSummary from './ProductSummary';
 import ProductDetail from './ProductDetail';
 import { useParams } from 'react-router-dom';
 import ErrorMessage from '../ErrorMessage';
+import Loading from '../Loading';
 
 const ProductInfo = () => {
   const params = useParams();
+  const [loading, setLoading] = useState(true);
   const [productData, setProductData] = useState(null);
 
   const getProductInfo = async () => {
@@ -18,10 +20,13 @@ const ProductInfo = () => {
       },
     })
       .then((res) => {
-        if (!res.ok) throw new Error('http 에러');
+        // if (!res.ok) throw new Error('http 에러');
         return res.json();
       })
-      .then((data) => setProductData(data))
+      .then((data) => {
+        setProductData(data);
+        setLoading(false);
+      })
       .catch((e) => alert(e.message));
   };
 
@@ -31,7 +36,9 @@ const ProductInfo = () => {
 
   return (
     <Container>
-      {!productData || productData.detail === '찾을 수 없습니다.' ? (
+      {loading ? (
+        <Loading />
+      ) : !productData || productData.detail === '찾을 수 없습니다.' ? (
         <ErrorMessage emoji="😶‍🌫️" message="해당 상품은 존재하지 않습니다." />
       ) : (
         <>
