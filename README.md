@@ -9,12 +9,13 @@
 `React`, `JavaScript`, `React Router`
 
 ## To do
-- [x] 반응형 레이아웃 구현 (MainPage)
+- [x] 반응형 레이아웃 구현 (MainPage, Header, Footer)
 - [x] Image Carousel 직접 구현
 - [x] 로그인 기능 (API 연동)
 - [ ] 회원가입 기능 (API 연동)
 - [x] 상품 목록 페이지 구현 (API 연동)
 - [x] 상품 상세 페이지 구현 (API 연동)
+- [ ] 장바구니 페이지 구현 (API 연동)
 
 ## Available Scripts
 프로젝트 폴더 내에서 실행 가능한 명령어입니다.
@@ -28,4 +29,8 @@
 
 - 샘플 회원 id & pw
   - (구매회원) id: buyer1, pw: hodu0910
+  - (구매회원) id: buyer2, pw: hodu0910
+  - (구매회원) id: buyer3, pw: hodu0910
   - (판매회원) id: seller1, pw: hodu0910
+  - (판매회원) id: seller2, pw: hodu0910
+  - (판매회원) id: seller3, pw: hodu0910
