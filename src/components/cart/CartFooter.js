@@ -3,18 +3,19 @@ import styled from 'styled-components';
 import ColorButton from '../button/ColorButton';
 import IconPlus from '../../../public/assets/icon-circle-plus.svg';
 import IconMinus from '../../../public/assets/icon-circle-minus.svg';
+import TextPrice from './TextPrice';
 
 const CartFooter = () => {
   return (
     <Container>
       <PriceContainer>
-        <div>price1</div>
+        <TextPrice title={'총 상품금액'} price={46500} />
         <img src={IconMinus} />
-        <div>price2</div>
+        <TextPrice title={'상품 할인'} price={0} />
         <img src={IconPlus} />
-        <div>price3</div>
+        <TextPrice title={'배송비'} price={0} />
         <div></div>
-        <div>price4</div>
+        <TextPrice title={'결제 예정 금액'} price={46500} color={'red'} />
       </PriceContainer>
       <ColorButton size={'L'} width={'220px'}>
         주문하기

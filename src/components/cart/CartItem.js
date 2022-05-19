@@ -1,34 +1,30 @@
 import React from 'react';
 import styled from 'styled-components';
-import AmountPicker from '../AmountPicker';
 import IconOn from '../../../public/assets/check-circle-on.svg';
 import IconOff from '../../../public/assets/check-circle-off.svg';
 
 const CartItem = () => {
-  const store_name = "백엔드글로벌";
-  const item_name='딥러닝 개발자 무릎 담요';
-  const item_price=17500;
-  const shipping_method='PARCEL';
-  const shipping_fee=0;
+  const store_name = '백엔드글로벌';
+  const item_name = '딥러닝 개발자 무릎 담요';
+  const item_price = 17500;
+  const shipping_method = 'PARCEL';
+  const shipping_fee = 0;
+
   return (
     <Container>
       <CheckboxContainer>
         <Checkbox type="checkbox" id="checkAll" onChange={() => setAll(!all)} />
         <label htmlFor="checkAll" />
       </CheckboxContainer>
-      <ItemImg/>
+      <ItemImg />
       <ItemInfoContainer>
         {shipping_method === 'PARCEL' ? '소포' : '택배'}배송 /{' '}
         {shipping_fee === 0
           ? '무료배송'
           : `${shipping_fee.toLocaleString('ko-KR')}원`}
       </ItemInfoContainer>
-      <AmountContainer>
-
-      </AmountContainer>
-      <PriceContainer>
-
-      </PriceContainer>
+      <AmountContainer></AmountContainer>
+      <PriceContainer></PriceContainer>
     </Container>
   );
 };
