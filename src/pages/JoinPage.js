@@ -35,6 +35,8 @@ const JoinPage = () => {
   const [canJoin, setCanJoin] = useState(false);
   const [termCheck, setTermCheck] = useState(false);
 
+  // 회원가입 버튼 활성화 여부를 판단하기 위한 변수들
+
   // true -> inputs' lengths are valid
   const checkInputLengthBuyer = !(
     joinInfo.id.length === 0 ||
@@ -47,13 +49,14 @@ const JoinPage = () => {
   const checkInputLengthSeller =
     checkInputLengthBuyer &&
     !(joinInfo.sellerNum.length === 0 || joinInfo.storeName.length === 0);
+  const [isIdDuplicated, setIsIdDuplicated] = useState('true');
 
   useEffect(() => {
     if (userType === 'SELLER') {
-      if (checkInputLengthSeller && termCheck) setCanJoin(true);
+      if (termCheck && !isIdDuplicated && checkInputLengthSeller) setCanJoin(true);
       else setCanJoin(false);
     } else if (userType === 'BUYER') {
-      if (checkInputLengthBuyer && termCheck) setCanJoin(true);
+      if (termCheck && !isIdDuplicated && checkInputLengthBuyer) setCanJoin(true);
       else setCanJoin(false);
     }
   }, [...Object.values(joinInfo), termCheck]);
@@ -86,7 +89,7 @@ const JoinPage = () => {
       }),
     })
       .then((res) => {
-        if (!res.ok) throw new Error('http 에러');
+        // if (!res.ok) throw new Error('http 에러');
         return res.json();
       })
       .then((data) => {
@@ -99,6 +102,7 @@ const JoinPage = () => {
             },
           });
         } else {
+          setIsIdDuplicated(false);
           setMsgJoin({
             ...msgJoin,
             id: {
@@ -127,7 +131,7 @@ const JoinPage = () => {
       }),
     })
       .then((res) => {
-        if (!res.ok) throw new Error('http 에러');
+        // if (!res.ok) throw new Error('http 에러');
         return res.json();
       })
       .then((data) => {
@@ -154,7 +158,7 @@ const JoinPage = () => {
       }),
     })
       .then((res) => {
-        if (!res.ok) throw new Error('http 에러');
+        // if (!res.ok) throw new Error('http 에러');
         return res.json();
       })
       .then((data) => {
