@@ -12,10 +12,8 @@ const CartItem = () => {
 
   return (
     <Container>
-      <CheckboxContainer>
-        <Checkbox type="checkbox" id="checkAll" onChange={() => setAll(!all)} />
-        <label htmlFor="checkAll" />
-      </CheckboxContainer>
+      <Checkbox type="checkbox" id="checkItem" />
+      <label htmlFor="checkItem" />
       <ItemImg />
       <ItemInfoContainer>
         {shipping_method === 'PARCEL' ? '소포' : '택배'}배송 /{' '}
@@ -32,12 +30,13 @@ const CartItem = () => {
 export default CartItem;
 
 const Container = styled.article`
-  width: 1280px;
   display: flex;
   border: 2px solid #e0e0e0;
+  border-radius: 10px;
+  width: 1280px;
+  padding-top: 20px;
+  padding-bottom: 20px;
 `;
-
-const CheckboxContainer = styled.div``;
 
 const ItemInfoContainer = styled.div``;
 
@@ -48,10 +47,9 @@ const PriceContainer = styled.div``;
 const Checkbox = styled.input`
   display: none;
   & + label {
-    width: 17px;
-    height: 16px;
-    margin-top: 1px;
-    background: url(${IconOn}) center/16px 16px;
+    width: 20px;
+    height: 20px;
+    background: url(${IconOn}) center/20px 20px;
   }
   &:checked + label {
     background-image: url(${IconOff});
