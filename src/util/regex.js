@@ -8,3 +8,8 @@ export const checkPwRegex = (pw) => {
     /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[#?!@$%^&*-])[A-Za-z\d#?!@$%^&*-]{8,}$/;
   return pwRegex.test(pw);
 };
+
+export const checkEmailRegex = (email) => {
+  const emailRegex = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
+  return emailRegex.test(email);
+};

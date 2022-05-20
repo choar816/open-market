@@ -6,7 +6,7 @@ import ColorButton from '../button/ColorButton';
 import IconUnchecked from '../../../public/assets/check-box.svg';
 import IconChecked from '../../../public/assets/check-fill-box.svg';
 
-const JoinFooter = ({ onJoinClick, canJoin, termCheck, setTermCheck }) => {
+const JoinFooter = ({ onJoinClick, canPushJoin, termCheck, setTermCheck }) => {
   const [modalOn, setModalOn] = useState(false);
   const [modalIdx, setModalIdx] = useState();
 
@@ -43,8 +43,8 @@ const JoinFooter = ({ onJoinClick, canJoin, termCheck, setTermCheck }) => {
           </p>
         </div>
         <ColorButton
-          color={canJoin ? 'green' : 'gray'}
-          onClick={canJoin ? onJoinClick : () => {}}
+          color={canPushJoin ? 'green' : 'gray'}
+          onClick={canPushJoin ? onJoinClick : () => {}}
         >
           가입하기
         </ColorButton>
