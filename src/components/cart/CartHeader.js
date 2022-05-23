@@ -6,10 +6,8 @@ import IconOff from '../../../public/assets/check-circle-off.svg';
 const CartHeader = ({ all, setAll }) => {
   return (
     <Container>
-      <CheckboxContainer>
-        <Checkbox type="checkbox" id="checkAll" onChange={() => setAll(!all)} />
-        <label htmlFor="checkAll" />
-      </CheckboxContainer>
+      <Checkbox type="checkbox" id="checkAll" onChange={() => setAll(!all)} />
+      <label htmlFor="checkAll" />
       <ItemInfoContainer>상품정보</ItemInfoContainer>
       <AmountContainer>수량</AmountContainer>
       <PriceContainer>상품금액</PriceContainer>
@@ -22,18 +20,32 @@ export default CartHeader;
 const Container = styled.article`
   margin-top: 50px;
   margin-bottom: 35px;
+  padding-top: 20px;
+  padding-bottom: 20px;
   display: flex;
   
   width: 1280px;
   background-color: #F2F2F2;
 
   div {
+    font-size: 18px;
+    line-height: 23px;
     text-align: center;
   }
 `;
 
-const CheckboxContainer = styled.div`
-  width: 90px;
+const Checkbox = styled.input`
+  display: none;
+  & + label {
+    width: 20px;
+    height: 20px;
+    margin-top: 1px;
+    margin-left: 30px;
+    background: url(${IconOn}) center/20px 20px;
+  }
+  &:checked + label {
+    background-image: url(${IconOff});
+  }
 `;
 
 const ItemInfoContainer = styled.div`
@@ -46,17 +58,4 @@ const AmountContainer = styled.div`
 
 const PriceContainer = styled.div`
   width: 300px;
-`;
-
-const Checkbox = styled.input`
-  display: none;
-  & + label {
-    width: 20px;
-    height: 20px;
-    margin-top: 1px;
-    background: url(${IconOn}) center/20px 20px;
-  }
-  &:checked + label {
-    background-image: url(${IconOff});
-  }
 `;
