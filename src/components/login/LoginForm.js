@@ -1,10 +1,11 @@
-import React, { useState, useRef } from 'react';
+import React, { useState, useRef, useNavigate } from 'react';
 import styled from 'styled-components';
 import InputText from '../input/InputText';
 import ColorButton from '../button/ColorButton';
 import regeneratorRuntime from 'regenerator-runtime';
 
 const LoginForm = ({ userType }) => {
+  const navigate = useNavigate();
   const idRef = useRef();
   const pwRef = useRef();
 
@@ -60,7 +61,7 @@ const LoginForm = ({ userType }) => {
           localStorage.setItem('id', loginInfo.id);
           localStorage.setItem('token', data.token);
           localStorage.setItem('userType', userType);
-          navigate(-1);
+          navigate(-1, { replace: true });
         }
       })
       .catch((e) => alert(e.message));
