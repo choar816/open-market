@@ -9,13 +9,14 @@ import CartNothing from '../components/cart/CartNothing';
 import CartNoaccess from '../components/cart/CartNoaccess';
 import Loading from '../components/Loading';
 
+const url = 'https://openmarket.weniv.co.kr';
+
 const CartPage = () => {
   const isSeller = localStorage.getItem('userType') === 'SELLER' ? true : false;
   const [loading, setLoading] = useState(true);
   const [cartItems, setCartItems] = useState([]);
 
   const getCartItems = async () => {
-    const url = 'https://openmarket.weniv.co.kr';
     fetch(`${url}/cart/`, {
       method: 'GET',
       headers: {
@@ -28,7 +29,6 @@ const CartPage = () => {
         return res.json();
       })
       .then((data) => {
-        console.log(data);
         setCartItems(data.results);
         setLoading(false);
       })
@@ -38,6 +38,22 @@ const CartPage = () => {
   useEffect(() => {
     getCartItems();
   }, []);
+
+  const removeCartItem = async (cart_item_id) => {
+    fetch(`${url}/cart/${cart_item_id}/`, {
+      method: 'DELETE',
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: `JWT ${localStorage.getItem('token')}`,
+      },
+    })
+      .then((res) => {
+        if (!res.ok) throw new Error('http 에러');
+        console.log(res);
+        getCartItems();
+      })
+      .catch((e) => alert(e.message));
+  };
 
   return (
     <Container>
@@ -60,6 +76,7 @@ const CartPage = () => {
                     key={item.cart_item_id}
                     product_id={item.product_id}
                     quantity={item.quantity}
+                    onRemove={() => removeCartItem(item.cart_item_id)}
                   />
                 ))}
                 <CartFooter />

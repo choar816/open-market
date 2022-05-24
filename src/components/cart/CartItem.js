@@ -41,7 +41,7 @@ const CartItem = ({ product_id, quantity, onRemove }) => {
 
   return (
     <Container>
-      <DeleteButton src={IconDelete} />
+      <DeleteButton src={IconDelete} onClick={onRemove} />
       <Checkbox type="checkbox" id={'checkItem'} />
       <label htmlFor={'checkItem'} />
       <ItemImg src={itemInfo.image} />
