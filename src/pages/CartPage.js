@@ -12,6 +12,7 @@ import { API_URL } from '../util/api';
 
 const CartPage = () => {
   const isSeller = localStorage.getItem('userType') === 'SELLER' ? true : false;
+  const isLogined = localStorage.getItem('token');
   const [loading, setLoading] = useState(true);
   const [cartItems, setCartItems] = useState([]);
 
@@ -35,7 +36,7 @@ const CartPage = () => {
   };
 
   useEffect(() => {
-    getCartItems();
+    if (isLogined && !isSeller) getCartItems();
   }, []);
 
   const removeCartItem = async (cart_item_id) => {
@@ -57,9 +58,10 @@ const CartPage = () => {
   return (
     <Container>
       <Header />
-      {isSeller && <CartNoaccess />}
-
-      {!isSeller &&
+      {!isLogined && <CartNoaccess type={'login'} />}
+      {isLogined && isSeller && <CartNoaccess type={'seller'} />}
+      {isLogined &&
+        !isSeller &&
         (loading ? (
           <Loading />
         ) : (
