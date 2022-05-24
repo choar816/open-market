@@ -4,7 +4,7 @@ import AmountPicker from '../AmountPicker';
 import IconOn from '../../../public/assets/check-circle-on.svg';
 import IconOff from '../../../public/assets/check-circle-off.svg';
 import IconDelete from '../../../public/assets/icon-delete.svg';
-import LoadingImg from '../../../public/assets/loading-icon.png';
+import IconLoading from '../../../public/assets/icon-loading.png';
 import ColorButton from '../button/ColorButton';
 import { API_URL } from '../../util/api';
 
@@ -12,7 +12,7 @@ const CartItem = ({ product_id, quantity, onRemove }) => {
   const [itemInfo, setItemInfo] = useState({
     seller_store: '로딩중...',
     product_name: '로딩중...',
-    image: LoadingImg,
+    image: IconLoading,
     price: 0,
     shipping_method: 'DELIVERY',
     shipping_fee: 0,
