@@ -6,25 +6,31 @@ import CartFooter from '../components/cart/CartFooter';
 import CartHeader from '../components/cart/CartHeader';
 import CartItem from '../components/cart/CartItem';
 import CartNothing from '../components/cart/CartNothing';
+import CartNoaccess from '../components/cart/CartNoaccess';
 
 const CartPage = () => {
+  const isSeller = localStorage.getItem('userType') === 'SELLER' ? true : false;
   const [nothing, setNothing] = useState(false);
 
   return (
     <Container>
       <Header />
-      <CartContainer>
-        <h2>장바구니</h2>
-        <CartHeader all={nothing} setAll={setNothing} />
-        {nothing ? (
-          <CartNothing />
-        ) : (
-          <>
-            <CartItem />
-            <CartFooter />
-          </>
-        )}
-      </CartContainer>
+      {isSeller ? (
+        <CartNoaccess />
+      ) : (
+        <CartContainer>
+          <h2>장바구니</h2>
+          <CartHeader all={nothing} setAll={setNothing} />
+          {nothing ? (
+            <CartNothing />
+          ) : (
+            <>
+              <CartItem />
+              <CartFooter />
+            </>
+          )}
+        </CartContainer>
+      )}
       <Footer />
     </Container>
   );
