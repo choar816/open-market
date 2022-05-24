@@ -4,15 +4,14 @@ import AmountPicker from '../AmountPicker';
 import IconOn from '../../../public/assets/check-circle-on.svg';
 import IconOff from '../../../public/assets/check-circle-off.svg';
 import IconDelete from '../../../public/assets/icon-delete.svg';
-import ProductImg from '../../../public/assets/loading-icon.png';
+import LoadingImg from '../../../public/assets/loading-icon.png';
 import ColorButton from '../button/ColorButton';
 
-const CartItem = ({ product_id, quantity }) => {
-  // const [itemInfo, setItemInfo] = useState({});
+const CartItem = ({ product_id, quantity, onRemove }) => {
   const [itemInfo, setItemInfo] = useState({
     seller_store: '로딩중...',
     product_name: '로딩중...',
-    image: ProductImg,
+    image: LoadingImg,
     price: 0,
     shipping_method: 'DELIVERY',
     shipping_fee: 0,
@@ -58,7 +57,7 @@ const CartItem = ({ product_id, quantity }) => {
         </GrayText>
       </ItemInfoContainer>
       <AmountContainer>
-        <AmountPicker amount={1} stock={5} />
+        <AmountPicker amount={1} stock={quantity} />
       </AmountContainer>
       <PriceContainer>
         <p>{itemInfo.price.toLocaleString('ko-KR')}원</p>
