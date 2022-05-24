@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
 import Header from '../components/Header';
 import Footer from '../components/Footer';
@@ -7,30 +7,66 @@ import CartHeader from '../components/cart/CartHeader';
 import CartItem from '../components/cart/CartItem';
 import CartNothing from '../components/cart/CartNothing';
 import CartNoaccess from '../components/cart/CartNoaccess';
+import Loading from '../components/Loading';
 
 const CartPage = () => {
   const isSeller = localStorage.getItem('userType') === 'SELLER' ? true : false;
-  const [nothing, setNothing] = useState(false);
+  const [loading, setLoading] = useState(true);
+  const [cartItems, setCartItems] = useState([]);
+
+  const getCartItems = async () => {
+    const url = 'https://openmarket.weniv.co.kr';
+    fetch(`${url}/cart/`, {
+      method: 'GET',
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: `JWT ${localStorage.getItem('token')}`,
+      },
+    })
+      .then((res) => {
+        if (!res.ok) throw new Error('http 에러');
+        return res.json();
+      })
+      .then((data) => {
+        console.log(data);
+        setCartItems(data.results);
+        setLoading(false);
+      })
+      .catch((e) => alert(e.message));
+  };
+
+  useEffect(() => {
+    getCartItems();
+  }, []);
 
   return (
     <Container>
       <Header />
-      {isSeller ? (
-        <CartNoaccess />
-      ) : (
-        <CartContainer>
-          <h2>장바구니</h2>
-          <CartHeader all={nothing} setAll={setNothing} />
-          {nothing ? (
-            <CartNothing />
-          ) : (
-            <>
-              <CartItem />
-              <CartFooter />
-            </>
-          )}
-        </CartContainer>
-      )}
+      {isSeller && <CartNoaccess />}
+
+      {!isSeller &&
+        (loading ? (
+          <Loading />
+        ) : (
+          <CartContainer>
+            <h2>장바구니</h2>
+            <CartHeader />
+            {cartItems.length === 0 ? (
+              <CartNothing />
+            ) : (
+              <>
+                {cartItems.map((item) => (
+                  <CartItem
+                    key={item.cart_item_id}
+                    product_id={item.product_id}
+                    quantity={item.quantity}
+                  />
+                ))}
+                <CartFooter />
+              </>
+            )}
+          </CartContainer>
+        ))}
       <Footer />
     </Container>
   );

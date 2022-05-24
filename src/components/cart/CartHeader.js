@@ -3,10 +3,10 @@ import styled from 'styled-components';
 import IconOn from '../../../public/assets/check-circle-on.svg';
 import IconOff from '../../../public/assets/check-circle-off.svg';
 
-const CartHeader = ({ all, setAll }) => {
+const CartHeader = () => {
   return (
     <Container>
-      <Checkbox type="checkbox" id="checkAll" onChange={() => setAll(!all)} />
+      <Checkbox type="checkbox" id="checkAll" />
       <label htmlFor="checkAll" />
       <ItemInfoContainer>상품정보</ItemInfoContainer>
       <AmountContainer>수량</AmountContainer>
