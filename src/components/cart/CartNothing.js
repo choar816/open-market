@@ -1,7 +1,5 @@
 import React from 'react';
 import styled from 'styled-components';
-import IconOn from '../../../public/assets/check-circle-on.svg';
-import IconOff from '../../../public/assets/check-circle-off.svg';
 
 const CartNothing = () => {
   return (

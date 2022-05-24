@@ -8,8 +8,7 @@ import CartItem from '../components/cart/CartItem';
 import CartNothing from '../components/cart/CartNothing';
 import CartNoaccess from '../components/cart/CartNoaccess';
 import Loading from '../components/Loading';
-
-const url = 'https://openmarket.weniv.co.kr';
+import { API_URL } from '../util/api';
 
 const CartPage = () => {
   const isSeller = localStorage.getItem('userType') === 'SELLER' ? true : false;
@@ -17,7 +16,7 @@ const CartPage = () => {
   const [cartItems, setCartItems] = useState([]);
 
   const getCartItems = async () => {
-    fetch(`${url}/cart/`, {
+    fetch(`${API_URL}/cart/`, {
       method: 'GET',
       headers: {
         'Content-Type': 'application/json',
@@ -40,7 +39,7 @@ const CartPage = () => {
   }, []);
 
   const removeCartItem = async (cart_item_id) => {
-    fetch(`${url}/cart/${cart_item_id}/`, {
+    fetch(`${API_URL}/cart/${cart_item_id}/`, {
       method: 'DELETE',
       headers: {
         'Content-Type': 'application/json',

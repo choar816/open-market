@@ -4,6 +4,7 @@ import styled from 'styled-components';
 import ProductItem from './ProductItem';
 import ErrorMessage from '../ErrorMessage';
 import Loading from '../Loading';
+import { API_URL } from '../../util/api';
 
 const ProductList = () => {
   const navigate = useNavigate();
@@ -11,8 +12,7 @@ const ProductList = () => {
   const [products, setProducts] = useState([]);
 
   const getProducts = async () => {
-    const url = 'https://openmarket.weniv.co.kr';
-    fetch(`${url}/products/`, {
+    fetch(`${API_URL}/products/`, {
       method: 'GET',
       headers: {
         'Content-Type': 'application/json',

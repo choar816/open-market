@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
 import { checkIdRegex, checkEmailRegex } from '../util/regex';
+import { API_URL } from '../util/api';
 import ImgLogo from '../../public/assets/Logo-hodu.png';
 import JoinForm from '../components/join/JoinForm';
 import JoinFooter from '../components/join/JoinFooter';
@@ -89,8 +90,7 @@ const JoinPage = () => {
   };
 
   const checkIdDup = async () => {
-    const url = 'https://openmarket.weniv.co.kr';
-    fetch(`${url}/accounts/signup/`, {
+    fetch(`${API_URL}/accounts/signup/`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
@@ -124,8 +124,7 @@ const JoinPage = () => {
   };
 
   const checkJoinBuyer = async () => {
-    const url = 'https://openmarket.weniv.co.kr';
-    fetch(`${url}/accounts/signup/`, {
+    fetch(`${API_URL}/accounts/signup/`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
@@ -186,8 +185,7 @@ const JoinPage = () => {
   };
 
   const checkJoinSeller = () => {
-    const url = 'https://openmarket.weniv.co.kr';
-    fetch(`${url}/accounts/signup_seller/`, {
+    fetch(`${API_URL}/accounts/signup_seller/`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',

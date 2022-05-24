@@ -3,6 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
 import InputText from '../input/InputText';
 import ColorButton from '../button/ColorButton';
+import { API_URL } from '../../util/api';
 import regeneratorRuntime from 'regenerator-runtime';
 
 const LoginForm = ({ userType }) => {
@@ -27,8 +28,7 @@ const LoginForm = ({ userType }) => {
   };
 
   const checkLogin = async () => {
-    const url = 'https://openmarket.weniv.co.kr';
-    fetch(`${url}/accounts/login/`, {
+    fetch(`${API_URL}/accounts/login/`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',

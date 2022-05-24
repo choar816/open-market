@@ -5,6 +5,7 @@ import ProductInfo from './ProductInfo';
 import ProductDetail from './ProductDetail';
 import ErrorMessage from '../ErrorMessage';
 import Loading from '../Loading';
+import { API_URL } from '../../util/api';
 
 const ProductContent = () => {
   const params = useParams();
@@ -12,8 +13,7 @@ const ProductContent = () => {
   const [productData, setProductData] = useState(null);
 
   const getProductInfo = async () => {
-    const url = 'https://openmarket.weniv.co.kr';
-    fetch(`${url}/products/${params.id}`, {
+    fetch(`${API_URL}/products/${params.id}`, {
       method: 'GET',
       headers: {
         'Content-Type': 'application/json',

@@ -6,6 +6,7 @@ import IconOff from '../../../public/assets/check-circle-off.svg';
 import IconDelete from '../../../public/assets/icon-delete.svg';
 import LoadingImg from '../../../public/assets/loading-icon.png';
 import ColorButton from '../button/ColorButton';
+import { API_URL } from '../../util/api';
 
 const CartItem = ({ product_id, quantity, onRemove }) => {
   const [itemInfo, setItemInfo] = useState({
@@ -18,8 +19,7 @@ const CartItem = ({ product_id, quantity, onRemove }) => {
   });
 
   const getItemInfo = async () => {
-    const url = 'https://openmarket.weniv.co.kr';
-    fetch(`${url}/products/${product_id}`, {
+    fetch(`${API_URL}/products/${product_id}`, {
       method: 'GET',
       headers: {
         'Content-Type': 'application/json',
