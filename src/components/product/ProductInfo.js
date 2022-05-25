@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
+import { API_URL } from '../../util/api';
 import AmountPicker from '../AmountPicker';
 import ColorButton from '../button/ColorButton';
 
@@ -16,6 +17,32 @@ const ProductInfo = ({ id, productData }) => {
   const onIncrease = () => setAmount(amount < stock ? amount + 1 : amount);
   const onDecrease = () => setAmount(amount > 0 ? amount - 1 : 0);
   useEffect(() => setAmount(0), [id]);
+
+  const addToCart = async (product_id, quantity, check) => {
+    fetch(`${API_URL}/cart/`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: `JWT ${localStorage.getItem('token')}`,
+      },
+      body: JSON.stringify({
+        product_id,
+        quantity,
+        check,
+      }),
+    })
+      .then((res) => {
+        // if (!res.ok) throw new Error('http 에러');
+        return res.json();
+      })
+      .then((data) => {
+        console.log(data);
+        if (data.FAIL_message) {
+          alert("현재 재고보다 더 많은 수량을 담을 수 없습니다.")
+        }
+      })
+      .catch((e) => alert(e.message));
+  };
 
   return (
     <Container>
@@ -58,7 +85,11 @@ const ProductInfo = ({ id, productData }) => {
         </PartPrice>
         <PartBtn>
           <ColorButton>바로 구매</ColorButton>
-          <ColorButton color="charcoal" width="200px">
+          <ColorButton
+            color={'charcoal'}
+            width={'200px'}
+            onClick={() => addToCart(id.toString(), amount, amount !== 0)}
+          >
             장바구니
           </ColorButton>
         </PartBtn>
