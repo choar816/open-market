@@ -75,6 +75,7 @@ const CartPage = () => {
                 {cartItems.map((item) => (
                   <CartItem
                     key={item.cart_item_id}
+                    cart_item_id={item.cart_item_id}
                     product_id={item.product_id}
                     quantity={item.quantity}
                     onRemove={() => removeCartItem(item.cart_item_id)}

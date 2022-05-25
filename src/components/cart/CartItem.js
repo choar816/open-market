@@ -8,7 +8,47 @@ import IconLoading from '../../../public/assets/icon-loading.png';
 import ColorButton from '../button/ColorButton';
 import { API_URL } from '../../util/api';
 
-const CartItem = ({ product_id, quantity, onRemove }) => {
+const CartItem = ({ cart_item_id, product_id, quantity, onRemove }) => {
+  // quantity
+  const [itemQuantity, setItemQuantity] = useState(0);
+  useEffect(() => setItemQuantity(quantity), []);
+
+  const onIncrease = () => {
+    if (itemQuantity === itemInfo.stock) return;
+    setItemQuantity(itemQuantity + 1);
+    // editItemQuantity();
+  };
+  const onDecrease = () => {
+    if (itemQuantity === 0) return;
+    setItemQuantity(itemQuantity - 1);
+    // editItemQuantity();
+  };
+
+  // TO DO: fix error
+  const editItemQuantity = async () => {
+    fetch(`${API_URL}/cart/${cart_item_id}`, {
+      method: 'PUT',
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: `JWT ${localStorage.getItem('token')}`,
+      },
+      body: {
+        product_id: product_id,
+        quantity: itemQuantity,
+        is_active: true,
+      },
+    })
+      .then((res) => {
+        // if (!res.ok) throw new Error('http 에러');
+        return res.json();
+      })
+      .then((data) => {
+        console.log(data);
+      })
+      .catch((e) => alert(e.message));
+  };
+
+  // get item info
   const [itemInfo, setItemInfo] = useState({
     seller_store: '로딩중...',
     product_name: '로딩중...',
@@ -16,6 +56,7 @@ const CartItem = ({ product_id, quantity, onRemove }) => {
     price: 0,
     shipping_method: 'DELIVERY',
     shipping_fee: 0,
+    stock: 0,
   });
 
   const getItemInfo = async () => {
@@ -30,6 +71,7 @@ const CartItem = ({ product_id, quantity, onRemove }) => {
         return res.json();
       })
       .then((data) => {
+        console.log(data);
         setItemInfo(data);
       })
       .catch((e) => alert(e.message));
@@ -57,10 +99,15 @@ const CartItem = ({ product_id, quantity, onRemove }) => {
         </GrayText>
       </ItemInfoContainer>
       <AmountContainer>
-        <AmountPicker amount={1} stock={quantity} />
+        <AmountPicker
+          amount={itemQuantity}
+          stock={itemInfo.stock}
+          onIncrease={onIncrease}
+          onDecrease={onDecrease}
+        />
       </AmountContainer>
       <PriceContainer>
-        <p>{itemInfo.price.toLocaleString('ko-KR')}원</p>
+        <p>{(itemInfo.price * itemQuantity + itemInfo.shipping_fee).toLocaleString('ko-KR')}원</p>
         <ColorButton size={'S'} width={'130px'}>
           주문하기
         </ColorButton>
