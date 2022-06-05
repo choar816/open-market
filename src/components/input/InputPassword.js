@@ -32,7 +32,7 @@ const Container = styled.article`
   }
 `;
 
-const Title = styled.p`
+const Title = styled.label`
   color: #767676;
   font-size: 16px;
   line-height: 20px;
