@@ -68,6 +68,10 @@ const LoginForm = ({ userType }) => {
       .catch((e) => alert(e.message));
   };
 
+  const handleEnter = (e) => {
+    if (e.key === 'Enter') checkLogin();
+  };
+
   return (
     <Container>
       <InputText
@@ -85,6 +89,7 @@ const LoginForm = ({ userType }) => {
         value={loginInfo.pw}
         onChange={handleInputChange}
         ref={pwRef}
+        onKeyPress={handleEnter}
       />
       <Message show={message.show}>{message.content}</Message>
       <ColorButton onClick={checkLogin}>로그인</ColorButton>
