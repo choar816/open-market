@@ -1,14 +1,14 @@
 import React, { useState } from 'react';
 import styled from 'styled-components';
 import { termModal } from '../../util/modal';
-import TermModal from './TermModal';
+import TermModal from '../modal/TermModal';
 import ColorButton from '../button/ColorButton';
 import IconUnchecked from '../../../public/assets/check-box.svg';
 import IconChecked from '../../../public/assets/check-fill-box.svg';
 
 const JoinFooter = ({ onJoinClick, canPushJoin, termCheck, setTermCheck }) => {
   const [modalOn, setModalOn] = useState(false);
-  const [modalIdx, setModalIdx] = useState();
+  const [modalIdx, setModalIdx] = useState(0);
 
   return (
     <>

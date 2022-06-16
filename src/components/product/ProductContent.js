@@ -70,7 +70,7 @@ const ProductIntro = styled.section`
   justify-content: center;
   gap: 50px;
 
-  img {
+  & > img {
     width: 600px;
     height: 600px;
     object-fit: cover;

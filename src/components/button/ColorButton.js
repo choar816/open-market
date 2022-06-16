@@ -55,7 +55,6 @@ const Container = styled.button`
   border-radius: 5px;
   color: #ffffff;
   font-weight: 700;
-  flex-shrink: 0;
 
   ${({ width }) => `width: ${width};`}
   ${({ size }) => handleSize(size)}
