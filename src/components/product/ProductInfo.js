@@ -22,6 +22,12 @@ const ProductInfo = ({ id, productData }) => {
   useEffect(() => setAmount(0), [id]);
 
   const addToCart = async (product_id, quantity, check) => {
+    if (!check) {
+      setModalContent('0개를 담을 수 없습니다.');
+      setModalOn(true);
+      return;
+    }
+
     fetch(`${API_URL}/cart/`, {
       method: 'POST',
       headers: {

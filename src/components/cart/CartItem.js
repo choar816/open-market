@@ -24,7 +24,7 @@ const CartItem = ({
     updateItemQuantity(itemQuantity + 1);
   };
   const onDecrease = () => {
-    if (itemQuantity === 0) return;
+    if (itemQuantity === 1) return;
     setItemQuantity(itemQuantity - 1);
     updateItemQuantity(itemQuantity - 1);
   };
