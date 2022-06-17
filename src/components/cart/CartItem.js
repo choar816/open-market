@@ -21,28 +21,28 @@ const CartItem = ({
   const onIncrease = () => {
     if (itemQuantity === itemInfo.stock) return;
     setItemQuantity(itemQuantity + 1);
-    updateItemQuantity();
+    updateItemQuantity(itemQuantity + 1);
   };
   const onDecrease = () => {
     if (itemQuantity === 0) return;
     setItemQuantity(itemQuantity - 1);
-    updateItemQuantity();
+    updateItemQuantity(itemQuantity - 1);
   };
 
   // TO DO: fix error
   // {FAIL_message: 'product_id 정보가 없습니다.'}
-  const updateItemQuantity = async () => {
+  const updateItemQuantity = async (quantity) => {
     fetch(`${API_URL}/cart/${cart_item_id}/`, {
       method: 'PUT',
       headers: {
         'Content-Type': 'application/json',
         Authorization: `JWT ${localStorage.getItem('token')}`,
       },
-      body: {
-        product_id: product_id,
-        quantity: itemQuantity,
-        is_active: is_active,
-      },
+      body: JSON.stringify({
+        product_id,
+        quantity,
+        is_active,
+      }),
     })
       .then((res) => {
         // if (!res.ok) throw new Error('http 에러');
