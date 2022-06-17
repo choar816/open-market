@@ -2,18 +2,17 @@ import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
 import Header from '../components/Header';
 import Footer from '../components/Footer';
-import CartFooter from '../components/cart/CartFooter';
+import Loading from '../components/Loading';
+import CartList from '../components/cart/CartList';
 import CartHeader from '../components/cart/CartHeader';
-import CartItem from '../components/cart/CartItem';
 import CartNothing from '../components/cart/CartNothing';
 import CartNoaccess from '../components/cart/CartNoaccess';
-import Loading from '../components/Loading';
 import { API_URL } from '../util/api';
 
 const CartPage = () => {
   const isSeller = localStorage.getItem('userType') === 'SELLER' ? true : false;
   const isLogined = localStorage.getItem('token');
-  const [loading, setLoading] = useState(true);
+  const [isLoading, setIsLoading] = useState(true);
   const [cartItems, setCartItems] = useState([]);
 
   const getCartItems = async () => {
@@ -30,30 +29,14 @@ const CartPage = () => {
       })
       .then((data) => {
         setCartItems(data.results);
-        setLoading(false);
+        setIsLoading(false);
       })
       .catch((e) => alert(e.message));
   };
 
   useEffect(() => {
-    if (isLogined && !isSeller) getCartItems();
+    getCartItems();
   }, []);
-
-  const removeCartItem = async (cart_item_id) => {
-    fetch(`${API_URL}/cart/${cart_item_id}/`, {
-      method: 'DELETE',
-      headers: {
-        'Content-Type': 'application/json',
-        Authorization: `JWT ${localStorage.getItem('token')}`,
-      },
-    })
-      .then((res) => {
-        if (!res.ok) throw new Error('http 에러');
-        console.log(res);
-        getCartItems();
-      })
-      .catch((e) => alert(e.message));
-  };
 
   return (
     <Container>
@@ -62,7 +45,7 @@ const CartPage = () => {
       {isLogined && isSeller && <CartNoaccess type={'seller'} />}
       {isLogined &&
         !isSeller &&
-        (loading ? (
+        (isLoading ? (
           <Loading />
         ) : (
           <CartContainer>
@@ -71,18 +54,7 @@ const CartPage = () => {
             {cartItems.length === 0 ? (
               <CartNothing />
             ) : (
-              <>
-                {cartItems.map((item) => (
-                  <CartItem
-                    key={item.cart_item_id}
-                    cart_item_id={item.cart_item_id}
-                    product_id={item.product_id}
-                    quantity={item.quantity}
-                    onRemove={() => removeCartItem(item.cart_item_id)}
-                  />
-                ))}
-                <CartFooter />
-              </>
+              <CartList cartItems={cartItems} getCartItems={getCartItems} />
             )}
           </CartContainer>
         ))}

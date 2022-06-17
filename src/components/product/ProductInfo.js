@@ -21,7 +21,7 @@ const ProductInfo = ({ id, productData }) => {
   const onDecrease = () => setAmount(amount > 0 ? amount - 1 : 0);
   useEffect(() => setAmount(0), [id]);
 
-  const addToCart = async (product_id, quantity, check=true) => {
+  const addToCart = async (product_id, quantity, check) => {
     fetch(`${API_URL}/cart/`, {
       method: 'POST',
       headers: {

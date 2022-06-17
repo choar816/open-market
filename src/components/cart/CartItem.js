@@ -8,25 +8,31 @@ import IconLoading from '../../../public/assets/icon-loading.png';
 import ColorButton from '../button/ColorButton';
 import { API_URL } from '../../util/api';
 
-const CartItem = ({ cart_item_id, product_id, quantity, onRemove }) => {
-  // quantity
+const CartItem = ({
+  cart_item_id,
+  product_id,
+  quantity,
+  is_active,
+  onRemove,
+}) => {
+  // QUANTITY
   const [itemQuantity, setItemQuantity] = useState(0);
-  useEffect(() => setItemQuantity(quantity), []);
 
   const onIncrease = () => {
     if (itemQuantity === itemInfo.stock) return;
     setItemQuantity(itemQuantity + 1);
-    // editItemQuantity();
+    updateItemQuantity();
   };
   const onDecrease = () => {
     if (itemQuantity === 0) return;
     setItemQuantity(itemQuantity - 1);
-    // editItemQuantity();
+    updateItemQuantity();
   };
 
   // TO DO: fix error
-  const editItemQuantity = async () => {
-    fetch(`${API_URL}/cart/${cart_item_id}`, {
+  // {FAIL_message: 'product_id 정보가 없습니다.'}
+  const updateItemQuantity = async () => {
+    fetch(`${API_URL}/cart/${cart_item_id}/`, {
       method: 'PUT',
       headers: {
         'Content-Type': 'application/json',
@@ -35,7 +41,7 @@ const CartItem = ({ cart_item_id, product_id, quantity, onRemove }) => {
       body: {
         product_id: product_id,
         quantity: itemQuantity,
-        is_active: true,
+        is_active: is_active,
       },
     })
       .then((res) => {
@@ -48,7 +54,7 @@ const CartItem = ({ cart_item_id, product_id, quantity, onRemove }) => {
       .catch((e) => alert(e.message));
   };
 
-  // get item info
+  // ITEM INFO
   const [itemInfo, setItemInfo] = useState({
     seller_store: '로딩중...',
     product_name: '로딩중...',
@@ -60,7 +66,7 @@ const CartItem = ({ cart_item_id, product_id, quantity, onRemove }) => {
   });
 
   const getItemInfo = async () => {
-    fetch(`${API_URL}/products/${product_id}`, {
+    fetch(`${API_URL}/products/${product_id}/`, {
       method: 'GET',
       headers: {
         'Content-Type': 'application/json',
@@ -71,21 +77,22 @@ const CartItem = ({ cart_item_id, product_id, quantity, onRemove }) => {
         return res.json();
       })
       .then((data) => {
-        console.log(data);
         setItemInfo(data);
       })
       .catch((e) => alert(e.message));
   };
 
   useEffect(() => {
+    setItemQuantity(quantity);
     getItemInfo();
+    console.log(product_id);
   }, []);
 
   return (
     <Container>
       <DeleteButton src={IconDelete} onClick={onRemove} />
-      <Checkbox type="checkbox" id={'checkItem'} />
-      <label htmlFor={'checkItem'} />
+      <Checkbox type="checkbox" id={`checkItem_${product_id}`} />
+      <label htmlFor={`checkItem_${product_id}`} />
       <ItemImg src={itemInfo.image} />
       <ItemInfoContainer>
         <GrayText>{itemInfo.seller_store}</GrayText>
@@ -107,7 +114,13 @@ const CartItem = ({ cart_item_id, product_id, quantity, onRemove }) => {
         />
       </AmountContainer>
       <PriceContainer>
-        <p>{(itemInfo.price * itemQuantity + itemInfo.shipping_fee).toLocaleString('ko-KR')}원</p>
+        <p>
+          {(
+            itemInfo.price * itemQuantity +
+            itemInfo.shipping_fee
+          ).toLocaleString('ko-KR')}
+          원
+        </p>
         <ColorButton size={'S'} width={'130px'}>
           주문하기
         </ColorButton>
