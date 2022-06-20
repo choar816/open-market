@@ -29,8 +29,6 @@ const CartItem = ({
     updateItemQuantity(itemQuantity - 1);
   };
 
-  // TO DO: fix error
-  // {FAIL_message: 'product_id 정보가 없습니다.'}
   const updateItemQuantity = async (quantity) => {
     fetch(`${API_URL}/cart/${cart_item_id}/`, {
       method: 'PUT',
@@ -47,9 +45,6 @@ const CartItem = ({
       .then((res) => {
         // if (!res.ok) throw new Error('http 에러');
         return res.json();
-      })
-      .then((data) => {
-        console.log(data);
       })
       .catch((e) => alert(e.message));
   };
@@ -85,14 +80,13 @@ const CartItem = ({
   useEffect(() => {
     setItemQuantity(quantity);
     getItemInfo();
-    console.log(product_id);
   }, []);
 
   return (
     <Container>
       <DeleteButton src={IconDelete} onClick={onRemove} />
-      <Checkbox type="checkbox" id={`checkItem_${product_id}`} />
-      <label htmlFor={`checkItem_${product_id}`} />
+      <Checkbox type="checkbox" id={`cartItem_${product_id}`} />
+      <label htmlFor={`cartItem_${product_id}`} />
       <ItemImg src={itemInfo.image} />
       <ItemInfoContainer>
         <GrayText>{itemInfo.seller_store}</GrayText>
