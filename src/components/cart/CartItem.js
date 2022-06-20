@@ -13,6 +13,8 @@ const CartItem = ({
   product_id,
   quantity,
   is_active,
+  checked,
+  toggleChecked,
   onRemove,
 }) => {
   // QUANTITY
@@ -85,7 +87,12 @@ const CartItem = ({
   return (
     <Container>
       <DeleteButton src={IconDelete} onClick={onRemove} />
-      <Checkbox type="checkbox" id={`cartItem_${product_id}`} />
+      <Checkbox
+        type="checkbox"
+        id={`cartItem_${product_id}`}
+        checked={checked}
+        onChange={toggleChecked}
+      />
       <label htmlFor={`cartItem_${product_id}`} />
       <ItemImg src={itemInfo.image} />
       <ItemInfoContainer>
@@ -149,10 +156,10 @@ const Checkbox = styled.input`
     height: 20px;
     margin-top: 1px;
     margin-left: 30px;
-    background: url(${IconOn}) center/20px 20px;
+    background: url(${IconOff}) center/20px 20px;
   }
   &:checked + label {
-    background-image: url(${IconOff});
+    background-image: url(${IconOn});
   }
 `;
 
