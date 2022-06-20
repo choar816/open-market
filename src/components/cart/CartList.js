@@ -46,7 +46,7 @@ const CartList = ({ cartItems, getCartItems }) => {
     <>
       {cartItems.map((item, idx) => (
         <CartItem
-          key={idx}
+          key={item.cart_item_id}
           cart_item_id={item.cart_item_id}
           product_id={item.product_id}
           quantity={item.quantity}
