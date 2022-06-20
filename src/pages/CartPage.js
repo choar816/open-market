@@ -35,8 +35,8 @@ const CartPage = () => {
   };
 
   useEffect(() => {
-    getCartItems();
-  }, []);
+    if (isLogined) getCartItems();
+  }, [isLogined]);
 
   return (
     <Container>
