@@ -36,15 +36,22 @@ const CartPage = () => {
 
   useEffect(() => {
     if (isLogined) getCartItems();
-  }, [isLogined]);
+  }, []);
+
+  if (!isLogined)
+    return (
+      <Container>
+        <Header />
+        <CartNoaccess type={'login'} />
+        <Footer />
+      </Container>
+    );
 
   return (
     <Container>
       <Header />
-      {!isLogined && <CartNoaccess type={'login'} />}
-      {isLogined && isSeller && <CartNoaccess type={'seller'} />}
-      {isLogined &&
-        !isSeller &&
+      {isSeller && <CartNoaccess type={'seller'} />}
+      {!isSeller &&
         (isLoading ? (
           <Loading />
         ) : (
