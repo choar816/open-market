@@ -6,31 +6,13 @@ import IconMinus from '../../../public/assets/icon-circle-minus.svg';
 import TextPrice from './TextPrice';
 import { API_URL } from '../../util/api';
 
-const CartFooter = ({ checkedIds, cartItems, itemPrices }) => {
+const CartFooter = ({ checkedIds, cartItems, itemDetails }) => {
   const priceAll = 0;
   const priceDelivery = 0;
 
-  const priceOfItem = (id) => {
-    console.log(itemPrices);
-    return { ...itemPrices.filter((it) => it.id === id) };
-  };
-
-  const [itemsWithPrice, setItemsWithPrice] = useState(
-    cartItems
-      .map((item) => {
-        if (checkedIds.includes(item.product_id))
-          return {
-            ...itemsWithPrice,
-            id: item.product_id,
-            quantity: item.quantity,
-            // ...priceOfItem(item.product_id),
-          };
-      })
-  );
-
   useEffect(() => {
-    // setItemsWithPrice(itemsWithPrice.map((item) => addPriceToItems(item)));
-    console.log(itemsWithPrice);
+    // console.log(itemDetails);
+    console.log('CartFooter rerender');
   }, []);
 
   return (

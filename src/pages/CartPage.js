@@ -34,8 +34,32 @@ const CartPage = () => {
       .catch((e) => alert(e.message));
   };
 
+  const getItemInfo = async (product_id) => {
+    fetch(`${API_URL}/products/${product_id}/`, {
+      method: 'GET',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+    })
+      .then((res) => {
+        // if (!res.ok) throw new Error('http 에러');
+        return res.json();
+      })
+      .catch((e) => alert(e.message));
+  };
+
+  const [cartItemDetails, setCartItemDetails] = useState([]);
+
   useEffect(() => {
-    if (isLogined) getCartItems();
+    if (isLogined) {
+      (async function () {
+        await getCartItems();
+        setCartItemDetails(
+          cartItems.map((item) => getItemInfo(item.product_id)),
+        );
+      })();
+      console.log(cartItemDetails);
+    }
   }, []);
 
   if (!isLogined)

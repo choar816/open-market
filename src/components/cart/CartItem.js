@@ -64,7 +64,7 @@ const CartItem = ({
 
   const getItemInfo = async () => {
     fetch(`${API_URL}/products/${product_id}/`, {
-      method: 'GET',
+      method: 'GET', 
       headers: {
         'Content-Type': 'application/json',
       },
