@@ -23,7 +23,7 @@ const getProducts = async () => {
 
 const ProductList = () => {
   const navigate = useNavigate();
-  const { data, isLoading, error } = useQuery('products', getProducts);
+  const { data: products, isLoading, error } = useQuery('products', getProducts);
 
   if (isLoading) return <Loading />;
   if (error)
@@ -31,11 +31,11 @@ const ProductList = () => {
 
   return (
     <>
-      {data.length === 0 ? (
+      {products.length === 0 ? (
         <ErrorMessage emoji="😭" message="등록된 상품이 없어요!" />
       ) : (
         <Container>
-          {data.map((item) => (
+          {products.map((item) => (
             <ProductItem
               key={item.product_id}
               imgSrc={item.image}
