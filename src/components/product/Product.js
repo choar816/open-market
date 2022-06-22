@@ -20,7 +20,7 @@ const getProductInfo = async (id) => {
   });
 };
 
-const ProductContent = () => {
+const Product = () => {
   const params = useParams();
   const { data, isLoading, error } = useQuery(['productInfo', params.id], () =>
     getProductInfo(params.id),
@@ -43,7 +43,7 @@ const ProductContent = () => {
   );
 };
 
-export default ProductContent;
+export default Product;
 
 const Container = styled.main`
   width: 1280px;
