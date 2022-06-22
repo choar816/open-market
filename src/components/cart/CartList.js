@@ -3,7 +3,7 @@ import CartItem from './CartItem';
 import CartFooter from './CartFooter';
 import { API_URL } from '../../util/api';
 
-const CartList = ({ cartItems, getCartItems }) => {
+const CartList = ({ cartItems, getCartItems, refetchCartItems }) => {
   const removeCartItem = async (cart_item_id) => {
     fetch(`${API_URL}/cart/${cart_item_id}/`, {
       method: 'DELETE',
@@ -14,7 +14,7 @@ const CartList = ({ cartItems, getCartItems }) => {
     })
       .then((res) => {
         if (!res.ok) throw new Error('http 에러');
-        getCartItems();
+        refetchCartItems();
       })
       .catch((e) => alert(e.message));
   };

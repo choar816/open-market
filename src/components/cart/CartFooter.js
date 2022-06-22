@@ -15,23 +15,23 @@ const CartFooter = ({ checkedIds, cartItems, itemPrices }) => {
     return { ...itemPrices.filter((it) => it.id === id) };
   };
 
-  const [itemsWithPrice, setItemsWithPrice] = useState(
-    cartItems
-      .map((item) => {
-        if (checkedIds.includes(item.product_id))
-          return {
-            ...itemsWithPrice,
-            id: item.product_id,
-            quantity: item.quantity,
-            // ...priceOfItem(item.product_id),
-          };
-      })
-  );
+  // const [itemsWithPrice, setItemsWithPrice] = useState(
+  //   cartItems
+  //     .map((item) => {
+  //       if (checkedIds.includes(item.product_id))
+  //         return {
+  //           ...itemsWithPrice,
+  //           id: item.product_id,
+  //           quantity: item.quantity,
+  //           // ...priceOfItem(item.product_id),
+  //         };
+  //     })
+  // );
 
-  useEffect(() => {
-    // setItemsWithPrice(itemsWithPrice.map((item) => addPriceToItems(item)));
-    console.log(itemsWithPrice);
-  }, []);
+  // useEffect(() => {
+  //   // setItemsWithPrice(itemsWithPrice.map((item) => addPriceToItems(item)));
+  //   console.log(itemsWithPrice);
+  // }, []);
 
   return (
     <Container>
