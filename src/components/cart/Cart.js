@@ -34,14 +34,8 @@ const Cart = () => {
     refetch
   } = useQuery('cartItems', getCartItems);
 
-  if (!isLogined || isSeller)
-    return (
-      <>
-        {!isLogined && <CartNoaccess type={'login'} />}
-        {isSeller && <CartNoaccess type={'seller'} />}
-      </>
-    );
-
+  if (!isLogined) return <CartNoaccess type={'login'} />;
+  if (isSeller) return <CartNoaccess type={'seller'} />;
   if (isLoading) return <Loading />;
   if (error)
     return <ErrorMessage emoji="😭" message={`에러 발생: ${error.message}`} />;
