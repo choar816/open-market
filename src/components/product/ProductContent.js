@@ -1,54 +1,44 @@
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 import { useParams } from 'react-router-dom';
+import { useQuery } from 'react-query';
 import styled from 'styled-components';
 import ProductInfo from './ProductInfo';
 import ProductDetail from './ProductDetail';
-import ErrorMessage from '../ErrorMessage';
 import Loading from '../Loading';
+import ErrorMessage from '../ErrorMessage';
 import { API_URL } from '../../util/api';
+
+const getProductInfo = async (id) => {
+  return fetch(`${API_URL}/products/${id}/`, {
+    method: 'GET',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+  }).then((res) => {
+    // if (!res.ok) throw new Error('http error');
+    return res.json();
+  });
+};
 
 const ProductContent = () => {
   const params = useParams();
-  const [loading, setLoading] = useState(true);
-  const [productData, setProductData] = useState(null);
+  const { data, isLoading, error } = useQuery(['productInfo', params.id], () =>
+    getProductInfo(params.id),
+  );
 
-  const getProductInfo = async () => {
-    fetch(`${API_URL}/products/${params.id}`, {
-      method: 'GET',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-    })
-      .then((res) => {
-        // if (!res.ok) throw new Error('http 에러');
-        return res.json();
-      })
-      .then((data) => {
-        setProductData(data);
-        setLoading(false);
-      })
-      .catch((e) => alert(e.message));
-  };
-
-  useEffect(() => {
-    getProductInfo();
-  }, [params.id]);
+  if (isLoading) return <Loading />;
+  if (data?.detail === '찾을 수 없습니다.')
+    return <ErrorMessage emoji="😶‍🌫️" message="해당 상품은 존재하지 않습니다." />;
+  if (error)
+    return <ErrorMessage emoji="😭" message={`에러 발생: ${error.message}`} />;
 
   return (
     <Container>
-      {loading ? (
-        <Loading />
-      ) : !productData || productData.detail === '찾을 수 없습니다.' ? (
-        <ErrorMessage emoji="😶‍🌫️" message="해당 상품은 존재하지 않습니다." />
-      ) : (
-        <>
-          <ProductIntro>
-            <img src={productData.image} />
-            <ProductInfo id={params.id} productData={productData} />
-          </ProductIntro>
-          <ProductDetail />
-        </>
-      )}
+      <ProductIntro>
+        <img src={data.image} />
+        <ProductInfo id={params.id} productData={data} />
+      </ProductIntro>
+      <ProductDetail />
     </Container>
   );
 };
