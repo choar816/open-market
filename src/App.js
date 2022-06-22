@@ -9,19 +9,22 @@ import CartPage from './pages/CartPage';
 import NotFoundPage from './pages/NotFoundPage';
 import TestPage from './pages/TestPage';
 import './App.css';
+import { RecoilRoot } from 'recoil';
 
 const App = () => {
   useEffect(() => setMetaTag({}), []);
 
   return (
-    <Routes>
-      <Route path="/" element={<MainPage />} />
-      <Route path="product/:id" element={<ProductPage />} />
-      <Route path="login" element={<LoginPage />} />
-      <Route path="join" element={<JoinPage />} />
-      <Route path="cart" element={<CartPage />} />
-      <Route path="*" element={<NotFoundPage />} />
-    </Routes>
+    <RecoilRoot>
+      <Routes>
+        <Route path="/" element={<MainPage />} />
+        <Route path="product/:id" element={<ProductPage />} />
+        <Route path="login" element={<LoginPage />} />
+        <Route path="join" element={<JoinPage />} />
+        <Route path="cart" element={<CartPage />} />
+        <Route path="*" element={<NotFoundPage />} />
+      </Routes>
+    </RecoilRoot>
   );
 };
 
