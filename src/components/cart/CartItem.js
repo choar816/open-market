@@ -9,79 +9,43 @@ import ColorButton from '../button/ColorButton';
 import { API_URL } from '../../util/api';
 
 const CartItem = ({
-  cart_item_id,
   product_id,
   quantity,
-  is_active,
-  checked,
-  toggleChecked,
+  // is_active,
+  product_name,
+  image,
+  price,
+  shipping_method,
+  shipping_fee,
+  stock,
+  seller,
+  toggleCheck,
   onRemove,
+  updateItemQuantity,
 }) => {
   // QUANTITY
-  const [itemQuantity, setItemQuantity] = useState(0);
-
   const onIncrease = () => {
-    if (itemQuantity === itemInfo.stock) return;
-    setItemQuantity(itemQuantity + 1);
-    updateItemQuantity(itemQuantity + 1);
+    if (quantity === itemInfo.stock) return;
+    updateItemQuantity(quantity + 1);
   };
   const onDecrease = () => {
-    if (itemQuantity === 1) return;
-    setItemQuantity(itemQuantity - 1);
-    updateItemQuantity(itemQuantity - 1);
-  };
-
-  const updateItemQuantity = async (quantity) => {
-    fetch(`${API_URL}/cart/${cart_item_id}/`, {
-      method: 'PUT',
-      headers: {
-        'Content-Type': 'application/json',
-        Authorization: `JWT ${localStorage.getItem('token')}`,
-      },
-      body: JSON.stringify({
-        product_id,
-        quantity,
-        is_active,
-      }),
-    })
-      .then((res) => {
-        // if (!res.ok) throw new Error('http 에러');
-        return res.json();
-      })
-      .catch((e) => alert(e.message));
+    if (quantity === 1) return;
+    updateItemQuantity(quantity - 1);
   };
 
   // ITEM INFO
-  const [itemInfo, setItemInfo] = useState({
-    seller_store: '로딩중...',
-    product_name: '로딩중...',
-    image: IconLoading,
-    price: 0,
-    shipping_method: 'DELIVERY',
-    shipping_fee: 0,
-    stock: 0,
-  });
-
-  const getItemInfo = async () => {
-    fetch(`${API_URL}/products/${product_id}/`, {
-      method: 'GET', 
-      headers: {
-        'Content-Type': 'application/json',
-      },
-    })
-      .then((res) => {
-        // if (!res.ok) throw new Error('http 에러');
-        return res.json();
-      })
-      .then((data) => {
-        setItemInfo(data);
-      })
-      .catch((e) => alert(e.message));
-  };
+  // const [itemInfo, setItemInfo] = useState({
+  //   seller_store: '로딩중...',
+  //   product_name: '로딩중...',
+  //   image: IconLoading,
+  //   price: 0,
+  //   shipping_method: 'DELIVERY',
+  //   shipping_fee: 0,
+  //   stock: 0,
+  // });
 
   useEffect(() => {
-    setItemQuantity(quantity);
-    getItemInfo();
+    console.log(price);
   }, []);
 
   return (
@@ -90,38 +54,32 @@ const CartItem = ({
       <Checkbox
         type="checkbox"
         id={`cartItem_${product_id}`}
-        checked={checked}
-        onChange={toggleChecked}
+        // is_active={is_active}
+        onChange={toggleCheck}
       />
       <label htmlFor={`cartItem_${product_id}`} />
-      <ItemImg src={itemInfo.image} />
+      <ItemImg src={image} />
       <ItemInfoContainer>
-        <GrayText>{itemInfo.seller_store}</GrayText>
-        <ProductText>{itemInfo.product_name}</ProductText>
-        <PriceText>{itemInfo.price.toLocaleString('ko-KR')}원</PriceText>
+        <GrayText>{seller}</GrayText>
+        <ProductText>{product_name}</ProductText>
+        <PriceText>{price.toLocaleString('ko-KR')}원</PriceText>
         <GrayText>
-          {itemInfo.shipping_method === 'PARCEL' ? '소포' : '택배'}배송 /{' '}
-          {itemInfo.shipping_fee === 0
+          {shipping_method === 'PARCEL' ? '소포' : '택배'}배송 /{' '}
+          {shipping_fee === 0
             ? '무료배송'
-            : `${itemInfo.shipping_fee.toLocaleString('ko-KR')}원`}
+            : `${shipping_fee.toLocaleString('ko-KR')}원`}
         </GrayText>
       </ItemInfoContainer>
       <AmountContainer>
         <AmountPicker
-          amount={itemQuantity}
-          stock={itemInfo.stock}
+          amount={quantity}
+          stock={stock}
           onIncrease={onIncrease}
           onDecrease={onDecrease}
         />
       </AmountContainer>
       <PriceContainer>
-        <p>
-          {(
-            itemInfo.price * itemQuantity +
-            itemInfo.shipping_fee
-          ).toLocaleString('ko-KR')}
-          원
-        </p>
+        <p>{(price * quantity + shipping_fee).toLocaleString('ko-KR')}원</p>
         <ColorButton size={'S'} width={'130px'}>
           주문하기
         </ColorButton>
