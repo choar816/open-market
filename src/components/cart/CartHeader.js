@@ -23,9 +23,9 @@ const Container = styled.article`
   padding-top: 20px;
   padding-bottom: 20px;
   display: flex;
-  
+
   width: 1280px;
-  background-color: #F2F2F2;
+  background-color: #f2f2f2;
 
   div {
     font-size: 18px;

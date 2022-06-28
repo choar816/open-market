@@ -13,7 +13,10 @@ const Cart = () => {
   const isSeller = localStorage.getItem('userType') === 'SELLER' ? true : false;
   const isLogined = localStorage.getItem('token');
 
-  const { data, isLoading, error, refetch } = useQuery('cartItems', getCartDetail);
+  const { data, isLoading, error, refetch } = useQuery(
+    'cartItems',
+    getCartDetail,
+  );
 
   if (!isLogined) return <CartNoaccess type={'login'} />;
   if (isSeller) return <CartNoaccess type={'seller'} />;
@@ -24,11 +27,11 @@ const Cart = () => {
   return (
     <CartContainer>
       <h2>장바구니</h2>
-      <CartHeader />
+      <CartHeader cartItems={data} refetch={refetch} />
       {data.length === 0 ? (
         <CartNothing />
       ) : (
-        <CartList cartDetail={data} refetchCartItems={refetch} />
+        <CartList cartItems={data} refetch={refetch} />
       )}
     </CartContainer>
   );
