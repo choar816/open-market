@@ -1,43 +1,37 @@
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 import { useNavigate } from 'react-router-dom';
+import { useQuery } from 'react-query';
 import styled from 'styled-components';
 import ProductItem from './ProductItem';
 import ErrorMessage from '../ErrorMessage';
 import Loading from '../Loading';
 import { API_URL } from '../../util/api';
 
+const getProducts = async () => {
+  return fetch(`${API_URL}/products/`, {
+    method: 'GET',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+  })
+    .then((res) => {
+      if (!res.ok) throw new Error('http 에러');
+      return res.json();
+    })
+    .then((data) => data.results);
+};
+
 const ProductList = () => {
   const navigate = useNavigate();
-  const [loading, setLoading] = useState(true);
-  const [products, setProducts] = useState([]);
+  const { data: products, isLoading, error } = useQuery('products', getProducts);
 
-  const getProducts = async () => {
-    fetch(`${API_URL}/products/`, {
-      method: 'GET',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-    })
-      .then((res) => {
-        if (!res.ok) throw new Error('http 에러');
-        return res.json();
-      })
-      .then((data) => {
-        setProducts(data.results);
-        setLoading(false);
-      })
-      .catch((e) => alert(e.message));
-  };
-
-  useEffect(() => {
-    getProducts();
-  }, []);
+  if (isLoading) return <Loading />;
+  if (error)
+    return <ErrorMessage emoji="😭" message={`에러 발생: ${error.message}`} />;
 
   return (
     <>
-      {loading ? (
-        <Loading />
-      ) : products.length === 0 ? (
+      {products.length === 0 ? (
         <ErrorMessage emoji="😭" message="등록된 상품이 없어요!" />
       ) : (
         <Container>
