@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
 import styled from 'styled-components';
-import CarouselIndicator from './CarouselIndicator';
 import { carouselImgs } from '../util/carousel';
 import BtnPrev from '../../public/assets/arrow-left.svg';
 import BtnNext from '../../public/assets/arrow-right.svg';
@@ -17,7 +16,7 @@ const Carousel = () => {
       </ImageContainer>
       <IndicatorContainer activeIdx={activeIdx}>
         {carouselImgs.map((img, idx) => (
-          <CarouselIndicator key={idx} onClick={() => setActiveIdx(idx)} />
+          <Indicator key={idx} onClick={() => setActiveIdx(idx)} />
         ))}
       </IndicatorContainer>
       <ButtonPrev
@@ -111,5 +110,21 @@ const IndicatorContainer = styled.article`
 
   button:nth-child(${(props) => props.activeIdx + 1}) {
     background-color: rgba(255, 255, 255, 0.8);
+  }
+`;
+
+const Indicator = styled.button`
+  width: 8px;
+  height: 8px;
+  border: none;
+  border-radius: 50%;
+  background-color: rgba(255, 255, 255, 0.5);
+  transition: background-color 0.5s;
+
+  &:hover {
+    background-color: rgba(255, 255, 255, 0.8);
+  }
+  & + button {
+    margin-left: 10px;
   }
 `;
