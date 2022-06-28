@@ -13,7 +13,7 @@ const getItemDetail = async (product_id) => {
       // if (!res.ok) throw new Error('http 에러');
       return res.json();
     })
-    .catch((e) => alert(e.message));
+    .catch((e) => console.error(e));
 };
 
 const getCartDetail = async () => {

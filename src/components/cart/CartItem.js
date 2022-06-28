@@ -1,36 +1,46 @@
-import React, { useEffect, useState } from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 import styled from 'styled-components';
 import AmountPicker from '../AmountPicker';
 import IconOn from '../../../public/assets/check-circle-on.svg';
 import IconOff from '../../../public/assets/check-circle-off.svg';
 import IconDelete from '../../../public/assets/icon-delete.svg';
 import ColorButton from '../button/ColorButton';
+import { updateCartItem } from './editCartItem';
 
-const CartItem = ({
-  cart_item_id,
-  product_id,
-  quantity,
-  is_active,
-  product_name,
-  image,
-  price,
-  shipping_method,
-  shipping_fee,
-  stock,
-  seller,
-  toggleCheck,
-  onRemove,
-  updateCartItem,
-}) => {
-  // QUANTITY
-  const onIncrease = () => {
+const CartItem = ({ item, refetch }) => {
+  const {
+    cart_item_id,
+    product_id,
+    quantity,
+    is_active,
+    product_name,
+    image,
+    price,
+    shipping_method,
+    shipping_fee,
+    stock,
+    seller_store,
+  } = item;
+
+  const onIncrease = useCallback(() => {
     if (quantity === stock) return;
-    updateCartItem(cart_item_id, product_id, quantity + 1, is_active);
-  };
-  const onDecrease = () => {
+    updateCartItem(cart_item_id, product_id, quantity + 1, is_active).then(
+      refetch,
+    );
+  }, [quantity, is_active]);
+
+  const onDecrease = useCallback(() => {
     if (quantity === 1) return;
-    updateCartItem(cart_item_id, product_id, quantity - 1, is_active);
-  };
+    updateCartItem(cart_item_id, product_id, quantity - 1, is_active).then(
+      refetch,
+    );
+  }, [quantity, is_active]);
+
+  const toggleCheck = useCallback(() => {
+    updateCartItem(cart_item_id, product_id, quantity, !is_active).then(
+      refetch,
+    );
+  }, [quantity, is_active]);
 
   return (
     <Container>
@@ -49,15 +59,15 @@ const CartItem = ({
       <label htmlFor={`cartItem_${product_id}`} />
       <ItemImg src={image} />
       <ItemInfoContainer>
-        <GrayText>{seller}</GrayText>
-        <ProductText>{product_name}</ProductText>
-        <PriceText>{price.toLocaleString('ko-KR')}원</PriceText>
-        <GrayText>
+        <TextGray>{seller_store}</TextGray>
+        <TextProduct>{product_name}</TextProduct>
+        <TextPrice>{price.toLocaleString('ko-KR')}원</TextPrice>
+        <TextGray>
           {shipping_method === 'PARCEL' ? '소포' : '택배'}배송 /{' '}
           {shipping_fee === 0
             ? '무료배송'
             : `${shipping_fee.toLocaleString('ko-KR')}원`}
-        </GrayText>
+        </TextGray>
       </ItemInfoContainer>
       <AmountContainer>
         <AmountPicker
@@ -127,18 +137,18 @@ const ItemInfoContainer = styled.div`
   justify-content: space-between;
 `;
 
-const GrayText = styled.p`
+const TextGray = styled.p`
   font-size: 14px;
   line-height: 18px;
   color: #767676;
 `;
-const ProductText = styled.p`
+const TextProduct = styled.p`
   margin-top: 10px;
   font-size: 18px;
   line-height: 22px;
   color: #000000;
 `;
-const PriceText = styled.p`
+const TextPrice = styled.p`
   margin-top: 10px;
   flex-grow: 1;
   font-weight: 700;
