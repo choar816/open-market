@@ -1,5 +1,6 @@
 import React, { useEffect } from 'react';
 import { Routes, Route } from 'react-router-dom';
+import { QueryClient, QueryClientProvider, useQuery } from 'react-query'
 import { setMetaTag } from './util/meta';
 import MainPage from './pages/MainPage';
 import ProductPage from './pages/ProductPage';
@@ -10,18 +11,22 @@ import NotFoundPage from './pages/NotFoundPage';
 import TestPage from './pages/TestPage';
 import './App.css';
 
+const queryClient = new QueryClient();
+
 const App = () => {
   useEffect(() => setMetaTag({}), []);
 
   return (
-    <Routes>
-      <Route path="/" element={<MainPage />} />
-      <Route path="product/:id" element={<ProductPage />} />
-      <Route path="login" element={<LoginPage />} />
-      <Route path="join" element={<JoinPage />} />
-      <Route path="cart" element={<CartPage />} />
-      <Route path="*" element={<NotFoundPage />} />
-    </Routes>
+    <QueryClientProvider client={queryClient}>
+      <Routes>
+        <Route path="/" element={<MainPage />} />
+        <Route path="product/:id" element={<ProductPage />} />
+        <Route path="login" element={<LoginPage />} />
+        <Route path="join" element={<JoinPage />} />
+        <Route path="cart" element={<CartPage />} />
+        <Route path="*" element={<NotFoundPage />} />
+      </Routes>
+    </QueryClientProvider>
   );
 };
 

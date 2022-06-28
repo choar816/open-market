@@ -8,7 +8,7 @@ module.exports = {
   resolve: {
     extensions: ['.js', '.jsx', '.css'],
   },
-  devtool: 'eval-cheap-source-map',
+  devtool: 'eval-source-map',
   output: {
     filename: 'bundle.js',
     path: path.resolve(__dirname, 'dist'),

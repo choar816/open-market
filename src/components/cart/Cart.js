@@ -6,18 +6,18 @@ import CartList from './CartList';
 import CartHeader from './CartHeader';
 import CartNothing from './CartNothing';
 import CartNoaccess from './CartNoaccess';
-import { API_URL } from '../../util/api';
-import useCartDetail from './useCartDetail';
+import getCartDetail from './getCartDetail';
+import ErrorMessage from '../ErrorMessage';
 
 const Cart = () => {
   const isSeller = localStorage.getItem('userType') === 'SELLER' ? true : false;
   const isLogined = localStorage.getItem('token');
 
-  const { cartDetail, isLoading, isDetailLoading, error, refetch } = useCartDetail();
+  const { data, isLoading, error, refetch } = useQuery('cartItems', getCartDetail);
 
   if (!isLogined) return <CartNoaccess type={'login'} />;
   if (isSeller) return <CartNoaccess type={'seller'} />;
-  if (isLoading || isDetailLoading) return <Loading />;
+  if (isLoading) return <Loading />;
   if (error)
     return <ErrorMessage emoji="😭" message={`에러 발생: ${error.message}`} />;
 
@@ -25,10 +25,10 @@ const Cart = () => {
     <CartContainer>
       <h2>장바구니</h2>
       <CartHeader />
-      {cartDetail.length === 0 ? (
+      {data.length === 0 ? (
         <CartNothing />
       ) : (
-        <CartList cartDetail={cartDetail} refetchCartItems={refetch} />
+        <CartList cartDetail={data} refetchCartItems={refetch} />
       )}
     </CartContainer>
   );

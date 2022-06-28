@@ -4,14 +4,13 @@ import AmountPicker from '../AmountPicker';
 import IconOn from '../../../public/assets/check-circle-on.svg';
 import IconOff from '../../../public/assets/check-circle-off.svg';
 import IconDelete from '../../../public/assets/icon-delete.svg';
-import IconLoading from '../../../public/assets/icon-loading.png';
 import ColorButton from '../button/ColorButton';
-import { API_URL } from '../../util/api';
 
 const CartItem = ({
+  cart_item_id,
   product_id,
   quantity,
-  // is_active,
+  is_active,
   product_name,
   image,
   price,
@@ -21,40 +20,30 @@ const CartItem = ({
   seller,
   toggleCheck,
   onRemove,
-  updateItemQuantity,
+  updateCartItem,
 }) => {
   // QUANTITY
   const onIncrease = () => {
-    if (quantity === itemInfo.stock) return;
-    updateItemQuantity(quantity + 1);
+    if (quantity === stock) return;
+    updateCartItem(cart_item_id, product_id, quantity + 1, is_active);
   };
   const onDecrease = () => {
     if (quantity === 1) return;
-    updateItemQuantity(quantity - 1);
+    updateCartItem(cart_item_id, product_id, quantity - 1, is_active);
   };
-
-  // ITEM INFO
-  // const [itemInfo, setItemInfo] = useState({
-  //   seller_store: '로딩중...',
-  //   product_name: '로딩중...',
-  //   image: IconLoading,
-  //   price: 0,
-  //   shipping_method: 'DELIVERY',
-  //   shipping_fee: 0,
-  //   stock: 0,
-  // });
-
-  useEffect(() => {
-    console.log(price);
-  }, []);
 
   return (
     <Container>
-      <DeleteButton src={IconDelete} onClick={onRemove} />
+      <DeleteButton
+        src={IconDelete}
+        onClick={() => {
+          onRemove(cart_item_id);
+        }}
+      />
       <Checkbox
         type="checkbox"
         id={`cartItem_${product_id}`}
-        // is_active={is_active}
+        checked={is_active}
         onChange={toggleCheck}
       />
       <label htmlFor={`cartItem_${product_id}`} />
@@ -88,7 +77,7 @@ const CartItem = ({
   );
 };
 
-export default CartItem;
+export default React.memo(CartItem);
 
 const Container = styled.article`
   display: flex;

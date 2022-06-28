@@ -1,19 +1,11 @@
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 import styled from 'styled-components';
 import ColorButton from '../button/ColorButton';
 import IconPlus from '../../../public/assets/icon-circle-plus.svg';
 import IconMinus from '../../../public/assets/icon-circle-minus.svg';
 import TextPrice from './TextPrice';
-import { API_URL } from '../../util/api';
 
-const CartFooter = ({ cartDetail }) => {
-  const [priceProduct, setPriceProduct] = useState(
-    cartDetail.reduce((acc, cur) => acc.price + cur.price, 0),
-  );
-  const [priceShip, setPriceShip] = useState(
-    cartDetail.reduce((acc, cur) => acc.shipping_fee + cur.shipping_fee, 0),
-  );
-
+const CartFooter = ({ priceProduct, priceShip }) => {
   return (
     <Container>
       <PriceContainer>
@@ -23,7 +15,11 @@ const CartFooter = ({ cartDetail }) => {
         <img src={IconPlus} />
         <TextPrice title={'배송비'} price={priceShip} />
         <div></div>
-        <TextPrice title={'결제 예정 금액'} price={priceProduct + priceShip} color={'red'} />
+        <TextPrice
+          title={'결제 예정 금액'}
+          price={priceProduct + priceShip}
+          color={'red'}
+        />
       </PriceContainer>
       <ColorButton size={'L'} width={'220px'}>
         주문하기
@@ -32,7 +28,7 @@ const CartFooter = ({ cartDetail }) => {
   );
 };
 
-export default CartFooter;
+export default React.memo(CartFooter);
 
 const Container = styled.article`
   display: flex;
