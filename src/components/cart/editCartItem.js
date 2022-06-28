@@ -25,6 +25,30 @@ const updateCartItem = async (
     .catch((e) => console.error(e));
 };
 
+const toggleAll = async (cartItems, isChecking) => {
+  return await Promise.all(
+    cartItems.map(({ cart_item_id, product_id, quantity }) => {
+      fetch(`${API_URL}/cart/${cart_item_id}/`, {
+        method: 'PUT',
+        headers: {
+          'Content-Type': 'application/json',
+          Authorization: `JWT ${localStorage.getItem('token')}`,
+        },
+        body: JSON.stringify({
+          product_id,
+          quantity,
+          is_active: isChecking,
+        }),
+      })
+        .then((res) => {
+          // if (!res.ok) throw new Error('http 에러');
+          return res.json();
+        })
+        .catch((e) => console.error(e));
+    }),
+  );
+};
+
 const removeCartItem = async (cart_item_id) => {
   fetch(`${API_URL}/cart/${cart_item_id}/`, {
     method: 'DELETE',
@@ -40,4 +64,4 @@ const removeCartItem = async (cart_item_id) => {
     .catch((e) => console.error(e.message));
 };
 
-export { updateCartItem, removeCartItem };
+export { updateCartItem, toggleAll, removeCartItem };

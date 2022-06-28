@@ -1,12 +1,24 @@
-import React from 'react';
+import React, { useState } from 'react';
 import styled from 'styled-components';
+import { toggleAll } from './editCartItem';
 import IconOn from '../../../public/assets/check-circle-on.svg';
 import IconOff from '../../../public/assets/check-circle-off.svg';
 
-const CartHeader = () => {
+const CartHeader = ({ cartItems, refetch }) => {
+  const [isChecked, setIsChecked] = useState(false);
+
   return (
     <Container>
-      <Checkbox type="checkbox" id="checkAll" />
+      <Checkbox
+        type="checkbox"
+        id="checkAll"
+        checked={isChecked}
+        onChange={() => {
+          setIsChecked(!isChecked);
+          toggleAll(cartItems, isChecked);
+          refetch();
+        }}
+      />
       <label htmlFor="checkAll" />
       <ItemInfoContainer>상품정보</ItemInfoContainer>
       <AmountContainer>수량</AmountContainer>
