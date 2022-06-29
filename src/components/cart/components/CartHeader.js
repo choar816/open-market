@@ -8,16 +8,16 @@ const CartHeader = ({ cartItems, refetch }) => {
   const [isChecked, setIsChecked] = useState(false);
 
   const toggleAll = () => {
-    setIsChecked(!isChecked);
     Promise.all(
       cartItems.map(({ cart_item_id, product_id, quantity }) =>
         sendRequestWithCallback(
           cart_item_id,
-          updateBody(product_id, quantity, isChecked),
+          updateBody(product_id, quantity, !isChecked),
           refetch,
         ),
       ),
     );
+    setIsChecked(checked => !checked);
   };
 
   return (
@@ -62,10 +62,10 @@ const Checkbox = styled.input`
     height: 20px;
     margin-top: 1px;
     margin-left: 30px;
-    background: url(${IconOn}) center/20px 20px;
+    background: url(${IconOff}) center/20px 20px;
   }
   &:checked + label {
-    background-image: url(${IconOff});
+    background-image: url(${IconOn});
   }
 `;
 
