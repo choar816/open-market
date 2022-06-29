@@ -6,7 +6,7 @@ import ProductInfo from './ProductInfo';
 import ProductDetail from './ProductDetail';
 import Loading from '../Loading';
 import ErrorMessage from '../ErrorMessage';
-import { API_URL } from '../../util/api';
+import { API_URL } from '/src/utils/api';
 
 const getProductInfo = async (id) => {
   return fetch(`${API_URL}/products/${id}/`, {

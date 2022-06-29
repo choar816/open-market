@@ -1,4 +1,4 @@
-import Thumbnail from '../../public/thumbnail.png';
+import Thumbnail from '/public/thumbnail.png';
 
 export const setMetaTag = ({
   title = '오픈마켓',

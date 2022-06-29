@@ -1,11 +1,11 @@
 import React, { useCallback } from 'react';
 import styled from 'styled-components';
 import { removeBody, sendRequestWithCallback, updateBody } from '../../utils/cartRequest';
-import AmountPicker from '../../../AmountPicker';
-import ColorButton from '../../../button/ColorButton';
-import IconOn from '../../../../../public/assets/check-circle-on.svg';
-import IconOff from '../../../../../public/assets/check-circle-off.svg';
-import IconDelete from '../../../../../public/assets/icon-delete.svg';
+import AmountPicker from '/src/components/AmountPicker';
+import ColorButton from '/src/components/button/ColorButton';
+import IconOn from '/public/assets/check-circle-on.svg';
+import IconOff from '/public/assets/check-circle-off.svg';
+import IconDelete from '/public/assets/icon-delete.svg';
 
 const CartItem = ({ item, refetch }) => {
   const {

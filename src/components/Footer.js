@@ -1,6 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
-import { links, socials, companyInfo } from '../util/footerData';
+import { links, socials, companyInfo } from '/src/utils/footerData';
 
 const Footer = () => {
   return (

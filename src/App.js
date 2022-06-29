@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react';
 import { Routes, Route } from 'react-router-dom';
-import { QueryClient, QueryClientProvider, useQuery } from 'react-query'
-import { setMetaTag } from './util/meta';
+import { QueryClient, QueryClientProvider } from 'react-query'
+import { setMetaTag } from '/src/utils/meta';
 import MainPage from './pages/MainPage';
 import ProductPage from './pages/ProductPage';
 import LoginPage from './pages/LoginPage';

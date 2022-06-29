@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
 import styled from 'styled-components';
 import DropdownPhone from './DropdownPhone';
-import IconDown from '../../../public/assets/icon-down-arrow.svg';
-import IconUp from '../../../public/assets/icon-up-arrow.svg';
+import IconDown from '/public/assets/icon-down-arrow.svg';
+import IconUp from '/public/assets/icon-up-arrow.svg';
 
 const SelectBox = ({ phoneFirst, onSelect }) => {
   const [isOn, setIsOn] = useState(false);

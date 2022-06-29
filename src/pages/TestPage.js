@@ -5,7 +5,7 @@ import SideBar from '../components/SideBar';
 import AmountPicker from '../components/AmountPicker';
 import ColorButton from '../components/button/ColorButton';
 import ProductItem from '../components/product/ProductItem';
-import Product1 from '../../public/assets/product-1.jpg';
+import Product1 from '/public/assets/product-1.jpg';
 
 const TestPage = () => {
   return (

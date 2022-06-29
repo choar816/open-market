@@ -1,9 +1,9 @@
 import React from 'react';
 import styled from 'styled-components';
-import ColorButton from '../../../button/ColorButton';
-import IconPlus from '../../../../../public/assets/icon-circle-plus.svg';
-import IconMinus from '../../../../../public/assets/icon-circle-minus.svg';
 import TextPrice from './TextPrice';
+import ColorButton from '/src/components/button/ColorButton';
+import IconPlus from '/public/assets/icon-circle-plus.svg';
+import IconMinus from '/public/assets/icon-circle-minus.svg';
 
 const CartFooter = ({ priceProduct, priceShip }) => {
   return (

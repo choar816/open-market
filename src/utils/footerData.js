@@ -1,6 +1,6 @@
-import ImgInsta from '../../public/assets/icon-insta.svg';
-import ImgFb from '../../public/assets/icon-fb.svg';
-import ImgYoutube from '../../public/assets/icon-yt.svg';
+import ImgInsta from '/public/assets/icon-insta.svg';
+import ImgFb from '/public/assets/icon-fb.svg';
+import ImgYoutube from '/public/assets/icon-yt.svg';
 
 export const links = [
   {

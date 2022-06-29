@@ -1,5 +1,5 @@
 import React, { useEffect, useRef, useState } from 'react';
-import { checkIdRegex, checkPwRegex } from '../../util/regex';
+import { checkIdRegex, checkPwRegex } from '/src/utils/regex';
 import InputEmail from '../input/InputEmail';
 import InputName from '../input/InputName';
 import InputPassword from '../input/InputPassword';

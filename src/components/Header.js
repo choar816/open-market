@@ -3,10 +3,10 @@ import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
 import SearchBar from './SearchBar';
 import IconButton from './button/IconButton';
-import ImgLogo from '../../public/assets/Logo-hodu.png';
-import ImgCart from '../../public/assets/icon-shopping-cart.svg';
-import ImgUser from '../../public/assets/icon-user.svg';
-import ImgBag from '../../public/assets/icon-shopping-bag.svg';
+import ImgLogo from '/public/assets/Logo-hodu.png';
+import ImgCart from '/public/assets/icon-shopping-cart.svg';
+import ImgUser from '/public/assets/icon-user.svg';
+import ImgBag from '/public/assets/icon-shopping-bag.svg';
 import SellerButton from './button/SellerButton';
 
 const Header = () => {

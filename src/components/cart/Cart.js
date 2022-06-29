@@ -1,13 +1,13 @@
 import React from 'react';
 import { useQuery } from 'react-query';
 import styled from 'styled-components';
+import { getCartDetails } from './utils/cartRequest';
 import Loading from '../Loading';
+import CartHeader from './components/CartHeader';
 import CartList from './components/cartlist/CartList';
 import CartNothing from './components/CartNothing';
 import CartNoaccess from './components/CartNoaccess';
 import ErrorMessage from '../ErrorMessage';
-import { getCartDetails } from './utils/cartRequest';
-import CartHeader from './components/CartHeader';
 
 const Cart = () => {
   const isSeller = localStorage.getItem('userType') === 'SELLER' ? true : false;

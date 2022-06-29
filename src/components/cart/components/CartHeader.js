@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
 import styled from 'styled-components';
 import { sendRequestWithCallback, updateBody } from '../utils/cartRequest';
-import IconOn from '../../../../public/assets/check-circle-on.svg';
-import IconOff from '../../../../public/assets/check-circle-off.svg';
+import IconOn from '/public/assets/check-circle-on.svg';
+import IconOff from '/public/assets/check-circle-off.svg';
 
 const CartHeader = ({ cartItems, refetch }) => {
   const [isChecked, setIsChecked] = useState(false);

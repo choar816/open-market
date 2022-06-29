@@ -1,12 +1,12 @@
 import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
-import { checkIdRegex, checkEmailRegex } from '../util/regex';
-import { API_URL } from '../util/api';
-import ImgLogo from '../../public/assets/Logo-hodu.png';
+import { checkIdRegex, checkEmailRegex } from '/src/utils/regex';
+import { API_URL } from '/src/utils/api';
 import JoinForm from '../components/join/JoinForm';
 import JoinFooter from '../components/join/JoinFooter';
 import JoinSuccessModal from '../components/join/JoinSuccessModal';
+import ImgLogo from '/public/assets/Logo-hodu.png';
 
 const JoinPage = () => {
   const navigate = useNavigate();

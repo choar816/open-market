@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
 import styled from 'styled-components';
-import { carouselImgs } from '../util/carousel';
-import BtnPrev from '../../public/assets/arrow-left.svg';
-import BtnNext from '../../public/assets/arrow-right.svg';
+import { carouselImgs } from '/src/utils/carousel';
+import BtnPrev from '/public/assets/arrow-left.svg';
+import BtnNext from '/public/assets/arrow-right.svg';
 
 const Carousel = () => {
   const [activeIdx, setActiveIdx] = useState(0);

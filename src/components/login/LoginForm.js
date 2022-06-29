@@ -3,7 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
 import InputText from '../input/InputText';
 import ColorButton from '../button/ColorButton';
-import { API_URL } from '../../util/api';
+import { API_URL } from '/src/utils/api';
 import regeneratorRuntime from 'regenerator-runtime';
 
 const LoginForm = ({ userType }) => {
