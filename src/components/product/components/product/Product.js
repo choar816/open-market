@@ -3,28 +3,15 @@ import { useParams } from 'react-router-dom';
 import { useQuery } from 'react-query';
 import styled from 'styled-components';
 import ProductInfo from './ProductInfo';
-import ProductDetail from './ProductDetail';
-import Loading from '../Loading';
-import ErrorMessage from '../ErrorMessage';
-import { API_URL } from '/src/utils/api';
-
-const getProductInfo = async (id) => {
-  return fetch(`${API_URL}/products/${id}/`, {
-    method: 'GET',
-    headers: {
-      'Content-Type': 'application/json',
-    },
-  }).then((res) => {
-    // if (!res.ok) throw new Error('http error');
-    return res.json();
-  })
-  .catch((e) => console.error(e));
-};
+import ProductTabs from './ProductTabs';
+import Loading from '../../../Loading';
+import ErrorMessage from '../../../ErrorMessage';
+import { getProductDetail } from '/src/utils/product';
 
 const Product = () => {
   const params = useParams();
   const { data, isLoading, error } = useQuery(['productInfo', params.id], () =>
-    getProductInfo(params.id),
+    getProductDetail(params.id),
   );
 
   if (isLoading) return <Loading />;
@@ -35,11 +22,11 @@ const Product = () => {
 
   return (
     <Container>
-      <ProductIntro>
+      <ContainerUpper>
         <img src={data.image} />
-        <ProductInfo id={params.id} productData={data} />
-      </ProductIntro>
-      <ProductDetail />
+        <ProductInfo id={params.id} data={data} />
+      </ContainerUpper>
+      <ProductTabs />
     </Container>
   );
 };
@@ -56,7 +43,7 @@ const Container = styled.main`
   gap: 140px;
 `;
 
-const ProductIntro = styled.section`
+const ContainerUpper = styled.section`
   display: flex;
   justify-content: center;
   gap: 50px;

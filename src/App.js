@@ -8,7 +8,6 @@ import LoginPage from './pages/LoginPage';
 import JoinPage from './pages/JoinPage';
 import CartPage from './pages/CartPage';
 import NotFoundPage from './pages/NotFoundPage';
-import TestPage from './pages/TestPage';
 import './App.css';
 
 const queryClient = new QueryClient();

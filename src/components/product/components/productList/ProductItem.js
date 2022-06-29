@@ -1,12 +1,14 @@
 import React from 'react';
 import styled from 'styled-components';
 
-const ProductItem = ({ imgSrc, desc, title, price, onClick }) => {
+const ProductItem = ({ item, onClick }) => {
+  const { image, product_info, product_name, price } = item;
+
   return (
     <Container>
-      <Img src={imgSrc} onClick={onClick} />
-      <Desc>{desc}</Desc>
-      <Title onClick={onClick}>{title}</Title>
+      <Img src={image} onClick={onClick} />
+      <Desc>{product_info}</Desc>
+      <Title onClick={onClick}>{product_name}</Title>
       <Price>
         <strong>{price.toLocaleString('ko-KR')}</strong>원
       </Price>

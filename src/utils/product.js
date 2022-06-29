@@ -7,10 +7,6 @@ export const getProductDetail = async (product_id) => {
       'Content-Type': 'application/json',
     },
   })
-    .then((res) => {
-      // if (!res.ok) throw new Error('http 에러');
-      return res.json();
-    })
-    .catch((e) => console.error(e));
+    .then((res) => res.json());
 };
 

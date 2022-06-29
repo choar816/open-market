@@ -1,59 +1,52 @@
 import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
-import { API_URL } from '/src/utils/api';
-import AmountPicker from '../AmountPicker';
-import ColorButton from '../button/ColorButton';
-import CartModal from '../modal/CartModal';
+import ColorButton from '/src/components/button/ColorButton';
+import AmountPicker from '../../../AmountPicker';
+import CartModal from './CartModal';
+import { addProductToCart } from '../../utils/productRequest';
 
-const ProductInfo = ({ id, productData }) => {
+const ProductInfo = ({ id, data }) => {
   const {
     seller_store,
+    product_id,
     product_name,
     price,
     shipping_method,
     shipping_fee,
     stock,
-  } = productData;
+  } = data;
+
+  const isLogined = localStorage.getItem('token');
   const [amount, setAmount] = useState(0);
   const [modalOn, setModalOn] = useState(false);
   const [modalContent, setModalContent] = useState('content');
-  const onIncrease = () => setAmount(amount < stock ? amount + 1 : amount);
-  const onDecrease = () => setAmount(amount > 0 ? amount - 1 : 0);
+  const onIncrease = () => setAmount(amount => amount < stock ? amount + 1 : amount);
+  const onDecrease = () => setAmount(amount => amount > 0 ? amount - 1 : 0);
   useEffect(() => setAmount(0), [id]);
 
-  const addToCart = async (product_id, quantity, check) => {
-    if (!check) {
-      setModalContent('0개를 담을 수 없습니다.');
-      setModalOn(true);
+  const setModal = (content, on) => {
+    setModalContent(content);
+    setModalOn(on);
+  };
+
+  const onCartClick = async (product_id, quantity, check) => {
+    if (!isLogined) {
+      setModal('장바구니는 로그인 후 이용 가능합니다.', true);
       return;
     }
 
-    fetch(`${API_URL}/cart/`, {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-        Authorization: `JWT ${localStorage.getItem('token')}`,
-      },
-      body: JSON.stringify({
-        product_id,
-        quantity,
-        check,
-      }),
-    })
-      .then((res) => {
-        // if (!res.ok) throw new Error('http 에러');
-        return res.json();
-      })
-      .then((data) => {
-        if (data.FAIL_message) {
-          setModalContent('현재 재고보다 더 많은 수량을 담을 수 없습니다.');
-          setModalOn(true);
-        } else {
-          setModalContent('장바구니에 상품을 담았습니다!');
-          setModalOn(true);
-        }
-      })
-      .catch((e) => console.error(e));
+    if (!check) {
+      setModal('0개를 담을 수 없습니다.', true);
+      return;
+    }
+
+    addProductToCart(product_id.toString(), quantity, true).then((data) => {
+      if (data?.FAIL_message) {
+        setModal('현재 재고보다 더 많은 수량을 담을 수 없습니다.', true);
+      } else {
+        setModal('장바구니에 상품을 담았습니다!', true);
+      }
+    });
   };
 
   return (
@@ -101,9 +94,9 @@ const ProductInfo = ({ id, productData }) => {
             <ColorButton
               color={'charcoal'}
               width={'200px'}
-              onClick={() => {
-                addToCart(id.toString(), amount, amount !== 0);
-              }}
+              onClick={() =>
+                onCartClick(product_id, amount, amount !== 0)
+              }
             >
               장바구니
             </ColorButton>

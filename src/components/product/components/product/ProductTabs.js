@@ -1,4 +1,39 @@
-import React from 'react';
+import React, { useState } from 'react';
+import styled from 'styled-components';
+
+const ProductTabs = () => {
+  const [chosenTab, setChosenTab] = useState(0);
+  const tabList = ['상세정보', '리뷰', 'Q&A', '반품/교환정보'];
+
+  return (
+    <section>
+      <TabBar
+        tabList={tabList}
+        chosenTab={chosenTab}
+        setChosenTab={setChosenTab}
+      />
+      <TabContent chosenTab={chosenTab} />
+    </section>
+  );
+};
+
+export default ProductTabs;
+
+const TabBar = ({ tabList, chosenTab, setChosenTab }) => {
+  return (
+    <Container>
+      {tabList.map((tabTitle, idx) => (
+        <TabButton
+          key={idx}
+          chosen={idx === chosenTab}
+          onClick={() => setChosenTab(idx)}
+        >
+          {tabTitle}
+        </TabButton>
+      ))}
+    </Container>
+  );
+};
 
 const TabContent = ({ chosenTab }) => {
   const tabContents = [];
@@ -82,4 +117,26 @@ const TabContent = ({ chosenTab }) => {
   return <>{tabContents[chosenTab]}</>;
 };
 
-export default TabContent;
+const Container = styled.article`
+  margin-bottom: 30px;
+  display: flex;
+`;
+
+const TabButton = styled.button`
+  width: 320px;
+  padding: 18px 0 12px;
+  font-weight: 700;
+  font-size: 18px;
+  color: #21bf48;
+  background-color: #ffffff;
+  border: none;
+  border-bottom: 6px solid #21bf48;
+
+  ${({ chosen }) =>
+    !chosen &&
+    `
+    font-weight: 500;
+    color: #767676;
+    border-bottom: 6px solid #E0E0E0;
+  `}
+`;
