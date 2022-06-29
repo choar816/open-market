@@ -6,7 +6,7 @@ const updateCartItem = async (
   quantity,
   is_active,
 ) => {
-  fetch(`${API_URL}/cart/${cart_item_id}/`, {
+  return fetch(`${API_URL}/cart/${cart_item_id}/`, {
     method: 'PUT',
     headers: {
       'Content-Type': 'application/json',
@@ -50,7 +50,7 @@ const toggleAll = (cartItems, isChecking, refetch) => {
 };
 
 const removeCartItem = async (cart_item_id) => {
-  fetch(`${API_URL}/cart/${cart_item_id}/`, {
+  return fetch(`${API_URL}/cart/${cart_item_id}/`, {
     method: 'DELETE',
     headers: {
       'Content-Type': 'application/json',

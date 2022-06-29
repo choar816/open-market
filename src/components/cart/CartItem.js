@@ -5,7 +5,7 @@ import IconOn from '../../../public/assets/check-circle-on.svg';
 import IconOff from '../../../public/assets/check-circle-off.svg';
 import IconDelete from '../../../public/assets/icon-delete.svg';
 import ColorButton from '../button/ColorButton';
-import { updateCartItem } from './editCartItem';
+import { updateCartItem, removeCartItem } from './editCartItem';
 
 const CartItem = ({ item, refetch }) => {
   const {
@@ -47,7 +47,7 @@ const CartItem = ({ item, refetch }) => {
       <DeleteButton
         src={IconDelete}
         onClick={() => {
-          onRemove(cart_item_id);
+          removeCartItem(cart_item_id).then(refetch);
         }}
       />
       <Checkbox
