@@ -1,7 +1,7 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
-import ColorButton from '../button/ColorButton';
+import ColorButton from '../../button/ColorButton';
 
 // to do : chagne to switch case
 const CartNoaccess = ({ type }) => {

@@ -1,6 +1,6 @@
 import React from 'react';
 import CartItem from './CartItem';
-import CartFooter from './CartFooter';
+import CartPrice from './CartPrice';
 
 const CartList = ({ cartItems, refetch }) => {
   const priceProduct = cartItems.reduce((acc, cur) => {
@@ -22,7 +22,7 @@ const CartList = ({ cartItems, refetch }) => {
           refetch={refetch}
         />
       ))}
-      <CartFooter priceProduct={priceProduct} priceShip={priceShip} />
+      <CartPrice priceProduct={priceProduct} priceShip={priceShip} />
     </>
   );
 };

@@ -1,8 +1,8 @@
 import React from 'react';
 import styled from 'styled-components';
-import ColorButton from '../button/ColorButton';
-import IconPlus from '../../../public/assets/icon-circle-plus.svg';
-import IconMinus from '../../../public/assets/icon-circle-minus.svg';
+import ColorButton from '../../../button/ColorButton';
+import IconPlus from '../../../../../public/assets/icon-circle-plus.svg';
+import IconMinus from '../../../../../public/assets/icon-circle-minus.svg';
 import TextPrice from './TextPrice';
 
 const CartFooter = ({ priceProduct, priceShip }) => {

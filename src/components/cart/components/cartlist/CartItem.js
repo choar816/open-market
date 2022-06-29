@@ -1,11 +1,11 @@
-import React, { useCallback, useEffect, useState } from 'react';
+import React, { useCallback } from 'react';
 import styled from 'styled-components';
-import AmountPicker from '../AmountPicker';
-import IconOn from '../../../public/assets/check-circle-on.svg';
-import IconOff from '../../../public/assets/check-circle-off.svg';
-import IconDelete from '../../../public/assets/icon-delete.svg';
-import ColorButton from '../button/ColorButton';
-import { updateCartItem, removeCartItem } from './editCartItem';
+import { removeBody, sendRequestWithCallback, updateBody } from '../../utils/cartRequest';
+import AmountPicker from '../../../AmountPicker';
+import ColorButton from '../../../button/ColorButton';
+import IconOn from '../../../../../public/assets/check-circle-on.svg';
+import IconOff from '../../../../../public/assets/check-circle-off.svg';
+import IconDelete from '../../../../../public/assets/icon-delete.svg';
 
 const CartItem = ({ item, refetch }) => {
   const {
@@ -24,31 +24,43 @@ const CartItem = ({ item, refetch }) => {
 
   const onIncrease = useCallback(() => {
     if (quantity === stock) return;
-    updateCartItem(cart_item_id, product_id, quantity + 1, is_active).then(
+    sendRequestWithCallback(
+      cart_item_id,
+      updateBody(product_id, quantity + 1, is_active),
       refetch,
     );
   }, [quantity, is_active]);
 
   const onDecrease = useCallback(() => {
     if (quantity === 1) return;
-    updateCartItem(cart_item_id, product_id, quantity - 1, is_active).then(
+    sendRequestWithCallback(
+      cart_item_id,
+      updateBody(product_id, quantity - 1, is_active),
       refetch,
     );
   }, [quantity, is_active]);
 
   const toggleCheck = useCallback(() => {
-    updateCartItem(cart_item_id, product_id, quantity, !is_active).then(
+    sendRequestWithCallback(
+      cart_item_id,
+      updateBody(product_id, quantity, !is_active),
       refetch,
     );
   }, [quantity, is_active]);
+
+  const onRemove = useCallback(() => {
+    sendRequestWithCallback(
+      cart_item_id,
+      removeBody(),
+      refetch,
+    );
+  }, []);
 
   return (
     <Container>
       <DeleteButton
         src={IconDelete}
-        onClick={() => {
-          removeCartItem(cart_item_id).then(refetch);
-        }}
+        onClick={onRemove}
       />
       <Checkbox
         type="checkbox"

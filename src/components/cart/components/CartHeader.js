@@ -1,11 +1,24 @@
 import React, { useState } from 'react';
 import styled from 'styled-components';
-import { toggleAll } from './editCartItem';
-import IconOn from '../../../public/assets/check-circle-on.svg';
-import IconOff from '../../../public/assets/check-circle-off.svg';
+import { sendRequestWithCallback, updateBody } from '../utils/cartRequest';
+import IconOn from '../../../../public/assets/check-circle-on.svg';
+import IconOff from '../../../../public/assets/check-circle-off.svg';
 
 const CartHeader = ({ cartItems, refetch }) => {
   const [isChecked, setIsChecked] = useState(false);
+
+  const toggleAll = () => {
+    setIsChecked(!isChecked);
+    Promise.all(
+      cartItems.map(({ cart_item_id, product_id, quantity }) =>
+        sendRequestWithCallback(
+          cart_item_id,
+          updateBody(product_id, quantity, isChecked),
+          refetch,
+        ),
+      ),
+    );
+  };
 
   return (
     <Container>
@@ -13,10 +26,7 @@ const CartHeader = ({ cartItems, refetch }) => {
         type="checkbox"
         id="checkAll"
         checked={isChecked}
-        onChange={() => {
-          setIsChecked(!isChecked);
-          toggleAll(cartItems, isChecked, refetch);
-        }}
+        onChange={toggleAll}
       />
       <label htmlFor="checkAll" />
       <ItemInfoContainer>상품정보</ItemInfoContainer>

@@ -2,12 +2,12 @@ import React from 'react';
 import { useQuery } from 'react-query';
 import styled from 'styled-components';
 import Loading from '../Loading';
-import CartList from './CartList';
-import CartHeader from './CartHeader';
-import CartNothing from './CartNothing';
-import CartNoaccess from './CartNoaccess';
-import getCartDetail from './getCartDetail';
+import CartList from './components/cartlist/CartList';
+import CartNothing from './components/CartNothing';
+import CartNoaccess from './components/CartNoaccess';
 import ErrorMessage from '../ErrorMessage';
+import { getCartDetails } from './utils/cartRequest';
+import CartHeader from './components/CartHeader';
 
 const Cart = () => {
   const isSeller = localStorage.getItem('userType') === 'SELLER' ? true : false;
@@ -15,7 +15,7 @@ const Cart = () => {
 
   const { data, isLoading, error, refetch } = useQuery(
     'cartItems',
-    getCartDetail,
+    getCartDetails,
   );
 
   if (!isLogined) return <CartNoaccess type={'login'} />;
