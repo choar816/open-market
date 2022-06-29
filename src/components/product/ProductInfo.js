@@ -53,7 +53,7 @@ const ProductInfo = ({ id, productData }) => {
           setModalOn(true);
         }
       })
-      .catch((e) => alert(e.message));
+      .catch((e) => console.error(e));
   };
 
   return (

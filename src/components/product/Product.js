@@ -17,7 +17,8 @@ const getProductInfo = async (id) => {
   }).then((res) => {
     // if (!res.ok) throw new Error('http error');
     return res.json();
-  });
+  })
+  .catch((e) => console.error(e));
 };
 
 const Product = () => {
@@ -27,7 +28,7 @@ const Product = () => {
   );
 
   if (isLoading) return <Loading />;
-  if (data?.detail === '찾을 수 없습니다.')
+  if (data.detail === '찾을 수 없습니다.')
     return <ErrorMessage emoji="😶‍🌫️" message="해당 상품은 존재하지 않습니다." />;
   if (error)
     return <ErrorMessage emoji="😭" message={`에러 발생: ${error.message}`} />;

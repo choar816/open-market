@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import styled from 'styled-components';
-import TabBar from '../TabBar';
-import TabContent from '../TabContent';
+import TabBar from './TabBar';
+import TabContent from './TabContent';
 
 const ProductDetail = () => {
   const [chosenTab, setChosenTab] = useState(0);

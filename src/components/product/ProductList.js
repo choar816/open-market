@@ -18,7 +18,8 @@ const getProducts = async () => {
       if (!res.ok) throw new Error('http 에러');
       return res.json();
     })
-    .then((data) => data.results);
+    .then((data) => data.results)
+    .catch((e) => console.error(e));
 };
 
 const ProductList = () => {

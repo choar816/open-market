@@ -41,7 +41,8 @@ const getCartDetail = async () => {
       return cartItems.map((item, idx) => {
         return { ...item, ...details[idx] };
       });
-    });
+    })
+    .catch((e) => console.error(e));
 };
 
 export default getCartDetail;

@@ -1,7 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
 import Header from '../components/Header';
-import TabBar from '../components/TabBar';
 import SideBar from '../components/SideBar';
 import AmountPicker from '../components/AmountPicker';
 import ColorButton from '../components/button/ColorButton';
@@ -22,7 +21,6 @@ const TestPage = () => {
       <AmountPicker />
       <AmountPicker disabled />
       <SideBar></SideBar>
-      <TabBar></TabBar>
       <ColorButton size="L">L버튼</ColorButton>
       <ColorButton size="L" width="50%" color="white">
         L버튼 white

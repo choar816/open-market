@@ -44,7 +44,6 @@ const LoginForm = ({ userType }) => {
         return res.json();
       })
       .then((data) => {
-        console.log(data);
         if (data.username) {
           setMessage({ content: '아이디를 입력해 주세요.', show: true });
           idRef.current.focus();
@@ -65,7 +64,7 @@ const LoginForm = ({ userType }) => {
           navigate(-1, { replace: true });
         }
       })
-      .catch((e) => alert(e.message));
+      .catch((e) => console.error(e));
   };
 
   const handleEnter = (e) => {

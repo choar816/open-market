@@ -202,8 +202,6 @@ const JoinPage = () => {
     })
       .then((res) => res.json())
       .then((data) => {
-        console.log(data);
-
         // phone number
         if (data.phone_number?.includes('올바른 값을 입력하세요.')) {
           setMsgJoin({
@@ -265,7 +263,7 @@ const JoinPage = () => {
         // 회원가입에 성공했을 때
         if (data.user_type === 'SELLER') setJoinSuccess(true);
       })
-      .catch((e) => alert(e.message));
+      .catch((e) => console.error(e));
   };
 
   return (
