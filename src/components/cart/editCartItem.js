@@ -25,10 +25,10 @@ const updateCartItem = async (
     .catch((e) => console.error(e));
 };
 
-const toggleAll = async (cartItems, isChecking) => {
-  return await Promise.all(
+const toggleAll = (cartItems, isChecking, refetch) => {
+  Promise.all(
     cartItems.map(({ cart_item_id, product_id, quantity }) => {
-      fetch(`${API_URL}/cart/${cart_item_id}/`, {
+      return fetch(`${API_URL}/cart/${cart_item_id}/`, {
         method: 'PUT',
         headers: {
           'Content-Type': 'application/json',
@@ -46,7 +46,7 @@ const toggleAll = async (cartItems, isChecking) => {
         })
         .catch((e) => console.error(e));
     }),
-  );
+  ).then(refetch);
 };
 
 const removeCartItem = async (cart_item_id) => {

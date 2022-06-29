@@ -15,8 +15,7 @@ const CartHeader = ({ cartItems, refetch }) => {
         checked={isChecked}
         onChange={() => {
           setIsChecked(!isChecked);
-          toggleAll(cartItems, isChecked);
-          refetch();
+          toggleAll(cartItems, isChecked, refetch);
         }}
       />
       <label htmlFor="checkAll" />
