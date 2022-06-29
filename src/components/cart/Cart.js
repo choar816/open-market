@@ -6,7 +6,7 @@ import CartHeader from './components/CartHeader';
 import CartNothing from './components/CartNothing';
 import CartNoaccess from './components/CartNoaccess';
 import ErrorMessage from '../ErrorMessage';
-import { CartList } from './components/cartList';
+import { CartList } from './components/cartList/';
 import { getCartDetails } from './utils/cartRequest';
 
 const Cart = () => {
