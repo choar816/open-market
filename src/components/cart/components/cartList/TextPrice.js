@@ -12,7 +12,7 @@ const TextPrice = ({ title, price, color }) => {
   );
 };
 
-export default TextPrice;
+export default React.memo(TextPrice);
 
 const Container = styled.article`
   display: flex;

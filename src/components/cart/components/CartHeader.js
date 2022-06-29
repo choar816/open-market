@@ -17,7 +17,7 @@ const CartHeader = ({ cartItems, refetch }) => {
         ),
       ),
     );
-    setIsChecked(checked => !checked);
+    setIsChecked((checked) => !checked);
   };
 
   return (
