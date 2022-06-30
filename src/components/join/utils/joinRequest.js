@@ -7,31 +7,18 @@ export const sendJoinRequest = (userType, requestBody) => {
   ).catch((e) => console.error(e));
 };
 
-export const buyerBody = ({ id, pw, pwCheck, phone, name }) => {
-  return {
-    method: 'POST',
-    headers: {
-      'Content-Type': 'application/json',
-    },
-    body: JSON.stringify({
-      username: id,
-      password: pw,
-      password2: pwCheck,
-      phone_number: phone,
-      name: name,
-    }),
-  };
-};
+export const joinBody = (
+  userType,
+  { id, pw, pwCheck, phone, name, sellerNum, storeName },
+) => {
+  const extraBody =
+    userType === 'SELLER'
+      ? {
+          company_registration_number: sellerNum,
+          store_name: storeName,
+        }
+      : {};
 
-export const sellerBody = ({
-  id,
-  pw,
-  pwCheck,
-  phone,
-  name,
-  sellerNum,
-  storeName,
-}) => {
   return {
     method: 'POST',
     headers: {
@@ -43,8 +30,7 @@ export const sellerBody = ({
       password2: pwCheck,
       phone_number: phone,
       name: name,
-      company_registration_number: sellerNum,
-      store_name: storeName,
+      ...extraBody,
     }),
   };
 };

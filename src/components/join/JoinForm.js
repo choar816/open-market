@@ -1,10 +1,11 @@
 import React, { useEffect, useRef, useState } from 'react';
-import { checkIdRegex, checkPwRegex } from '/src/utils/regex';
 import InputEmail from './components/input/InputEmail';
 import InputName from './components/input/InputName';
 import InputPassword from './components/input/InputPassword';
 import InputPhone from './components/input/InputPhone';
 import InputWithBtn from './components/input/InputWithBtn';
+import { idRegex, pwRegex } from './utils/regex';
+import { idDupBody, sendJoinRequest } from './utils/joinRequest';
 
 const JoinForm = ({
   userType,
@@ -12,33 +13,58 @@ const JoinForm = ({
   setJoinInputs,
   joinErrors,
   setJoinErrors,
-  checkId,
 }) => {
   const { id, pw, pwCheck } = joinInputs;
   const idRef = useRef(null);
 
-  // id (check regex)
-  const onBlurId = () => {
-    if (!checkIdRegex(id)) {
+  ////////////////// id (regex, 중복) //////////////////
+  const onClickIdCheck = () => {
+    if (!checkIdRegex()) return;
+    checkIdDup();
+  };
+
+  const checkIdRegex = () => {
+    if (!idRegex.test(id)) {
       setJoinErrors({
         ...joinErrors,
         id: '20자 이내의 영문 소문자, 대문자, 숫자만 사용 가능합니다.',
       });
+      return false;
     } else {
       setJoinErrors({
         ...joinErrors,
         id: null,
       });
+      return true;
     }
   };
 
-  // pw
+  const checkIdDup = async () => {
+    await sendJoinRequest(userType, idDupBody(joinInputs.id))
+      .then((res) => res.json())
+      .then((data) => {
+        if (data.username?.includes('해당 사용자 아이디는 이미 존재합니다.')) {
+          setJoinErrors({
+            ...joinErrors,
+            id: '이미 사용 중인 아이디입니다.',
+          });
+        } else {
+          setJoinErrors({
+            ...joinErrors,
+            id: null,
+          });
+        }
+      })
+      .catch((e) => console.error(e));
+  };
+
+  ////////////////// pw //////////////////
   const [isPwValid, setIsPwValid] = useState(false);
   const [isPwCheckValid, setIsPwCheckValid] = useState(false);
 
   const onBlurPw = () => {
     // pw의 regex 체크
-    if (!checkPwRegex(pw)) {
+    if (!pwRegex.test(pw)) {
       setJoinErrors((joinErrors) => {
         return {
           ...joinErrors,
@@ -52,13 +78,13 @@ const JoinForm = ({
       });
       setIsPwValid(true);
     }
-    
+
     // pw, pwCheck 일치하는지 체크
     if (pw === pwCheck) {
       setJoinErrors((joinErrors) => {
         return { ...joinErrors, pwCheck: null };
       });
-      if (checkPwRegex(pw)) setIsPwCheckValid(true);
+      if (pwRegex.test(pw)) setIsPwCheckValid(true);
     } else {
       setJoinErrors((joinErrors) => {
         return {
@@ -70,7 +96,7 @@ const JoinForm = ({
     }
   };
 
-  // Phone
+  ////////////////// Phone //////////////////
   const [phone, setPhone] = useState(['010', '', '']);
 
   useEffect(() => {
@@ -90,15 +116,9 @@ const JoinForm = ({
     setPhone(newPhone);
   };
 
-  const phoneProps = {
-    title: '휴대폰번호',
-    phone,
-    setPhone,
-    handleChangePhone,
-  };
-
-  // Email
+  ////////////////// Email //////////////////
   const [email, setEmail] = useState(['', '']);
+
   useEffect(() => {
     setJoinInputs({
       ...joinInputs,
@@ -116,6 +136,7 @@ const JoinForm = ({
     setEmail(newEmail);
   };
 
+  ////////////////// overall //////////////////
   const handleChangeInput = (e) => {
     setJoinInputs({
       ...joinInputs,
@@ -123,21 +144,17 @@ const JoinForm = ({
     });
   };
 
-  useEffect(() => {
-    console.log(joinErrors);
-  }, [joinErrors]);
-
   return (
     <div>
       <InputWithBtn
         title="아이디"
         name="id"
         btnMsg="중복확인"
-        BtnClick={checkId}
+        BtnClick={onClickIdCheck}
         ref={idRef}
         value={joinInputs.id}
         error={joinErrors.id}
-        onBlur={onBlurId}
+        onBlur={checkIdRegex}
         onChange={handleChangeInput}
       />
       <InputPassword

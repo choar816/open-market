@@ -1,14 +1,57 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import styled from 'styled-components';
-import { termModal } from '/src/utils/modal';
-import TermModal from './TermModal';
 import ColorButton from '/src/components/button/ColorButton';
+import { termModal } from '/src/utils/modal';
+import TermModal from './components/TermModal';
+import JoinSuccessModal from './components/JoinSuccessModal';
+import { joinBody, sendJoinRequest } from './utils/joinRequest';
 import IconUnchecked from '/public/assets/check-box.svg';
 import IconChecked from '/public/assets/check-fill-box.svg';
 
-const JoinFooter = ({ onJoinClick, canPushJoin, checkedTerm, setCheckedTerm }) => {
+const JoinFooter = ({ userType, joinInputs, joinErrors, setJoinErrors }) => {
   const [modalOn, setModalOn] = useState(false);
   const [modalIdx, setModalIdx] = useState(0);
+
+  const [successJoin, setSuccessJoin] = useState(false);
+  const [canPushJoin, setCanPushJoin] = useState(false);
+
+  // 회원가입 버튼 활성화 여부를 판단하기 위한 변수들
+  // 약관 체크
+  const [checkedTerm, setCheckedTerm] = useState(false);
+  // id, pw, pwCheck가 비었거나 에러가 있는지 검사
+  const isEmpty = !(joinInputs.id || joinInputs.pw || joinInputs.pwCheck);
+  const isError = joinErrors.id || joinErrors.pw || joinErrors.pwCheck;
+
+  // 가입 버튼 클릭 가능 여부 체크
+  useEffect(() => {
+    if (checkedTerm && !isError && !isEmpty) setCanPushJoin(true);
+    else setCanPushJoin(false);
+  }, [checkedTerm, isError, isEmpty]);
+
+  const requestJoin = async () => {
+    await sendJoinRequest(userType, joinBody(userType, joinInputs))
+      .then((res) => res.json())
+      .then((data) => {
+        console.log(data);
+
+        // 회원가입 성공 / 실패
+        if (data.user_type === userType) setSuccessJoin(true);
+        else {
+          setJoinErrors({
+            ...joinErrors,
+            id: data.username ? data.username.join(' ') : null,
+            pw: data.password ? data.password.join(' ') : null,
+            pwCheck: data.password2 ? data.password2.join(' ') : null,
+            name: data.name ? data.name.join(' ') : null,
+            phone: data.phone_number ? data.phone_number.join(' ') : null,
+            sellerNum: data.company_registration_number
+              ? data.company_registration_number.join(' ')
+              : null,
+            storeName: data.store_name ? data.store_name.join(' ') : null,
+          });
+        }
+      });
+  };
 
   return (
     <>
@@ -17,7 +60,7 @@ const JoinFooter = ({ onJoinClick, canPushJoin, checkedTerm, setCheckedTerm }) =
           <Checkbox
             type="checkbox"
             id="checkTerms"
-            onChange={() => setCheckedTerm(checkedTerm => !checkedTerm)}
+            onChange={() => setCheckedTerm((checkedTerm) => !checkedTerm)}
           />
           <label htmlFor="checkTerms" />
           <p>
@@ -44,7 +87,7 @@ const JoinFooter = ({ onJoinClick, canPushJoin, checkedTerm, setCheckedTerm }) =
         </div>
         <ColorButton
           color={canPushJoin ? 'green' : 'gray'}
-          onClick={canPushJoin ? onJoinClick : () => {}}
+          onClick={canPushJoin ? requestJoin : () => {}}
         >
           가입하기
         </ColorButton>
@@ -56,6 +99,7 @@ const JoinFooter = ({ onJoinClick, canPushJoin, checkedTerm, setCheckedTerm }) =
           content={termModal[modalIdx].content}
         />
       )}
+      {successJoin && <JoinSuccessModal />}
     </>
   );
 };
