@@ -1,11 +1,9 @@
 import React from 'react';
 import styled from 'styled-components';
 import InputBox from './InputBox';
-import Message from './Message';
+import MessageError from './MessageError';
 
-const InputEmail = (props) => {
-  const { title, msgInfo, email, handleChangeEmail } = props;
-
+const InputEmail = ({ title, error, email, handleChange, ...props }) => {
   return (
     <Container>
       <Title>{title}</Title>
@@ -13,20 +11,18 @@ const InputEmail = (props) => {
         <InputBox
           name="emailFirst"
           value={email[0]}
-          onChange={handleChangeEmail}
+          onChange={handleChange}
           {...props}
         />
         <span>@</span>
         <InputBox
           name="emailSecond"
           value={email[1]}
-          onChange={handleChangeEmail}
+          onChange={handleChange}
           {...props}
         />
       </div>
-      {msgInfo && (
-        <Message msgColor={msgInfo.msgColor} msgContent={msgInfo.msgContent} />
-      )}
+      {error && <MessageError content={error} />}
     </Container>
   );
 };

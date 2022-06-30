@@ -1,7 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
-import ImgValid from '../../../public/assets/icon-check-on.svg';
-import ImgInvalid from '../../../public/assets/icon-check-off.svg';
+import ImgValid from '/public/assets/icon-check-on.svg';
+import ImgInvalid from '/public/assets/icon-check-off.svg';
 
 const InputBox = React.forwardRef((props, ref) => {
   return (
@@ -28,9 +28,8 @@ const Input = styled.input`
     border: 1px solid #21bf48;
   }
 
-  ${({ msgInfo }) => {
-    if (msgInfo?.msgColor === 'red')
-      return `border: 1px solid #EB5757;`;
+  ${({ error }) => {
+    error && `border: 1px solid #EB5757;`;
   }}
 `;
 

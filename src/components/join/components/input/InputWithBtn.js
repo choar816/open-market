@@ -1,24 +1,22 @@
 import React from 'react';
 import styled from 'styled-components';
-import ColorButton from '../button/ColorButton';
+import ColorButton from '/src/components/button/ColorButton';
 import InputBox from './InputBox';
-import Message from './Message';
+import MessageError from './MessageError';
 
 const InputWithBtn = React.forwardRef((props, ref) => {
-  const { title, btnMsg, msgInfo, BtnClick } = props;
+  const { title, btnMsg, error, BtnClick } = props;
 
   return (
     <Container>
       <Title>{title}</Title>
       <div>
-        <InputBox ref={ref} {...props} />
+        <InputBox ref={ref} error={error} {...props} />
         <ColorButton width="122px" size="MS" onClick={BtnClick}>
           {btnMsg}
         </ColorButton>
       </div>
-      {msgInfo && (
-        <Message msgColor={msgInfo.msgColor} msgContent={msgInfo.msgContent} />
-      )}
+      {error && <MessageError content={error} />}
     </Container>
   );
 });

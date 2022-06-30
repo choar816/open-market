@@ -2,11 +2,11 @@ import React, { useState } from 'react';
 import styled from 'styled-components';
 import { termModal } from '/src/utils/modal';
 import TermModal from './TermModal';
-import ColorButton from '../button/ColorButton';
+import ColorButton from '/src/components/button/ColorButton';
 import IconUnchecked from '/public/assets/check-box.svg';
 import IconChecked from '/public/assets/check-fill-box.svg';
 
-const JoinFooter = ({ onJoinClick, canPushJoin, termCheck, setTermCheck }) => {
+const JoinFooter = ({ onJoinClick, canPushJoin, checkedTerm, setCheckedTerm }) => {
   const [modalOn, setModalOn] = useState(false);
   const [modalIdx, setModalIdx] = useState(0);
 
@@ -17,7 +17,7 @@ const JoinFooter = ({ onJoinClick, canPushJoin, termCheck, setTermCheck }) => {
           <Checkbox
             type="checkbox"
             id="checkTerms"
-            onChange={() => setTermCheck(!termCheck)}
+            onChange={() => setCheckedTerm(checkedTerm => !checkedTerm)}
           />
           <label htmlFor="checkTerms" />
           <p>

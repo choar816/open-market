@@ -2,87 +2,58 @@ import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
 import { checkIdRegex, checkEmailRegex } from '/src/utils/regex';
-import { API_URL } from '/src/utils/api';
 import JoinForm from '../components/join/JoinForm';
 import JoinFooter from '../components/join/JoinFooter';
 import JoinSuccessModal from '../components/join/JoinSuccessModal';
 import ImgLogo from '/public/assets/Logo-hodu.png';
+import {
+  idDupBody,
+  buyerBody,
+  sellerBody,
+  sendJoinRequest,
+} from '../components/join/utils/joinRequest';
 
 const JoinPage = () => {
   const navigate = useNavigate();
   const [userType, setUserType] = useState('BUYER');
 
-  const [joinInfo, setJoinInfo] = useState({
+  const [joinInputs, setJoinInputs] = useState({
     id: '',
     pw: '',
     pwCheck: '',
     name: '',
-    phone: '010',
-    email: '@',
+    phone: '',
+    email: '',
     sellerNum: '',
     storeName: '',
   });
+  const [joinErrors, setJoinErrors] = useState({});
 
-  const [msgJoin, setMsgJoin] = useState({
-    id: null,
-    pw: null,
-    pwCheck: null,
-    name: null,
-    phone: null,
-    email: null,
-    sellerNum: null,
-    storeName: null,
-  });
-
-  // 회원가입에 성공했는지 여부
-  const [joinSuccess, setJoinSuccess] = useState(false);
-
+  // 회원가입 성공 여부 (-> 모달)
+  const [successJoin, setSuccessJoin] = useState(false);
   // 회원가입 버튼 비활성화/활성화
   const [canPushJoin, setCanPushJoin] = useState(false);
 
-  ///////////////////////////////////////////
   // 회원가입 버튼 활성화 여부를 판단하기 위한 변수들
-  const [termCheck, setTermCheck] = useState(false);
-  const [isIdDuplicated, setIsIdDuplicated] = useState(true);
+  // 약관 체크
+  const [checkedTerm, setCheckedTerm] = useState(false);
+  // id, pw, pwCheck가 비었거나 에러가 있는지 검사
+  const isEmpty = !(joinInputs.id || joinInputs.pw || joinInputs.pwCheck);
+  const isError = joinErrors.id || joinErrors.pw || joinErrors.pwCheck;
 
-  // true -> inputs' lengths are valid
-  const checkInputLengthBuyer = !(
-    joinInfo.id.length === 0 ||
-    joinInfo.pw.length === 0 ||
-    joinInfo.pwCheck.length === 0 ||
-    joinInfo.name.length === 0 ||
-    joinInfo.phone.length === 3 ||
-    joinInfo.email.length === 1
-  );
-  const checkInputLengthSeller =
-    checkInputLengthBuyer &&
-    !(joinInfo.sellerNum.length === 0 || joinInfo.storeName.length === 0);
-
-  // joinInfo의 value들 또는 termCheck가 바뀔 때마다
   // 가입 버튼 클릭 가능 여부 체크
   useEffect(() => {
-    if (userType === 'SELLER') {
-      if (termCheck && !isIdDuplicated && checkInputLengthSeller)
-        setCanPushJoin(true);
-      else setCanPushJoin(false);
-    } else if (userType === 'BUYER') {
-      if (termCheck && !isIdDuplicated && checkInputLengthBuyer)
-        setCanPushJoin(true);
-      else setCanPushJoin(false);
-    }
-  }, [...Object.values(joinInfo), termCheck, isIdDuplicated]);
+    if (checkedTerm && !isError && !isEmpty) setCanPushJoin(true);
+    else setCanPushJoin(false);
+  }, [checkedTerm, isError, isEmpty]);
 
-  ///////////////////////////////////////////
+  // id : regex, 중복 체크
 
   const checkId = () => {
-    if (!checkIdRegex(joinInfo.id)) {
-      setMsgJoin({
-        ...msgJoin,
-        id: {
-          msgContent:
-            '20자 이내의 영문 소문자, 대문자, 숫자만 사용 가능합니다.',
-          msgColor: 'red',
-        },
+    if (!checkIdRegex(joinInputs.id)) {
+      setJoinErrors({
+        ...joinErrors,
+        id: '20자 이내의 영문 소문자, 대문자, 숫자만 사용 가능합니다.',
       });
       return;
     }
@@ -90,180 +61,51 @@ const JoinPage = () => {
   };
 
   const checkIdDup = async () => {
-    fetch(`${API_URL}/accounts/signup/`, {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify({
-        username: joinInfo.id,
-      }),
-    })
+    await sendJoinRequest(userType, idDupBody(joinInputs.id))
       .then((res) => res.json())
       .then((data) => {
+        console.log(data);
         if (data.username?.includes('해당 사용자 아이디는 이미 존재합니다.')) {
-          setMsgJoin({
-            ...msgJoin,
-            id: {
-              msgContent: '이미 사용 중인 아이디입니다.',
-              msgColor: 'red',
-            },
+          setJoinErrors({
+            ...joinErrors,
+            id: '이미 사용 중인 아이디입니다.',
           });
         } else {
-          setIsIdDuplicated(false);
-          setMsgJoin({
-            ...msgJoin,
-            id: {
-              msgContent: '멋진 아이디네요 :)',
-              msgColor: 'green',
-            },
+          setJoinErrors({
+            ...joinErrors,
+            id: null,
           });
         }
       })
-      .catch((e) => alert(e.message));
+      .catch((e) => console.error(e));
   };
 
-  const checkJoinBuyer = async () => {
-    fetch(`${API_URL}/accounts/signup/`, {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify({
-        username: joinInfo.id,
-        password: joinInfo.pw,
-        password2: joinInfo.pwCheck,
-        phone_number: joinInfo.phone,
-        name: joinInfo.name,
-      }),
-    })
+  const requestJoin = async () => {
+    const body =
+      userType === 'BUYER' ? buyerBody(joinInputs) : sellerBody(joinInputs);
+
+    await sendJoinRequest(userType, body)
       .then((res) => res.json())
       .then((data) => {
         console.log(data);
 
-        // phone number
-        if (data.phone_number?.includes('올바른 값을 입력하세요.')) {
-          setMsgJoin({
-            ...msgJoin,
-            phone: {
-              msgContent:
-                '핸드폰번호는 01*으로 시작해야 하는 10~11자리 숫자여야 합니다.',
-              msgColor: 'red',
-            },
+        // 회원가입 성공 / 실패
+        if (data.user_type === userType) setSuccessJoin(true);
+        else {
+          setJoinErrors({
+            ...joinErrors,
+            id: data.username ? data.username.join(' ') : null,
+            pw: data.password ? data.password.join(' ') : null,
+            pwCheck: data.password2 ? data.password2.join(' ') : null,
+            name: data.name ? data.name.join(' ') : null,
+            phone: data.phone_number ? data.phone_number.join(' ') : null,
+            sellerNum: data.company_registration_number
+              ? data.company_registration_number.join(' ')
+              : null,
+            storeName: data.store_name ? data.store_name.join(' ') : null,
           });
-        } else if (
-          data.phone_number?.includes('해당 사용자 전화번호는 이미 존재합니다.')
-        ) {
-          setMsgJoin({
-            ...msgJoin,
-            phone: {
-              msgContent: '해당 사용자 전화번호는 이미 존재합니다.',
-              msgColor: 'red',
-            },
-          });
-        } else {
-          setMsgJoin({ ...msgJoin, phone: null });
         }
-
-        // 백엔드에서 이메일 검사를 안해서.. 패스
-        // if (!checkEmailRegex(joinInfo.email)) {
-        //   setMsgJoin({
-        //     ...msgJoin,
-        //     email: {
-        //       msgContent: '이메일 형식이 올바르지 않습니다.',
-        //       msgColor: 'red',
-        //     },
-        //   });
-        // } else {
-        //   setMsgJoin({ ...msgJoin, email: null });
-        // }
-
-        // 회원가입에 성공했을 때
-        if (data.user_type === 'BUYER') setJoinSuccess(true);
-      })
-      .catch((e) => alert(e.message));
-  };
-
-  const checkJoinSeller = () => {
-    fetch(`${API_URL}/accounts/signup_seller/`, {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify({
-        username: joinInfo.id,
-        password: joinInfo.pw,
-        password2: joinInfo.pwCheck,
-        phone_number: joinInfo.phone,
-        name: joinInfo.name,
-        company_registration_number: joinInfo.sellerNum,
-        store_name: joinInfo.storeName,
-      }),
-    })
-      .then((res) => res.json())
-      .then((data) => {
-        // phone number
-        if (data.phone_number?.includes('올바른 값을 입력하세요.')) {
-          setMsgJoin({
-            ...msgJoin,
-            phone: {
-              msgContent:
-                '핸드폰번호는 01*으로 시작해야 하는 10~11자리 숫자여야 합니다.',
-              msgColor: 'red',
-            },
-          });
-        } else if (
-          data.phone_number?.includes('해당 사용자 전화번호는 이미 존재합니다.')
-        ) {
-          setMsgJoin({
-            ...msgJoin,
-            phone: {
-              msgContent: '해당 사용자 전화번호는 이미 존재합니다.',
-              msgColor: 'red',
-            },
-          });
-        } else {
-          setMsgJoin({ ...msgJoin, phone: null });
-        }
-
-        // company registration number
-        if (
-          data.company_registration_number?.includes(
-            '해당 사업자등록번호는 이미 존재합니다.',
-          )
-        ) {
-          setMsgJoin({
-            ...msgJoin,
-            sellerNum: {
-              msgContent: '해당 사업자등록번호는 이미 존재합니다.',
-              msgColor: 'red',
-            },
-          });
-        } else {
-          setMsgJoin({ ...msgJoin, sellerNum: null });
-        }
-
-        // company name
-        if (
-          data.company_registration_number?.includes(
-            '해당 스토어이름은 이미 존재합니다.',
-          )
-        ) {
-          setMsgJoin({
-            ...msgJoin,
-            storeName: {
-              msgContent: '해당 스토어이름은 이미 존재합니다.',
-              msgColor: 'red',
-            },
-          });
-        } else {
-          setMsgJoin({ ...msgJoin, storeName: null });
-        }
-
-        // 회원가입에 성공했을 때
-        if (data.user_type === 'SELLER') setJoinSuccess(true);
-      })
-      .catch((e) => console.error(e));
+      });
   };
 
   return (
@@ -278,22 +120,22 @@ const JoinPage = () => {
           <FormContent>
             <JoinForm
               userType={userType}
-              joinInfo={joinInfo}
-              setJoinInfo={setJoinInfo}
-              msgJoin={msgJoin}
-              setMsgJoin={setMsgJoin}
+              joinInputs={joinInputs}
+              setJoinInputs={setJoinInputs}
+              joinErrors={joinErrors}
+              setJoinErrors={setJoinErrors}
               checkId={checkId}
             />
           </FormContent>
         </FormContainer>
         <JoinFooter
-          onJoinClick={userType === 'BUYER' ? checkJoinBuyer : checkJoinSeller}
+          onJoinClick={requestJoin}
           canPushJoin={canPushJoin}
-          termCheck={termCheck}
-          setTermCheck={setTermCheck}
+          checkedTerm={checkedTerm}
+          setCheckedTerm={setCheckedTerm}
         />
       </Container>
-      {joinSuccess && <JoinSuccessModal />}
+      {successJoin && <JoinSuccessModal />}
     </>
   );
 };

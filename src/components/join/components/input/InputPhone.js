@@ -1,12 +1,17 @@
-import React, { useState } from 'react';
+import React from 'react';
 import styled from 'styled-components';
 import InputBox from './InputBox';
-import Message from './Message';
+import MessageError from './MessageError';
 import SelectBox from './SelectBox';
 
-const InputPhone = (props) => {
-  const { title, msgInfo, phone, setPhone, handleChangePhone } = props;
-
+const InputPhone = ({
+  title,
+  error,
+  phone,
+  setPhone,
+  handleChange,
+  ...props
+}) => {
   const onSelect = (e) => {
     const newPhone = [...phone];
     newPhone[0] = e.target.textContent;
@@ -32,7 +37,7 @@ const InputPhone = (props) => {
         <InputBox
           name="phoneSecond"
           value={phone[1]}
-          onChange={handleChangePhone}
+          onChange={handleChange}
           onkeydown={onlyNumber()}
           type="text"
           maxLength="4"
@@ -41,15 +46,13 @@ const InputPhone = (props) => {
         <InputBox
           name="phoneThird"
           value={phone[2]}
-          onChange={handleChangePhone}
+          onChange={handleChange}
           onkeydown={onlyNumber()}
           maxLength="4"
           {...props}
         />
       </div>
-      {msgInfo && (
-        <Message msgColor={msgInfo.msgColor} msgContent={msgInfo.msgContent} />
-      )}
+      {error && <MessageError content={error} />}
     </Container>
   );
 };

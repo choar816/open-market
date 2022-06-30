@@ -1,6 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
-import ColorButton from '../button/ColorButton';
+import ColorButton from '/src/components/button/ColorButton';
 
 const TermModal = ({ setIsOn, title, content }) => {
   return (

@@ -1,8 +1,8 @@
 import React, { useState, useRef } from 'react';
 import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
-import InputText from '../input/InputText';
-import ColorButton from '../button/ColorButton';
+import InputText from './InputText';
+import ColorButton from '/src/components/button/ColorButton';
 import { API_URL } from '/src/utils/api';
 import regeneratorRuntime from 'regenerator-runtime';
 
@@ -39,10 +39,7 @@ const LoginForm = ({ userType }) => {
         login_type: userType,
       }),
     })
-      .then((res) => {
-        // if (!res.ok) throw new Error('http 에러');
-        return res.json();
-      })
+      .then((res) => res.json())
       .then((data) => {
         if (data.username) {
           setMessage({ content: '아이디를 입력해 주세요.', show: true });

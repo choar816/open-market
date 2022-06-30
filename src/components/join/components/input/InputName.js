@@ -1,29 +1,31 @@
 import React from 'react';
 import styled from 'styled-components';
 import InputBox from './InputBox';
-import Message from './Message';
+import MessageError from './MessageError';
 
-const InputPassword = ({ isValid, ...props }) => {
-  const { title, msgInfo } = props;
-
+const InputName = ({ title, error, ...props }) => {
   return (
     <Container>
       <Title>{title}</Title>
-      <InputBox type="password" isValid={isValid} {...props} />
-      {msgInfo && (
-        <Message msgColor={msgInfo.msgColor} msgContent={msgInfo.msgContent} />
-      )}
+      <InputBox {...props} />
+      {error && <MessageError content={error} />}
     </Container>
   );
 };
 
-export default InputPassword;
+export default InputName;
 
 const Container = styled.article`
-  position: relative;
   display: flex;
   flex-direction: column;
 
+  div {
+    margin-top: 10px;
+    display: flex;
+    button {
+      margin-left: 12px;
+    }
+  }
   input {
     margin-top: 10px;
   }

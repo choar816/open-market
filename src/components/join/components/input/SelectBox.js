@@ -7,7 +7,7 @@ import IconUp from '/public/assets/icon-up-arrow.svg';
 const SelectBox = ({ phoneFirst, onSelect }) => {
   const [isOn, setIsOn] = useState(false);
   const toggleIsOn = () => {
-    setIsOn(!isOn);
+    setIsOn((isOn) => !isOn);
   };
 
   return (

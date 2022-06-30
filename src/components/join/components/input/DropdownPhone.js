@@ -6,7 +6,7 @@ const DropdownPhone = ({ isOn, toggleIsOn, onSelect }) => {
     onSelect(e);
     toggleIsOn();
   };
-  
+
   return (
     <Container isOn={isOn} onClick={onClick}>
       <Item>010</Item>
