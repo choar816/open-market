@@ -2,8 +2,7 @@ import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
 import ImgLogo from '/public/assets/Logo-hodu.png';
-import LoginForm from '../components/login/LoginForm';
-import LoginFooter from '../components/login/LoginFooter';
+import { LoginForm, LoginFooter } from '../components/login/';
 
 const LoginPage = () => {
   const navigate = useNavigate();
@@ -17,9 +16,7 @@ const LoginPage = () => {
           <button onClick={() => setUserType('BUYER')}>구매회원 로그인</button>
           <button onClick={() => setUserType('SELLER')}>판매회원 로그인</button>
         </FormType>
-        <FormContent>
-          <LoginForm userType={userType} />
-        </FormContent>
+        <LoginForm userType={userType} />
       </FormContainer>
       <LoginFooter />
     </Container>
@@ -89,13 +86,4 @@ const FormType = styled.article`
     height: 25px;
     background-color: #fff;
   }
-`;
-
-const FormContent = styled.section`
-  position: relative;
-  z-index: 10;
-  padding: 35px;
-  background: #ffffff;
-  border: 1px solid #c4c4c4;
-  border-radius: 10px;
 `;

@@ -3,7 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
 import InputText from './InputText';
 import ColorButton from '/src/components/button/ColorButton';
-import { API_URL } from '/src/utils/api';
+import { sendLoginRequest } from '../utils/loginRequest';
 import regeneratorRuntime from 'regenerator-runtime';
 
 const LoginForm = ({ userType }) => {
@@ -11,51 +11,34 @@ const LoginForm = ({ userType }) => {
   const idRef = useRef();
   const pwRef = useRef();
 
-  const [loginInfo, setLoginInfo] = useState({
+  const [loginInputs, setloginInputs] = useState({
     id: '',
     pw: '',
   });
-  const [message, setMessage] = useState({
-    show: false,
-    content: 'alert',
-  });
+  const [error, setError] = useState('');
 
   const handleInputChange = (e) => {
-    setLoginInfo({
-      ...loginInfo,
+    setloginInputs({
+      ...loginInputs,
       [e.target.name]: e.target.value,
     });
   };
 
   const checkLogin = async () => {
-    fetch(`${API_URL}/accounts/login/`, {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify({
-        username: loginInfo.id,
-        password: loginInfo.pw,
-        login_type: userType,
-      }),
-    })
-      .then((res) => res.json())
+    sendLoginRequest(userType, loginInputs)
       .then((data) => {
         if (data.username) {
-          setMessage({ content: '아이디를 입력해 주세요.', show: true });
+          setError('아이디를 입력해 주세요.');
           idRef.current.focus();
         } else if (data.password) {
-          setMessage({ content: '비밀번호를 입력해 주세요.', show: true });
+          setError('비밀번호를 입력해 주세요.');
           pwRef.current.focus();
         } else if (data.FAIL_Message) {
-          setMessage({
-            content: '아이디 또는 비밀번호가 일치하지 않습니다.',
-            show: true,
-          });
+          setError('아이디 또는 비밀번호가 일치하지 않습니다.');
         } else {
           // 로그인 성공
-          setMessage({ ...message, show: false });
-          localStorage.setItem('id', loginInfo.id);
+          setError('');
+          localStorage.setItem('id', loginInputs.id);
           localStorage.setItem('token', data.token);
           localStorage.setItem('userType', userType);
           navigate(-1, { replace: true });
@@ -74,20 +57,20 @@ const LoginForm = ({ userType }) => {
         type="text"
         name="id"
         placeholder="아이디"
-        value={loginInfo.id}
-        onChange={handleInputChange}
         ref={idRef}
+        value={loginInputs.id}
+        onChange={handleInputChange}
       />
       <InputText
         type="password"
         name="pw"
         placeholder="비밀번호"
-        value={loginInfo.pw}
-        onChange={handleInputChange}
         ref={pwRef}
+        value={loginInputs.pw}
+        onChange={handleInputChange}
         onKeyPress={handleEnter}
       />
-      <Message show={message.show}>{message.content}</Message>
+      {error.length !== 0 && <Message>{error}</Message>}
       <ColorButton onClick={checkLogin}>로그인</ColorButton>
     </Container>
   );
@@ -96,6 +79,13 @@ const LoginForm = ({ userType }) => {
 export default LoginForm;
 
 const Container = styled.div`
+  position: relative;
+  z-index: 10;
+  padding: 35px;
+  background: #ffffff;
+  border: 1px solid #c4c4c4;
+  border-radius: 10px;
+
   input + input {
     margin-top: 6px;
   }
@@ -110,5 +100,4 @@ const Message = styled.p`
   font-size: 16px;
   line-height: 20px;
   color: #eb5757;
-  ${({ show }) => (show ? `display: visible;` : `display: none;`)}
 `;
