@@ -1,10 +1,10 @@
 import React, { useState, useEffect } from 'react';
 import styled from 'styled-components';
 import ColorButton from '/src/components/button/ColorButton';
-import { termModal } from '/src/utils/modal';
-import TermModal from './components/TermModal';
-import JoinSuccessModal from './components/JoinSuccessModal';
-import { joinBody, sendJoinRequest } from './utils/joinRequest';
+import TermModal from './TermModal';
+import JoinSuccessModal from './JoinSuccessModal';
+import { modalData } from '../../utils/modalData';
+import { joinBody, sendJoinRequest } from '../../utils/joinRequest';
 import IconUnchecked from '/public/assets/check-box.svg';
 import IconChecked from '/public/assets/check-fill-box.svg';
 
@@ -95,8 +95,8 @@ const JoinFooter = ({ userType, joinInputs, joinErrors, setJoinErrors }) => {
       {modalOn && (
         <TermModal
           setIsOn={setModalOn}
-          title={termModal[modalIdx].title}
-          content={termModal[modalIdx].content}
+          title={modalData[modalIdx].title}
+          content={modalData[modalIdx].content}
         />
       )}
       {successJoin && <JoinSuccessModal />}

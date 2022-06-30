@@ -1,4 +1,4 @@
-export const termModal = [
+export const modalData = [
   {
     title: '이용약관',
     content: `Lorem ipsum dolor sit, amet consectetur adipisicing elit. Ipsam maiores possimus illo nobis! Magnam necessitatibus perspiciatis reprehenderit suscipit nihil tempora earum? Nihil quidem ratione deleniti illo praesentium maxime. Aperiam, enim.

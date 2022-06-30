@@ -1,11 +1,11 @@
 import React, { useEffect, useRef, useState } from 'react';
-import InputEmail from './components/input/InputEmail';
-import InputName from './components/input/InputName';
-import InputPassword from './components/input/InputPassword';
-import InputPhone from './components/input/InputPhone';
-import InputWithBtn from './components/input/InputWithBtn';
-import { idRegex, pwRegex } from './utils/regex';
-import { idDupBody, sendJoinRequest } from './utils/joinRequest';
+import InputEmail from './InputEmail';
+import InputName from './InputName';
+import InputPassword from './InputPassword';
+import InputPhone from './InputPhone';
+import InputWithBtn from './InputWithBtn';
+import { idRegex, pwRegex } from '../../utils/regex';
+import { idDupBody, sendJoinRequest } from '../../utils/joinRequest';
 
 const JoinForm = ({
   userType,
