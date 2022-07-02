@@ -3,9 +3,9 @@ import { useNavigate } from 'react-router-dom';
 import { useQuery } from 'react-query';
 import styled from 'styled-components';
 import ProductItem from './ProductItem';
-import ErrorMessage from '../../../ErrorMessage';
-import Loading from '../../../Loading';
-import { getProducts } from '../../utils/productRequest';
+import ErrorMessage from '/src/components/ErrorMessage';
+import Loading from '/src/components/Loading';
+import { getProducts } from '../../utils/productsRequest';
 
 const ProductList = () => {
   const navigate = useNavigate();

@@ -1,43 +1,9 @@
-import React, { useState } from 'react';
 import styled from 'styled-components';
-import { carouselImgs } from '/src/utils/carousel';
+import { carouselImgs } from '../../utils/carousel';
 import BtnPrev from '/public/assets/arrow-left.svg';
 import BtnNext from '/public/assets/arrow-right.svg';
 
-const Carousel = () => {
-  const [activeIdx, setActiveIdx] = useState(0);
-
-  return (
-    <Container>
-      <ImageContainer activeIdx={activeIdx}>
-        {carouselImgs.map((img, idx) => (
-          <Image key={idx} src={img.src} alt={img.alt} />
-        ))}
-      </ImageContainer>
-      <IndicatorContainer activeIdx={activeIdx}>
-        {carouselImgs.map((img, idx) => (
-          <Indicator key={idx} onClick={() => setActiveIdx(idx)} />
-        ))}
-      </IndicatorContainer>
-      <ButtonPrev
-        onClick={() => {
-          if (activeIdx === 0) return;
-          setActiveIdx(activeIdx - 1);
-        }}
-      />
-      <ButtonNext
-        onClick={() => {
-          if (activeIdx === carouselImgs.length - 1) return;
-          setActiveIdx(activeIdx + 1);
-        }}
-      />
-    </Container>
-  );
-};
-
-export default Carousel;
-
-const Container = styled.section`
+export const Container = styled.section`
   display: flex;
   position: relative;
   width: 100%;
@@ -55,18 +21,18 @@ const Container = styled.section`
   }
 `;
 
-const ImageContainer = styled.section`
+export const ImageContainer = styled.section`
   width: calc(100% * ${carouselImgs.length});
   height: 500px;
   display: flex;
   transition: all 1s;
-  transform: ${(props) => `translateX(calc(-${props.activeIdx} * 100%))`};
+  transform: ${({ activeIdx }) => `translateX(calc(-${activeIdx} * 100%))`};
 `;
 
-const Image = styled.div`
+export const Image = styled.div`
   width: 100%;
   height: 500px;
-  background-image: url(${(props) => props.src});
+  background-image: url(${({ src }) => src});
   background-size: cover;
   background-position: center center;
   flex-shrink: 0;
@@ -76,7 +42,7 @@ const Image = styled.div`
   }
 `;
 
-const Button = styled.button`
+export const Button = styled.button`
   position: absolute;
   top: 50%;
   transform: translateY(-50%);
@@ -92,28 +58,28 @@ const Button = styled.button`
   }
 `;
 
-const ButtonPrev = styled(Button)`
+export const ButtonPrev = styled(Button)`
   left: 10px;
   background-image: url(${BtnPrev});
 `;
 
-const ButtonNext = styled(Button)`
+export const ButtonNext = styled(Button)`
   right: 10px;
   background-image: url(${BtnNext});
 `;
 
-const IndicatorContainer = styled.article`
+export const IndicatorContainer = styled.article`
   position: absolute;
   left: 50%;
   transform: translateX(-50%);
   bottom: 30px;
 
-  button:nth-child(${(props) => props.activeIdx + 1}) {
+  button:nth-child(${({ activeIdx }) => activeIdx + 1}) {
     background-color: rgba(255, 255, 255, 0.8);
   }
 `;
 
-const Indicator = styled.button`
+export const Indicator = styled.button`
   width: 8px;
   height: 8px;
   border: none;

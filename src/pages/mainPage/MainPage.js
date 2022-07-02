@@ -1,9 +1,9 @@
 import React from 'react';
 import styled from 'styled-components';
-import Header from '../components/Header';
-import Carousel from '../components/Carousel';
-import { ProductList } from '../components/product';
-import Footer from '../components/Footer';
+import Header from '/src/components/Header';
+import Footer from '/src/components/Footer';
+import Carousel from './components/carousel/Carousel';
+import { ProductList } from './components/productList';
 
 const MainPage = () => {
   return (
