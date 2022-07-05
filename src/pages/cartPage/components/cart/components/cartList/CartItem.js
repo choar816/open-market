@@ -1,6 +1,6 @@
 import React, { useCallback } from 'react';
 import styled from 'styled-components';
-import { removeBody, sendRequestWithCallback, updateBody } from '../../utils/cartRequest';
+import { removeBody, sendRequestWithCallback, updateBody } from '../../../../utils/cartRequest';
 import AmountPicker from '/src/components/AmountPicker';
 import ColorButton from '/src/components/button/ColorButton';
 import IconOn from '/public/assets/check-circle-on.svg';

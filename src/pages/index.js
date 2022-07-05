@@ -1,3 +1,4 @@
 import { MainPage } from './mainPage';
+import { CartPage } from './cartPage';
 
-export { MainPage };
+export { MainPage, CartPage };

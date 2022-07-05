@@ -54,7 +54,7 @@ export const getCartDetails = async () => {
     },
   })
     .then((res) => {
-      if (!res.ok) throw new Error('http 에러');
+      // if (!res.ok) throw new Error('http 에러');
       return res.json();
     })
     .then((data) => {

@@ -5,7 +5,7 @@ import ColorButton from '/src/components/button/ColorButton';
 import IconPlus from '/public/assets/icon-circle-plus.svg';
 import IconMinus from '/public/assets/icon-circle-minus.svg';
 
-const CartFooter = ({ priceProduct, priceShip }) => {
+const CartPrice = ({ priceProduct, priceShip }) => {
   return (
     <Container>
       <PriceContainer>
@@ -28,7 +28,7 @@ const CartFooter = ({ priceProduct, priceShip }) => {
   );
 };
 
-export default React.memo(CartFooter);
+export default React.memo(CartPrice);
 
 const Container = styled.article`
   display: flex;

@@ -1,8 +1,8 @@
 import React from 'react';
 import styled from 'styled-components';
-import Header from '../components/Header';
-import Footer from '../components/Footer';
-import { Cart } from '../components/cart/';
+import Header from '/src/components/Header';
+import Footer from '/src/components/Footer';
+import { Cart } from './components/cart/';
 
 const CartPage = () => {
   return (

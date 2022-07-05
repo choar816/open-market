@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import styled from 'styled-components';
-import { sendRequestWithCallback, updateBody } from '../utils/cartRequest';
+import { sendRequestWithCallback, updateBody } from '../../../utils/cartRequest';
 import IconOn from '/public/assets/check-circle-on.svg';
 import IconOff from '/public/assets/check-circle-off.svg';
 
