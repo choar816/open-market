@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import styled from 'styled-components';
-import ImgMinus from '../../public/assets/icon-minus-line.svg';
-import ImgPlus from '../../public/assets/icon-plus-line.svg';
-import ImgPlusDisabled from '../../public/assets/icon-plus-line-disabled.svg';
+import ImgMinus from '/public/assets/icon-minus-line.svg';
+import ImgPlus from '/public/assets/icon-plus-line.svg';
+import ImgPlusDisabled from '/public/assets/icon-plus-line-disabled.svg';
 
 const AmountPicker = ({ amount, stock, onIncrease, onDecrease }) => {
   const [isLimit, setIsLimit] = useState(amount === stock);

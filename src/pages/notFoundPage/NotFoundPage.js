@@ -2,7 +2,7 @@ import React from 'react';
 import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
 import NotFoundIcon from '/public/assets/icon-404.svg';
-import ColorButton from '../components/button/ColorButton';
+import ColorButton from '../../components/button/ColorButton';
 
 const NotFoundPage = () => {
   const navigate = useNavigate();

@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
-import JoinForm from '../components/join/components/joinForm/JoinForm';
-import JoinFooter from '../components/join/components/joinFooter/JoinFooter';
+import { JoinForm } from './components/joinForm';
+import { JoinFooter } from './components/joinFooter';
 import ImgLogo from '/public/assets/Logo-hodu.png';
 
 const JoinPage = () => {

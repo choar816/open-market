@@ -2,7 +2,7 @@ import React from 'react';
 import styled from 'styled-components';
 import Header from '/src/components/Header';
 import Footer from '/src/components/Footer';
-import Carousel from './components/carousel/Carousel';
+import { Carousel } from './components/carousel';
 import { ProductList } from './components/productList';
 
 const MainPage = () => {

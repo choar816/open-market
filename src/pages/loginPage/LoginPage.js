@@ -2,7 +2,8 @@ import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
 import ImgLogo from '/public/assets/Logo-hodu.png';
-import { LoginForm, LoginFooter } from '../components/login/';
+import { LoginForm } from './components/loginForm';
+import { LoginFooter } from './components/loginFooter';
 
 const LoginPage = () => {
   const navigate = useNavigate();

@@ -3,7 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
 import InputText from './InputText';
 import ColorButton from '/src/components/button/ColorButton';
-import { sendLoginRequest } from '../utils/loginRequest';
+import { sendLoginRequest } from '../../utils/loginRequest';
 import regeneratorRuntime from 'regenerator-runtime';
 
 const LoginForm = ({ userType }) => {
@@ -11,14 +11,14 @@ const LoginForm = ({ userType }) => {
   const idRef = useRef();
   const pwRef = useRef();
 
-  const [loginInputs, setloginInputs] = useState({
+  const [loginInputs, setLoginInputs] = useState({
     id: '',
     pw: '',
   });
   const [error, setError] = useState('');
 
   const handleInputChange = (e) => {
-    setloginInputs({
+    setLoginInputs({
       ...loginInputs,
       [e.target.name]: e.target.value,
     });
