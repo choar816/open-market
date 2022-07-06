@@ -7,9 +7,17 @@ module.exports = {
         corejs: 3,
         useBuiltIns: 'entry',
         modules: false,
-        shippedProposals: true
-      }
+        shippedProposals: true,
+      },
     ],
-    '@babel/preset-react'
-  ]
+    ['@babel/preset-react', { runtime: 'automatic' }],
+  ],
+  env: {
+    test: {
+      plugins: [
+        '@babel/plugin-transform-modules-commonjs',
+        '@babel/plugin-transform-runtime',
+      ],
+    },
+  },
 };

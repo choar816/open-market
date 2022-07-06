@@ -70,7 +70,7 @@ const LoginForm = ({ userType }) => {
         onChange={handleInputChange}
         onKeyPress={handleEnter}
       />
-      {error.length !== 0 && <Message>{error}</Message>}
+      {error.length !== 0 && <Message data-testid="message">{error}</Message>}
       <ColorButton onClick={checkLogin}>로그인</ColorButton>
     </Container>
   );
