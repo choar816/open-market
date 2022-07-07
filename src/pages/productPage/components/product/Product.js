@@ -4,8 +4,8 @@ import { useQuery } from 'react-query';
 import styled from 'styled-components';
 import ProductInfo from './ProductInfo';
 import ProductTabs from './ProductTabs';
-import Loading from '../../../../components/Loading';
-import ErrorMessage from '../../../../components/ErrorMessage';
+import Loading from '/src/components/Loading';
+import ErrorMessage from '/src/components/ErrorMessage';
 import { getProductDetail } from '/src/utils/product';
 
 const Product = () => {

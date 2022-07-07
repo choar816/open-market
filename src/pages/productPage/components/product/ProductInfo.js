@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
 import ColorButton from '/src/components/button/ColorButton';
-import AmountPicker from '../../../../components/AmountPicker';
+import AmountPicker from '/src/components/AmountPicker';
 import CartModal from './CartModal';
 import { addProductToCart } from '../../utils/productRequest';
 

@@ -5,7 +5,11 @@ import InputPassword from './InputPassword';
 import InputPhone from './InputPhone';
 import InputWithBtn from './InputWithBtn';
 import { idRegex, pwRegex } from '../../utils/regex';
-import { idDupBody, sendJoinRequest } from '../../utils/joinRequest';
+import {
+  checkIdDuplicate,
+  idDupBody,
+  sendJoinRequest,
+} from '../../utils/joinRequest';
 
 const JoinForm = ({
   userType,
@@ -19,43 +23,29 @@ const JoinForm = ({
 
   ////////////////// id (regex, 중복) //////////////////
   const onClickIdCheck = () => {
+    // regex가 틀린 경우 중복 체크를 하지 않음
     if (!checkIdRegex()) return;
-    checkIdDup();
+
+    // 중복 체크
+    checkIdDuplicate(userType, id)
+      .then((isIdDup) => {
+        setJoinErrors({
+          ...joinErrors,
+          id: isIdDup ? '해당 사용자 아이디는 이미 존재합니다.' : null,
+        });
+      })
+      .catch((e) => console.error(e));
   };
 
   const checkIdRegex = () => {
-    if (!idRegex.test(id)) {
-      setJoinErrors({
-        ...joinErrors,
-        id: '20자 이내의 영문 소문자, 대문자, 숫자만 사용 가능합니다.',
-      });
-      return false;
-    } else {
-      setJoinErrors({
-        ...joinErrors,
-        id: null,
-      });
-      return true;
-    }
-  };
-
-  const checkIdDup = async () => {
-    await sendJoinRequest(userType, idDupBody(joinInputs.id))
-      .then((res) => res.json())
-      .then((data) => {
-        if (data.username?.includes('해당 사용자 아이디는 이미 존재합니다.')) {
-          setJoinErrors({
-            ...joinErrors,
-            id: '이미 사용 중인 아이디입니다.',
-          });
-        } else {
-          setJoinErrors({
-            ...joinErrors,
-            id: null,
-          });
-        }
-      })
-      .catch((e) => console.error(e));
+    let isRegexOk = idRegex.test(id);
+    setJoinErrors({
+      ...joinErrors,
+      id: isRegexOk
+        ? null
+        : '5~20자의 영문 소문자, 대문자, 숫자만 사용 가능합니다.',
+    });
+    return isRegexOk;
   };
 
   ////////////////// pw //////////////////

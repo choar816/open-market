@@ -12,5 +12,16 @@ export const sendLoginRequest = (userType, { id, pw }) => {
       login_type: userType,
     }),
   })
-    .then((res) => res.json());
+    .then((res) => res.json())
+    .then((data) => {
+      if (data.username) {
+        return 'no_id';
+      } else if (data.password) {
+        return 'no_pw';
+      } else if (data.FAIL_Message) {
+        return 'no_match';
+      } else {
+        return data;
+      }
+    })
 };

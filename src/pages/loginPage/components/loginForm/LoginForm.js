@@ -6,6 +6,12 @@ import ColorButton from '/src/components/button/ColorButton';
 import { sendLoginRequest } from '../../utils/loginRequest';
 import regeneratorRuntime from 'regenerator-runtime';
 
+const ERROR_TYPES = {
+  no_id: '아이디를 입력해 주세요.',
+  no_pw: '비밀번호를 입력해 주세요.',
+  no_match: '아이디 또는 비밀번호가 일치하지 않습니다.',
+};
+
 const LoginForm = ({ userType }) => {
   const navigate = useNavigate();
   const idRef = useRef();
@@ -26,21 +32,22 @@ const LoginForm = ({ userType }) => {
 
   const checkLogin = async () => {
     sendLoginRequest(userType, loginInputs)
-      .then((data) => {
-        if (data.username) {
-          setError('아이디를 입력해 주세요.');
-          idRef.current.focus();
-        } else if (data.password) {
-          setError('비밀번호를 입력해 주세요.');
-          pwRef.current.focus();
-        } else if (data.FAIL_Message) {
-          setError('아이디 또는 비밀번호가 일치하지 않습니다.');
+      .then((result) => {
+        if (Object.keys(ERROR_TYPES).includes(result)) {
+          setError(ERROR_TYPES[result]);
+          switch (result) {
+            case 'no_id':
+              idRef.current.focus();
+              break;
+            case 'no_pw':
+              pwRef.current.focus();
+              break;
+          }
         } else {
-          // 로그인 성공
           setError('');
           localStorage.setItem('id', loginInputs.id);
-          localStorage.setItem('token', data.token);
-          localStorage.setItem('userType', userType);
+          localStorage.setItem('token', result.token);
+          localStorage.setItem('userType', result.user_type);
           navigate(-1, { replace: true });
         }
       })
