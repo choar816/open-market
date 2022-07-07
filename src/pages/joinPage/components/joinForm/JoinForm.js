@@ -5,11 +5,7 @@ import InputPassword from './InputPassword';
 import InputPhone from './InputPhone';
 import InputWithBtn from './InputWithBtn';
 import { idRegex, pwRegex } from '../../utils/regex';
-import {
-  checkIdDuplicate,
-  idDupBody,
-  sendJoinRequest,
-} from '../../utils/joinRequest';
+import { checkIdDuplicate } from '../../utils/joinRequest';
 
 const JoinForm = ({
   userType,
@@ -21,7 +17,7 @@ const JoinForm = ({
   const { id, pw, pwCheck } = joinInputs;
   const idRef = useRef(null);
 
-  ////////////////// id (regex, 중복) //////////////////
+  ////////////////// id //////////////////
   const onClickIdCheck = () => {
     // regex가 틀린 경우 중복 체크를 하지 않음
     if (!checkIdRegex()) return;
@@ -38,7 +34,7 @@ const JoinForm = ({
   };
 
   const checkIdRegex = () => {
-    let isRegexOk = idRegex.test(id);
+    const isRegexOk = idRegex.test(id);
     setJoinErrors({
       ...joinErrors,
       id: isRegexOk
@@ -53,37 +49,27 @@ const JoinForm = ({
   const [isPwCheckValid, setIsPwCheckValid] = useState(false);
 
   const onBlurPw = () => {
+    const isPwRegexOk = pwRegex.test(pw);
+
     // pw의 regex 체크
-    if (!pwRegex.test(pw)) {
-      setJoinErrors((joinErrors) => {
-        return {
-          ...joinErrors,
-          pw: '8자 이상, 영문 대 소문자, 숫자, 특수문자를 사용하세요.',
-        };
-      });
-      setIsPwValid(false);
-    } else {
-      setJoinErrors((joinErrors) => {
-        return { ...joinErrors, pw: null };
-      });
-      setIsPwValid(true);
-    }
+    setJoinErrors((joinErrors) => {
+      return {
+        ...joinErrors,
+        pw: isPwRegexOk
+          ? null
+          : '8자 이상, 영문 대 소문자, 숫자, 특수문자를 사용하세요.',
+      };
+    });
+    setIsPwValid(isPwRegexOk);
 
     // pw, pwCheck 일치하는지 체크
-    if (pw === pwCheck) {
-      setJoinErrors((joinErrors) => {
-        return { ...joinErrors, pwCheck: null };
-      });
-      if (pwRegex.test(pw)) setIsPwCheckValid(true);
-    } else {
-      setJoinErrors((joinErrors) => {
-        return {
-          ...joinErrors,
-          pwCheck: '비밀번호가 일치하지 않습니다.',
-        };
-      });
-      setIsPwCheckValid(false);
-    }
+    setJoinErrors((joinErrors) => {
+      return {
+        ...joinErrors,
+        pwCheck: pw === pwCheck ? null : '비밀번호가 일치하지 않습니다.',
+      };
+    });
+    setIsPwCheckValid(isPwRegexOk && pw === pwCheck);
   };
 
   ////////////////// Phone //////////////////
