@@ -1,8 +1,8 @@
 import React from 'react';
 import styled from 'styled-components';
+import { useNavigate } from 'react-router-dom';
 import ColorButton from '/src/components/button/ColorButton';
 import IconDelete from '/public/assets/icon-delete.svg';
-import { useNavigate } from 'react-router-dom';
 
 const CartModal = ({ setIsOn, content }) => {
   const navigate = useNavigate();

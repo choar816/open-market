@@ -1,6 +1,6 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
-import styled from 'styled-components';
+import { ButtonContainer, Container, TextContainer } from './style';
 import NotFoundIcon from '/public/assets/icon-404.svg';
 import ColorButton from '/src/components/button/ColorButton';
 
@@ -35,38 +35,3 @@ const NotFoundPage = () => {
 };
 
 export default NotFoundPage;
-
-const Container = styled.section`
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  display: flex;
-  width: 750px;
-`;
-
-const TextContainer = styled.section`
-  margin-left: 50px;
-  display: flex;
-  flex-direction: column;
-
-  h2 {
-    font-weight: 700;
-    font-size: 36px;
-    line-height: 44px;
-  }
-  p {
-    margin-top: 20px;
-    font-size: 16px;
-    line-height: 20px;
-    color: #767676;
-  }
-`;
-
-const ButtonContainer = styled.article`
-  margin-top: 40px;
-  display: flex;
-  button + button {
-    margin-left: 14px;
-  }
-`;

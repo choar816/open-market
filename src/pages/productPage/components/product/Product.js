@@ -2,8 +2,8 @@ import React from 'react';
 import { useParams } from 'react-router-dom';
 import { useQuery } from 'react-query';
 import styled from 'styled-components';
-import ProductInfo from './ProductInfo';
-import ProductTabs from './ProductTabs';
+import { ProductInfo } from './components/productInfo';
+import { ProductTabs } from './components/productTabs';
 import Loading from '/src/components/Loading';
 import ErrorMessage from '/src/components/ErrorMessage';
 import { getProductDetail } from '/src/utils/product';
@@ -34,13 +34,18 @@ const Product = () => {
 export default Product;
 
 const Container = styled.main`
-  width: 1280px;
+  width: 100vw;
   padding-top: 80px;
   padding-bottom: 80px;
   align-self: center;
   display: flex;
   flex-direction: column;
+  align-items: center;
   gap: 140px;
+
+  @media screen and (max-width: 1400px) {
+    gap: 70px;
+  }
 `;
 
 const ContainerUpper = styled.section`
@@ -52,5 +57,15 @@ const ContainerUpper = styled.section`
     width: 600px;
     height: 600px;
     object-fit: cover;
+  }
+
+  @media screen and (max-width: 1400px) {
+    & > img {
+      width: 500px;
+      height: 500px;
+    }
+  }
+  @media screen and (max-width: 1080px) {
+    flex-direction: column;
   }
 `;
