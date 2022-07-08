@@ -13,7 +13,7 @@ const InputName = ({ title, error, ...props }) => {
   );
 };
 
-export default InputName;
+export default React.memo(InputName);
 
 const Container = styled.article`
   display: flex;

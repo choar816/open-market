@@ -15,7 +15,7 @@ const InputPassword = ({ isValid, ...props }) => {
   );
 };
 
-export default InputPassword;
+export default React.memo(InputPassword);
 
 const Container = styled.article`
   position: relative;

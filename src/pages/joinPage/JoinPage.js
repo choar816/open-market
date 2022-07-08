@@ -2,49 +2,20 @@ import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
 import { JoinForm } from './components/joinForm';
-import { JoinFooter } from './components/joinFooter';
 import ImgLogo from '/public/assets/Logo-hodu.png';
 
 const JoinPage = () => {
   const navigate = useNavigate();
   const [userType, setUserType] = useState('BUYER');
 
-  const [joinInputs, setJoinInputs] = useState({
-    id: '',
-    pw: '',
-    pwCheck: '',
-    name: '',
-    phone: '',
-    email: '',
-    sellerNum: '',
-    storeName: '',
-  });
-  const [joinErrors, setJoinErrors] = useState({});
-
   return (
     <Container>
       <Img src={ImgLogo} onClick={() => navigate('/')} />
-      <FormContainer>
-        <FormType selected={userType}>
-          <button onClick={() => setUserType('BUYER')}>구매회원가입</button>
-          <button onClick={() => setUserType('SELLER')}>판매회원가입</button>
-        </FormType>
-        <FormContent>
-          <JoinForm
-            userType={userType}
-            joinInputs={joinInputs}
-            setJoinInputs={setJoinInputs}
-            joinErrors={joinErrors}
-            setJoinErrors={setJoinErrors}
-          />
-        </FormContent>
-      </FormContainer>
-      <JoinFooter
-        userType={userType}
-        joinInputs={joinInputs}
-        joinErrors={joinErrors}
-        setJoinErrors={setJoinErrors}
-      />
+      <FormType selected={userType}>
+        <button onClick={() => setUserType('BUYER')}>구매회원가입</button>
+        <button onClick={() => setUserType('SELLER')}>판매회원가입</button>
+      </FormType>
+      <JoinForm userType={userType} />
     </Container>
   );
 };
@@ -67,11 +38,8 @@ const Img = styled.img`
   cursor: pointer;
 `;
 
-const FormContainer = styled.section`
-  width: 550px;
-`;
-
 const FormType = styled.article`
+  width: 550px;
   margin-top: 50px;
   position: relative;
   top: 20px;
@@ -112,13 +80,4 @@ const FormType = styled.article`
     height: 25px;
     background-color: #fff;
   }
-`;
-
-const FormContent = styled.section`
-  position: relative;
-  z-index: 10;
-  padding: 35px;
-  background: #ffffff;
-  border: 1px solid #c4c4c4;
-  border-radius: 10px;
 `;

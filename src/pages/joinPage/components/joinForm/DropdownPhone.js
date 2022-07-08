@@ -19,7 +19,7 @@ const DropdownPhone = ({ isOn, toggleIsOn, onSelect }) => {
   );
 };
 
-export default DropdownPhone;
+export default React.memo(DropdownPhone);
 
 const Container = styled.ul`
   ${({ isOn }) => (isOn ? `display: block;` : `display: none;`)}

@@ -27,7 +27,7 @@ const InputEmail = ({ title, error, email, handleChange, ...props }) => {
   );
 };
 
-export default InputEmail;
+export default React.memo(InputEmail);
 
 const Container = styled.article`
   display: flex;

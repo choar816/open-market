@@ -57,7 +57,7 @@ const InputPhone = ({
   );
 };
 
-export default InputPhone;
+export default React.memo(InputPhone);
 
 const Container = styled.article`
   display: flex;
