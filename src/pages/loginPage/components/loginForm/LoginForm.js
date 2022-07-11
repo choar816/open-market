@@ -1,9 +1,9 @@
 import React, { useState, useRef } from 'react';
 import { useNavigate } from 'react-router-dom';
-import styled from 'styled-components';
 import InputText from './InputText';
 import ColorButton from '/src/components/button/ColorButton';
 import { sendLoginRequest } from '../../utils/loginRequest';
+import { Container, Message } from './style';
 import regeneratorRuntime from 'regenerator-runtime';
 
 const ERROR_TYPES = {
@@ -84,27 +84,3 @@ const LoginForm = ({ userType }) => {
 };
 
 export default LoginForm;
-
-const Container = styled.div`
-  position: relative;
-  z-index: 10;
-  padding: 35px;
-  background: #ffffff;
-  border: 1px solid #c4c4c4;
-  border-radius: 10px;
-
-  input + input {
-    margin-top: 6px;
-  }
-  button {
-    margin-top: 36px;
-  }
-`;
-
-const Message = styled.p`
-  margin-top: 26px;
-  margin-bottom: -10px;
-  font-size: 16px;
-  line-height: 20px;
-  color: #eb5757;
-`;

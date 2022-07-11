@@ -1,7 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
 import InputBox from './InputBox';
-import MessageError from './MessageError';
+import MessageError from '../message/MessageError';
 
 const InputEmail = ({ title, error, email, handleChange, ...props }) => {
   return (

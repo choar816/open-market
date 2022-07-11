@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { tabData } from '../../../../utils/tabData';
+import { tabData } from './utils/tabData';
 import { Container, TabContainer, TabButton, TabContent } from './style';
 
 const ProductTabs = () => {

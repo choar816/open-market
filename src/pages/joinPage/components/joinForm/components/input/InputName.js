@@ -1,27 +1,19 @@
 import React from 'react';
 import styled from 'styled-components';
-import ColorButton from '/src/components/button/ColorButton';
 import InputBox from './InputBox';
-import MessageError from './MessageError';
+import MessageError from '../message/MessageError';
 
-const InputWithBtn = React.forwardRef((props, ref) => {
-  const { title, btnMsg, error, BtnClick } = props;
-
+const InputName = ({ title, error, ...props }) => {
   return (
     <Container>
       <Title>{title}</Title>
-      <div>
-        <InputBox ref={ref} error={error} {...props} />
-        <ColorButton width="122px" size="MS" onClick={BtnClick}>
-          {btnMsg}
-        </ColorButton>
-      </div>
+      <InputBox {...props} />
       {error && <MessageError content={error} />}
     </Container>
   );
-});
+};
 
-export default InputWithBtn;
+export default React.memo(InputName);
 
 const Container = styled.article`
   display: flex;
@@ -33,6 +25,9 @@ const Container = styled.article`
     button {
       margin-left: 12px;
     }
+  }
+  input {
+    margin-top: 10px;
   }
   & + article {
     margin-top: 16px;
