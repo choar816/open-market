@@ -1,8 +1,8 @@
-import { MainPage } from './mainPage';
-import { LoginPage } from './loginPage';
-import { JoinPage } from './joinPage';
-import { ProductPage } from './productPage';
-import { CartPage } from './cartPage';
-import { NotFoundPage } from './notFoundPage';
+import { MainPage } from './MainPage';
+import { LoginPage } from './LoginPage';
+import { JoinPage } from './JoinPage';
+import { ProductPage } from './ProductPage';
+import { CartPage } from './CartPage';
+import { NotFoundPage } from './NotFoundPage';
 
 export { MainPage, LoginPage, JoinPage, ProductPage, CartPage, NotFoundPage };
