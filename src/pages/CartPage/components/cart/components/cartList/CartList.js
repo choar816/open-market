@@ -2,7 +2,12 @@ import React from 'react';
 import CartItem from './CartItem';
 import CartPrice from './CartPrice';
 
-const CartList = ({ cartItems, refetch }) => {
+const CartList = ({
+  cartItems,
+  refetch,
+  onClickCartOrder,
+  onClickCartOrderOne,
+}) => {
   const priceProduct = cartItems.reduce((acc, cur) => {
     if (!cur.is_active) return acc;
     return acc + cur.price * cur.quantity;
@@ -20,9 +25,14 @@ const CartList = ({ cartItems, refetch }) => {
           key={item.cart_item_id}
           item={item}
           refetch={refetch}
+          onClickCartOrderOne={onClickCartOrderOne}
         />
       ))}
-      <CartPrice priceProduct={priceProduct} priceShip={priceShip} />
+      <CartPrice
+        priceProduct={priceProduct}
+        priceShip={priceShip}
+        onClickCartOrder={onClickCartOrder}
+      />
     </>
   );
 };

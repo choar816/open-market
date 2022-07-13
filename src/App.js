@@ -1,8 +1,16 @@
 import React, { useEffect } from 'react';
 import { Routes, Route } from 'react-router-dom';
-import { QueryClient, QueryClientProvider } from 'react-query'
+import { QueryClient, QueryClientProvider } from 'react-query';
 import { setMetaTag } from '/src/utils/meta';
-import { MainPage, LoginPage, JoinPage, ProductPage, CartPage, NotFoundPage } from './pages';
+import {
+  MainPage,
+  LoginPage,
+  JoinPage,
+  ProductPage,
+  CartPage,
+  OrderPage,
+  NotFoundPage,
+} from './pages';
 import './App.css';
 
 const queryClient = new QueryClient();
@@ -18,6 +26,7 @@ const App = () => {
         <Route path="login" element={<LoginPage />} />
         <Route path="join" element={<JoinPage />} />
         <Route path="cart" element={<CartPage />} />
+        <Route path="order" element={<OrderPage />} />
         <Route path="*" element={<NotFoundPage />} />
       </Routes>
     </QueryClientProvider>

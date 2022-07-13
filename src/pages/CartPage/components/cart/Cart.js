@@ -1,5 +1,6 @@
 import React from 'react';
 import { useQuery } from 'react-query';
+import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
 import Loading from '/src/components/Loading';
 import ErrorMessage from '/src/components/ErrorMessage';
@@ -10,6 +11,8 @@ import { CartList } from './components/cartList';
 import { getCartDetails } from '../../utils/cartRequest';
 
 const Cart = () => {
+  const navigate = useNavigate();
+
   const isSeller = localStorage.getItem('userType') === 'SELLER' ? true : false;
   const isLogined = localStorage.getItem('token');
 
@@ -17,6 +20,13 @@ const Cart = () => {
     'cartItems',
     getCartDetails,
   );
+
+  const onClickCartOrder = () => {
+    navigate('/order', { state: { data: data, order_kind: 'cart_order' } });
+  };
+  const onClickCartOrderOne = () => {
+    navigate('/order', { state: { data: data, order_kind: 'cart_one_order' } });
+  };
 
   if (!isLogined) return <CartNoaccess type={'login'} />;
   if (isSeller) return <CartNoaccess type={'seller'} />;
@@ -31,7 +41,12 @@ const Cart = () => {
       {data.length === 0 ? (
         <CartNothing />
       ) : (
-        <CartList cartItems={data} refetch={refetch} />
+        <CartList
+          cartItems={data}
+          refetch={refetch}
+          onClickCartOrder={onClickCartOrder}
+          onClickCartOrderOne={onClickCartOrderOne}
+        />
       )}
     </CartContainer>
   );

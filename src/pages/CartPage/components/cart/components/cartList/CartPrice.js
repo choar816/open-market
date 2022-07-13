@@ -5,7 +5,7 @@ import ColorButton from '/src/components/button/ColorButton';
 import IconPlus from '/public/assets/icon-circle-plus.svg';
 import IconMinus from '/public/assets/icon-circle-minus.svg';
 
-const CartPrice = ({ priceProduct, priceShip }) => {
+const CartPrice = ({ priceProduct, priceShip, onClickCartOrder }) => {
   return (
     <Container>
       <PriceContainer>
@@ -21,7 +21,7 @@ const CartPrice = ({ priceProduct, priceShip }) => {
           color={'red'}
         />
       </PriceContainer>
-      <ColorButton size={'L'} width={'220px'}>
+      <ColorButton size={'L'} width={'220px'} onClick={onClickCartOrder}>
         주문하기
       </ColorButton>
     </Container>
