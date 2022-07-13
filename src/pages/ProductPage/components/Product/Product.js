@@ -1,8 +1,8 @@
 import React from 'react';
 import { useParams } from 'react-router-dom';
 import { useQuery } from 'react-query';
-import { ProductInfo } from './components/productInfo';
-import { ProductTabs } from './components/productTabs';
+import { ProductInfo } from './components/ProductInfo';
+import { ProductTabs } from './components/ProductTabs';
 import Loading from '/src/components/Loading';
 import ErrorMessage from '/src/components/ErrorMessage';
 import { getProductDetail } from '/src/utils/product';

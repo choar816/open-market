@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { LoginForm } from './components/loginForm';
-import { LoginFooter } from './components/loginFooter';
+import { LoginForm } from './components/LoginForm';
+import { LoginFooter } from './components/LoginFooter';
 import { Container, Logo, FormContainer, FormType } from './style';
 
 const LoginPage = () => {

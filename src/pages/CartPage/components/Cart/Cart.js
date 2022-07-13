@@ -6,8 +6,8 @@ import Loading from '/src/components/Loading';
 import ErrorMessage from '/src/components/ErrorMessage';
 import CartNothing from './CartNothing';
 import CartNoaccess from './CartNoaccess';
-import { CartHeader } from './components/cartHeader';
-import { CartList } from './components/cartList';
+import { CartHeader } from './components/CartHeader';
+import { CartList } from './components/CartList';
 import { getCartDetails } from '../../utils/cartRequest';
 
 const Cart = () => {

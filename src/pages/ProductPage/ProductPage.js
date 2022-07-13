@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react';
 import styled from 'styled-components';
 import Header from '../../components/Header';
-import { Product } from './components/product';
+import { Product } from './components/Product';
 import Footer from '../../components/Footer';
 
 const ProductPage = () => {

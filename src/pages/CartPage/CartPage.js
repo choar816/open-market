@@ -2,7 +2,7 @@ import React from 'react';
 import styled from 'styled-components';
 import Header from '/src/components/Header';
 import Footer from '/src/components/Footer';
-import { Cart } from './components/cart/';
+import { Cart } from './components/Cart/';
 
 const CartPage = () => {
   return (

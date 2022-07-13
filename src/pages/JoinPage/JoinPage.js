@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { JoinForm } from './components/joinForm';
+import { JoinForm } from './components/JoinForm';
 import { Container, Logo, FormType } from './style';
 
 const JoinPage = () => {

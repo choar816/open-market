@@ -3,7 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import { useQuery } from 'react-query';
 import ErrorMessage from '/src/components/ErrorMessage';
 import Loading from '/src/components/Loading';
-import { ProductItem } from './components/productItem';
+import { ProductItem } from './components/ProductItem';
 import { getProducts } from '../../utils/productsRequest';
 import { Container } from './style';
 
