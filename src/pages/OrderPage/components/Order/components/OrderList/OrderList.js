@@ -2,7 +2,7 @@ import React from 'react';
 import styled from 'styled-components';
 import { OrderItem } from './components/OrderItem';
 
-export const OrderList = ({ data }) => {
+const OrderList = ({ data }) => {
   return (
     <Container>
       <Header>
@@ -29,13 +29,14 @@ export const OrderList = ({ data }) => {
   );
 };
 
+export default React.memo(OrderList);
+
 const Container = styled.section`
   display: flex;
   flex-direction: column;
 `;
 
 const Header = styled.article`
-  margin-top: 50px;
   margin-bottom: 6px;
   padding: 20px 8px;
   display: flex;
