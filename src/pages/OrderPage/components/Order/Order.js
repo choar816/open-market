@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { OrderList } from './components/OrderList';
 import { OrderForm } from './components/OrderForm';
 import { OrderPay } from './components/OrderPay';
+import { useDaumPostcodePopup } from 'react-daum-postcode';
 import styled from 'styled-components';
 
 export const Order = ({ data }) => {
@@ -13,15 +14,33 @@ export const Order = ({ data }) => {
     payment_method: '',
   });
 
-  const onClickPayMethod = (e) => {
-    setOrderFormData((data) => {
-      return { ...data, payment_method: e.target.id };
-    });
-  };
-
   const onChangeOrderForm = (e) => {
     setOrderFormData((data) => {
       return { ...data, [e.target.name]: e.target.value };
+    });
+  };
+
+  const openPostcodePopup = useDaumPostcodePopup();
+
+  const setPostcode = (data) => {
+    const { zonecode, address: addressFirst } = data;
+
+    const newAddress = [...address];
+    newAddress[0] = zonecode;
+    newAddress[1] = addressFirst;
+
+    setAddress(newAddress);
+    console.log(newAddress);
+  };
+
+  const onClickPostcode = () => {
+    console.log('postal code clicked');
+    openPostcodePopup({ onComplete: setPostcode });
+  };
+
+  const onClickPayMethod = (e) => {
+    setOrderFormData((data) => {
+      return { ...data, payment_method: e.target.id };
     });
   };
 
@@ -60,6 +79,8 @@ export const Order = ({ data }) => {
       <OrderForm
         onChangeOrderForm={onChangeOrderForm}
         onChangeOrderAddress={onChangeOrderAddress}
+        onClickPostcode={onClickPostcode}
+        address={address}
       />
       <OrderPay data={data} onClickPayMethod={onClickPayMethod} />
     </Container>

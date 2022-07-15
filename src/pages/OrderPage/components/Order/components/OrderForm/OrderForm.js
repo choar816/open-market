@@ -2,7 +2,12 @@ import React from 'react';
 import ColorButton from '/src/components/button/ColorButton';
 import styled from 'styled-components';
 
-const OrderForm = ({ onChangeOrderForm, onChangeOrderAddress }) => {
+const OrderForm = ({
+  onChangeOrderForm,
+  onChangeOrderAddress,
+  onClickPostcode,
+  address,
+}) => {
   return (
     <Container>
       <h3>배송정보</h3>
@@ -39,14 +44,23 @@ const OrderForm = ({ onChangeOrderForm, onChangeOrderAddress }) => {
           <p>배송주소</p>
           <div>
             <div>
-              <input name="address1" onChange={onChangeOrderAddress} />
-              <ColorButton size="S" width="150px">
+              <input
+                readOnly
+                name="address1"
+                className="readonly"
+                value={address[0]}
+                onClick={onClickPostcode}
+                onChange={onChangeOrderAddress}
+              />
+              <ColorButton size="S" width="150px" onClick={onClickPostcode}>
                 우편번호 조회
               </ColorButton>
             </div>
             <input
+              readOnly
               name="address2"
-              className="long"
+              className="long readonly"
+              value={address[1]}
               onChange={onChangeOrderAddress}
             />
             <input
@@ -113,6 +127,9 @@ const InfoForm = styled.section`
       width: 330px;
       &.long {
         width: 800px;
+      }
+      &.readonly {
+        cursor: default;
       }
     }
     & > div {
