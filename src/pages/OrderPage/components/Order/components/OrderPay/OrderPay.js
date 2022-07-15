@@ -2,7 +2,7 @@ import React from 'react';
 import styled from 'styled-components';
 import OrderPayInfo from './OrderPayInfo/OrderPayInfo';
 
-const OrderPay = ({ data }) => {
+const OrderPay = ({ data, onClickPayMethod }) => {
   return (
     <Container>
       <section>
@@ -11,33 +11,38 @@ const OrderPay = ({ data }) => {
           <input
             name="payMethod"
             type="radio"
-            id="card"
-            value="신용/체크카드"
+            id="CARD"
+            onClick={onClickPayMethod}
           />
-          <label htmlFor="card">신용/체크카드</label>
+          <label htmlFor="CARD">신용/체크카드</label>
           <input
             name="payMethod"
             type="radio"
-            id="account"
-            value="무통장 입금"
+            id="DEPOSIT"
+            onClick={onClickPayMethod}
           />
-          <label htmlFor="account">무통장 입금</label>
-          <input name="payMethod" type="radio" id="phone" value="휴대폰 결제" />
-          <label htmlFor="phone">휴대폰 결제</label>
+          <label htmlFor="DEPOSIT">무통장 입금</label>
           <input
             name="payMethod"
             type="radio"
-            id="naverpay"
-            value="네이버페이"
+            id="PHONE_PAYMENT"
+            onClick={onClickPayMethod}
           />
-          <label htmlFor="naverpay">네이버페이</label>
+          <label htmlFor="PHONE_PAYMENT">휴대폰 결제</label>
           <input
             name="payMethod"
             type="radio"
-            id="kakaopay"
-            value="카카오페이"
+            id="NAVERPAY"
+            onClick={onClickPayMethod}
           />
-          <label htmlFor="kakaopay">카카오페이</label>
+          <label htmlFor="NAVERPAY">네이버페이</label>
+          <input
+            name="payMethod"
+            type="radio"
+            id="KAKAOPAY"
+            onClick={onClickPayMethod}
+          />
+          <label htmlFor="KAKAOPAY">카카오페이</label>
         </PayMethodContainer>
       </section>
       <section>

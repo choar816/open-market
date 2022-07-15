@@ -1,16 +1,67 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { OrderList } from './components/OrderList';
-import { OrderInfo } from './components/OrderInfo';
+import { OrderForm } from './components/OrderForm';
 import { OrderPay } from './components/OrderPay';
 import styled from 'styled-components';
 
 export const Order = ({ data }) => {
+  const [orderFormData, setOrderFormData] = useState({
+    receiver: '',
+    receiver_phone_number: '',
+    address: '',
+    address_message: '',
+    payment_method: '',
+  });
+
+  const onClickPayMethod = (e) => {
+    setOrderFormData((data) => {
+      return { ...data, payment_method: e.target.id };
+    });
+  };
+
+  const onChangeOrderForm = (e) => {
+    setOrderFormData((data) => {
+      return { ...data, [e.target.name]: e.target.value };
+    });
+  };
+
+  const [address, setAddress] = useState(['', '', '']);
+  const onChangeOrderAddress = (e) => {
+    const newAddress = [...address];
+    if (e.target.name === 'address1') {
+      newAddress[0] = e.target.value;
+    } else if (e.target.name === 'address2') {
+      newAddress[1] = e.target.value;
+    } else if (e.target.name === 'address3') {
+      newAddress[2] = e.target.value;
+    }
+    setAddress(newAddress);
+  };
+
+  useEffect(() => {
+    setOrderFormData((data) => {
+      return {
+        ...data,
+        address: address.join(' '),
+      };
+    });
+  }, [address]);
+
+  useEffect(() => {
+    console.log(orderFormData);
+  }, [orderFormData]);
+
+  const onClickPay = () => {};
+
   return (
     <Container>
       <Title>주문/결제하기</Title>
       <OrderList data={data} />
-      <OrderInfo />
-      <OrderPay data={data} />
+      <OrderForm
+        onChangeOrderForm={onChangeOrderForm}
+        onChangeOrderAddress={onChangeOrderAddress}
+      />
+      <OrderPay data={data} onClickPayMethod={onClickPayMethod} />
     </Container>
   );
 };

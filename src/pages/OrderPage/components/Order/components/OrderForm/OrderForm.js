@@ -2,7 +2,7 @@ import React from 'react';
 import ColorButton from '/src/components/button/ColorButton';
 import styled from 'styled-components';
 
-const OrderInfo = () => {
+const OrderForm = ({ onChangeOrderForm, onChangeOrderAddress }) => {
   return (
     <Container>
       <h3>배송정보</h3>
@@ -14,7 +14,7 @@ const OrderInfo = () => {
         </article>
         <article>
           <p>휴대폰</p>
-          <input />
+          <input inputMode="numeric" />
         </article>
         <article>
           <p>이메일</p>
@@ -25,33 +25,51 @@ const OrderInfo = () => {
         <h4>배송지 정보</h4>
         <article>
           <p>수령인</p>
-          <input />
+          <input name="receiver" onChange={onChangeOrderForm} />
         </article>
         <article>
           <p>휴대폰</p>
-          <input />
+          <input
+            name="receiver_phone_number"
+            inputMode="numeric"
+            onChange={onChangeOrderForm}
+          />
         </article>
         <article>
           <p>배송주소</p>
           <div>
             <div>
-              <input />
-              <ColorButton size="S" width="150px">우편번호 조회</ColorButton>
+              <input name="address1" onChange={onChangeOrderAddress} />
+              <ColorButton size="S" width="150px">
+                우편번호 조회
+              </ColorButton>
             </div>
-            <input className="long" />
-            <input className="long" />
+            <input
+              name="address2"
+              className="long"
+              onChange={onChangeOrderAddress}
+            />
+            <input
+              name="address3"
+              className="long"
+              onChange={onChangeOrderAddress}
+            />
           </div>
         </article>
         <article>
           <p>배송 메시지</p>
-          <input className="long" />
+          <input
+            name="address_message"
+            className="long"
+            onChange={onChangeOrderForm}
+          />
         </article>
       </InfoForm>
     </Container>
   );
 };
 
-export default React.memo(OrderInfo);
+export default React.memo(OrderForm);
 
 const Container = styled.section`
   display: flex;
