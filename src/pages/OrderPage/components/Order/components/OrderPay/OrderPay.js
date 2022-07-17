@@ -2,7 +2,7 @@ import React from 'react';
 import styled from 'styled-components';
 import OrderPayInfo from './OrderPayInfo/OrderPayInfo';
 
-const OrderPay = ({ data, onClickPayMethod }) => {
+const OrderPay = ({ data, error, onClickPayMethod, onClickPay }) => {
   return (
     <Container>
       <section>
@@ -44,10 +44,11 @@ const OrderPay = ({ data, onClickPayMethod }) => {
           />
           <label htmlFor="KAKAOPAY">카카오페이</label>
         </PayMethodContainer>
+        {error && <Error>{error}</Error>}
       </section>
       <section>
         <h3>최종결제 정보</h3>
-        <OrderPayInfo data={data} />
+        <OrderPayInfo data={data} onClickPay={onClickPay} />
       </section>
     </Container>
   );
@@ -81,4 +82,9 @@ const PayMethodContainer = styled.section`
   label + input {
     margin-left: 20px;
   }
+`;
+
+const Error = styled.p`
+  margin-top: 10px;
+  color: #eb5757;
 `;

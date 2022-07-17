@@ -3,10 +3,11 @@ import ColorButton from '/src/components/button/ColorButton';
 import styled from 'styled-components';
 
 const OrderForm = ({
+  orderFormError,
+  address,
   onChangeOrderForm,
   onChangeOrderAddress,
   onClickPostcode,
-  address,
 }) => {
   return (
     <Container>
@@ -31,6 +32,7 @@ const OrderForm = ({
         <article>
           <p>수령인</p>
           <input name="receiver" onChange={onChangeOrderForm} />
+          {orderFormError.receiver && <Error>{orderFormError.receiver}</Error>}
         </article>
         <article>
           <p>휴대폰</p>
@@ -39,6 +41,9 @@ const OrderForm = ({
             inputMode="numeric"
             onChange={onChangeOrderForm}
           />
+          {orderFormError.receiver_phone_number && (
+            <Error>{orderFormError.receiver_phone_number}</Error>
+          )}
         </article>
         <article>
           <p>배송주소</p>
@@ -69,6 +74,7 @@ const OrderForm = ({
               onChange={onChangeOrderAddress}
             />
           </div>
+          {orderFormError.address && <Error>{orderFormError.address}</Error>}
         </article>
         <article>
           <p>배송 메시지</p>
@@ -77,6 +83,9 @@ const OrderForm = ({
             className="long"
             onChange={onChangeOrderForm}
           />
+          {orderFormError.address_message && (
+            <Error>{orderFormError.address_message}</Error>
+          )}
         </article>
       </InfoForm>
     </Container>
@@ -107,9 +116,10 @@ const InfoForm = styled.section`
     border-bottom: 2px solid #c4c4c4;
   }
 
-  article {
+  & > article {
     display: flex;
     align-items: center;
+    flex-wrap: wrap;
     border-bottom: 1px solid #c4c4c4;
     padding-top: 8px;
     padding-bottom: 8px;
@@ -141,4 +151,10 @@ const InfoForm = styled.section`
       }
     }
   }
+`;
+
+const Error = styled.article`
+  width: 100%;
+  margin-top: 10px;
+  color: #eb5757;
 `;

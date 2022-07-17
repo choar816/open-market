@@ -4,7 +4,7 @@ export const sendRequest = (requestBody) => {
   return fetch(`${API_URL}/order/`, requestBody).catch((e) => console.error(e));
 };
 
-export const cartOrderBody = ({ total_price, orderFormData }) => {
+export const cartOrderBody = (total_price, orderFormData) => {
   const {
     receiver,
     receiver_phone_number,
@@ -17,6 +17,7 @@ export const cartOrderBody = ({ total_price, orderFormData }) => {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
+      Authorization: `JWT ${localStorage.getItem('token')}`,
     },
     body: JSON.stringify({
       total_price,

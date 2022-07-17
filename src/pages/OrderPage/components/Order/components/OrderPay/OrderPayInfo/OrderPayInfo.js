@@ -4,7 +4,7 @@ import styled from 'styled-components';
 import IconUnchecked from '/public/assets/check-box.svg';
 import IconChecked from '/public/assets/check-fill-box.svg';
 
-const OrderPayInfo = ({ data }) => {
+const OrderPayInfo = ({ data, onClickPay }) => {
   const [checkedTerm, setCheckedTerm] = useState(false);
 
   const priceProduct = data.reduce((acc, cur) => {
@@ -54,7 +54,12 @@ const OrderPayInfo = ({ data }) => {
           <label htmlFor="checkOrder" />
           <p>주문 내용을 확인하였으며, 정보 제공 등에 동의합니다.</p>
         </div>
-        <ColorButton size="L" width="220px">
+        <ColorButton
+          size="L"
+          width="220px"
+          color={checkedTerm ? 'green' : 'gray'}
+          onClick={checkedTerm ? onClickPay : () => {}}
+        >
           결제하기
         </ColorButton>
       </Lower>

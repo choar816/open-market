@@ -4,9 +4,18 @@ import { OrderForm } from './components/OrderForm';
 import { OrderPay } from './components/OrderPay';
 import { useDaumPostcodePopup } from 'react-daum-postcode';
 import styled from 'styled-components';
+import { cartOrderBody, sendRequest } from '../../utils/orderRequest';
 
 export const Order = ({ data }) => {
   const [orderFormData, setOrderFormData] = useState({
+    receiver: '',
+    receiver_phone_number: '',
+    address: '',
+    address_message: '',
+    payment_method: '',
+  });
+
+  const [orderFormError, setOrderFormError] = useState({
     receiver: '',
     receiver_phone_number: '',
     address: '',
@@ -30,11 +39,9 @@ export const Order = ({ data }) => {
     newAddress[1] = addressFirst;
 
     setAddress(newAddress);
-    console.log(newAddress);
   };
 
   const onClickPostcode = () => {
-    console.log('postal code clicked');
     openPostcodePopup({ onComplete: setPostcode });
   };
 
@@ -66,23 +73,38 @@ export const Order = ({ data }) => {
     });
   }, [address]);
 
-  useEffect(() => {
-    console.log(orderFormData);
-  }, [orderFormData]);
+  const priceTotal = data.reduce((acc, cur) => {
+    return acc + cur.price * cur.quantity + cur.shipping_fee;
+  }, 0);
 
-  const onClickPay = () => {};
+  const onClickPay = () => {
+    sendRequest(cartOrderBody(priceTotal, orderFormData))
+      .then((res) => res.json())
+      .then((data) => {
+        console.log(data);
+        if (!data.delivery_status) {
+          setOrderFormError(data);
+        }
+      });
+  };
 
   return (
     <Container>
       <Title>주문/결제하기</Title>
       <OrderList data={data} />
       <OrderForm
+        orderFormError={orderFormError}
+        address={address}
         onChangeOrderForm={onChangeOrderForm}
         onChangeOrderAddress={onChangeOrderAddress}
         onClickPostcode={onClickPostcode}
-        address={address}
       />
-      <OrderPay data={data} onClickPayMethod={onClickPayMethod} />
+      <OrderPay
+        data={data}
+        error={orderFormError.payment_method}
+        onClickPayMethod={onClickPayMethod}
+        onClickPay={onClickPay}
+      />
     </Container>
   );
 };
