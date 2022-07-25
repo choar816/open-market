@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import ColorButton from '/src/components/button/ColorButton';
 import AmountPicker from '/src/components/AmountPicker';
 import CartModal from './CartModal';
@@ -27,6 +28,7 @@ const ProductInfo = ({ id, data }) => {
     shipping_method,
     shipping_fee,
     stock,
+    image,
   } = data;
 
   const isLogined = localStorage.getItem('token');
@@ -43,7 +45,7 @@ const ProductInfo = ({ id, data }) => {
     setModalOn(on);
   };
 
-  const onCartClick = async (product_id, quantity, check) => {
+  const onClickCart = async (product_id, quantity, check) => {
     if (!isLogined) {
       setModal('장바구니는 로그인 후 이용 가능합니다.', true);
       return;
@@ -60,6 +62,24 @@ const ProductInfo = ({ id, data }) => {
       } else {
         setModal('장바구니에 상품을 담았습니다!', true);
       }
+    });
+  };
+
+  const navigate = useNavigate();
+  const onClickOrder = () => {
+    const itemToOrder = {
+      image,
+      seller_store,
+      product_name,
+      shipping_fee,
+      price,
+      quantity: amount,
+    };
+    navigate('/order', {
+      state: {
+        data: [itemToOrder],
+        order_kind: 'direct_order',
+      },
     });
   };
 
@@ -104,11 +124,11 @@ const ProductInfo = ({ id, data }) => {
             </div>
           </PartPrice>
           <PartBtn>
-            <ColorButton>바로 구매</ColorButton>
+            <ColorButton onClick={onClickOrder}>바로 구매</ColorButton>
             <ColorButton
               color={'charcoal'}
               width={'200px'}
-              onClick={() => onCartClick(product_id, amount, amount !== 0)}
+              onClick={() => onClickCart(product_id, amount, amount !== 0)}
             >
               장바구니
             </ColorButton>
