@@ -22,10 +22,20 @@ const Cart = () => {
   );
 
   const onClickCartOrder = () => {
-    navigate('/order', { state: { data: data, order_kind: 'cart_order' } });
+    navigate('/order', {
+      state: {
+        data: data.filter((item) => item.is_active === true),
+        order_kind: 'cart_order',
+      },
+    });
   };
-  const onClickCartOrderOne = () => {
-    navigate('/order', { state: { data: data, order_kind: 'cart_one_order' } });
+  const onClickCartOrderOne = (cart_item_id) => {
+    navigate('/order', {
+      state: {
+        data: data.filter((item) => item.cart_item_id === cart_item_id),
+        order_kind: 'cart_one_order',
+      },
+    });
   };
 
   if (!isLogined) return <CartNoaccess type={'login'} />;

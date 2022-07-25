@@ -1,13 +1,17 @@
 import React, { useCallback } from 'react';
 import styled from 'styled-components';
-import { removeBody, sendRequestWithCallback, updateBody } from '../../../../utils/cartRequest';
+import {
+  removeBody,
+  sendRequestWithCallback,
+  updateBody,
+} from '../../../../utils/cartRequest';
 import AmountPicker from '/src/components/AmountPicker';
 import ColorButton from '/src/components/button/ColorButton';
 import IconOn from '/public/assets/check-circle-on.svg';
 import IconOff from '/public/assets/check-circle-off.svg';
 import IconDelete from '/public/assets/icon-delete.svg';
 
-const CartItem = ({ item, refetch }) => {
+const CartItem = ({ item, refetch, onClickCartOrderOne }) => {
   const {
     cart_item_id,
     product_id,
@@ -49,19 +53,12 @@ const CartItem = ({ item, refetch }) => {
   }, [quantity, is_active]);
 
   const onRemove = useCallback(() => {
-    sendRequestWithCallback(
-      cart_item_id,
-      removeBody(),
-      refetch,
-    );
+    sendRequestWithCallback(cart_item_id, removeBody(), refetch);
   }, []);
 
   return (
     <Container>
-      <DeleteButton
-        src={IconDelete}
-        onClick={onRemove}
-      />
+      <DeleteButton src={IconDelete} onClick={onRemove} />
       <Checkbox
         type="checkbox"
         id={`cartItem_${product_id}`}
@@ -91,7 +88,11 @@ const CartItem = ({ item, refetch }) => {
       </AmountContainer>
       <PriceContainer>
         <p>{(price * quantity + shipping_fee).toLocaleString('ko-KR')}원</p>
-        <ColorButton size={'S'} width={'130px'}>
+        <ColorButton
+          size={'S'}
+          width={'130px'}
+          onClick={() => onClickCartOrderOne(cart_item_id)}
+        >
           주문하기
         </ColorButton>
       </PriceContainer>
