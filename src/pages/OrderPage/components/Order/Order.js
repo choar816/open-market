@@ -2,9 +2,10 @@ import React, { useEffect, useState } from 'react';
 import { OrderList } from './components/OrderList';
 import { OrderForm } from './components/OrderForm';
 import { OrderPay } from './components/OrderPay';
+import ButtonModal from '/src/components/modal/ButtonModal';
+import { cartOrderBody, sendRequest } from '../../utils/orderRequest';
 import { useDaumPostcodePopup } from 'react-daum-postcode';
 import styled from 'styled-components';
-import { cartOrderBody, sendRequest } from '../../utils/orderRequest';
 
 export const Order = ({ data }) => {
   const [orderFormData, setOrderFormData] = useState({
@@ -77,6 +78,8 @@ export const Order = ({ data }) => {
     return acc + cur.price * cur.quantity + cur.shipping_fee;
   }, 0);
 
+  const [isOrderSuccess, setIsOrderSuccess] = useState(false);
+
   const onClickPay = () => {
     sendRequest(cartOrderBody(priceTotal, orderFormData))
       .then((res) => res.json())
@@ -84,28 +87,41 @@ export const Order = ({ data }) => {
         console.log(data);
         if (!data.delivery_status) {
           setOrderFormError(data);
+        } else {
+          setIsOrderSuccess(true);
         }
       });
   };
 
   return (
-    <Container>
-      <Title>주문/결제하기</Title>
-      <OrderList data={data} />
-      <OrderForm
-        orderFormError={orderFormError}
-        address={address}
-        onChangeOrderForm={onChangeOrderForm}
-        onChangeOrderAddress={onChangeOrderAddress}
-        onClickPostcode={onClickPostcode}
-      />
-      <OrderPay
-        data={data}
-        error={orderFormError.payment_method}
-        onClickPayMethod={onClickPayMethod}
-        onClickPay={onClickPay}
-      />
-    </Container>
+    <>
+      <Container>
+        <Title>주문/결제하기</Title>
+        <OrderList data={data} />
+        <OrderForm
+          orderFormError={orderFormError}
+          address={address}
+          onChangeOrderForm={onChangeOrderForm}
+          onChangeOrderAddress={onChangeOrderAddress}
+          onClickPostcode={onClickPostcode}
+        />
+        <OrderPay
+          data={data}
+          error={orderFormError.payment_method}
+          onClickPayMethod={onClickPayMethod}
+          onClickPay={onClickPay}
+        />
+      </Container>
+      {isOrderSuccess && (
+        <ButtonModal
+          emoji="🎉"
+          title="상품 주문을 완료했어요!"
+          buttonMessage="마이페이지 가기"
+          addressToNavigate="/mypage"
+          ifReplace={true}
+        />
+      )}
+    </>
   );
 };
 
