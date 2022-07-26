@@ -79,6 +79,10 @@ const ProductInfo = ({ id, data }) => {
       state: {
         data: [itemToOrder],
         order_kind: 'direct_order',
+        extra_body: {
+          product_id,
+          quantity: amount,
+        },
       },
     });
   };

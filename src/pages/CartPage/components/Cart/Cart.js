@@ -26,14 +26,19 @@ const Cart = () => {
       state: {
         data: data.filter((item) => item.is_active === true),
         order_kind: 'cart_order',
+        extra_body: {},
       },
     });
   };
-  const onClickCartOrderOne = (cart_item_id) => {
+  const onClickCartOrderOne = (cart_item_id, product_id, quantity) => {
     navigate('/order', {
       state: {
         data: data.filter((item) => item.cart_item_id === cart_item_id),
         order_kind: 'cart_one_order',
+        extra_body: {
+          product_id,
+          quantity,
+        },
       },
     });
   };

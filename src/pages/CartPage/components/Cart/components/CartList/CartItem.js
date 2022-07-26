@@ -91,7 +91,10 @@ const CartItem = ({ item, refetch, onClickCartOrderOne }) => {
         <ColorButton
           size={'S'}
           width={'130px'}
-          onClick={() => onClickCartOrderOne(cart_item_id)}
+          onClick={() => {
+            if (!is_active) toggleCheck();
+            onClickCartOrderOne(cart_item_id, product_id, quantity);
+          }}
         >
           주문하기
         </ColorButton>

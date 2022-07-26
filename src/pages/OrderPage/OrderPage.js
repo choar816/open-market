@@ -11,7 +11,11 @@ export const OrderPage = () => {
   return (
     <Container>
       <Header />
-      <Order data={state.data} />
+      <Order
+        data={state.data}
+        order_kind={state.order_kind}
+        extra_body={state.extra_body}
+      />
       <Footer />
     </Container>
   );

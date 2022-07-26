@@ -7,7 +7,7 @@ import { cartOrderBody, sendRequest } from '../../utils/orderRequest';
 import { useDaumPostcodePopup } from 'react-daum-postcode';
 import styled from 'styled-components';
 
-export const Order = ({ data }) => {
+export const Order = ({ data, order_kind, extra_body }) => {
   const [orderFormData, setOrderFormData] = useState({
     receiver: '',
     receiver_phone_number: '',
@@ -81,7 +81,9 @@ export const Order = ({ data }) => {
   const [isOrderSuccess, setIsOrderSuccess] = useState(false);
 
   const onClickPay = () => {
-    sendRequest(cartOrderBody(priceTotal, orderFormData))
+    sendRequest(
+      cartOrderBody(priceTotal, order_kind, extra_body, orderFormData),
+    )
       .then((res) => res.json())
       .then((data) => {
         console.log(data);
