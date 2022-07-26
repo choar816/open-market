@@ -7,9 +7,6 @@ import { Order } from './components/Order';
 
 export const OrderPage = () => {
   const { state } = useLocation();
-  // useEffect(() => {
-  //   console.log(state);
-  // });
 
   return (
     <Container>
