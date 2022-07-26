@@ -3,27 +3,35 @@ import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
 import ColorButton from '/src/components/button/ColorButton';
 
-const JoinSuccessModal = () => {
+const ButtonModal = ({
+  emoji,
+  title,
+  buttonMessage,
+  addressToNavigate,
+  ifReplace,
+}) => {
   const navigate = useNavigate();
 
   return (
     <>
       <Background />
       <ModalContainer>
-        <Emoji>🎉</Emoji>
-        <Title>회원가입을 완료했어요!</Title>
+        <Emoji>{emoji}</Emoji>
+        <Title>{title}</Title>
         <ColorButton
           width={'200px'}
-          onClick={() => navigate('/login', { replace: true })}
+          onClick={() =>
+            navigate(`${addressToNavigate}`, { replace: ifReplace })
+          }
         >
-          로그인하러 가기
+          {buttonMessage}
         </ColorButton>
       </ModalContainer>
     </>
   );
 };
 
-export default JoinSuccessModal;
+export default ButtonModal;
 
 const Background = styled.section`
   display: block;

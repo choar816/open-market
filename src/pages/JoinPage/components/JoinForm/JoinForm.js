@@ -5,8 +5,8 @@ import InputPassword from './components/input/InputPassword';
 import InputPhone from './components/input/InputPhone';
 import InputWithBtn from './components/input/InputWithBtn';
 import ColorButton from '/src/components/button/ColorButton';
+import ButtonModal from '/src/components/modal/ButtonModal';
 import TermModal from './components/modal/TermModal';
-import JoinSuccessModal from './components/modal/JoinSuccessModal';
 import { modalData } from '../../utils/modalData';
 import { idRegex, pwRegex } from '../../utils/regex';
 import { checkIdDuplicate, requestJoin } from '../../utils/joinRequest';
@@ -272,7 +272,15 @@ const JoinForm = ({ userType }) => {
           content={modalData[modalIdx].content}
         />
       )}
-      {successJoin && <JoinSuccessModal />}
+      {successJoin && (
+        <ButtonModal
+          emoji="🎉"
+          title="회원가입을 완료했어요!"
+          buttonMessage="로그인하러 가기"
+          addressToNavigate="/login"
+          ifReplace={true}
+        />
+      )}
     </>
   );
 };
