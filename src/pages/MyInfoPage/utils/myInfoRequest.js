@@ -25,19 +25,19 @@ export const getOrder = () => {
 //   return data.results;
 // };
 
-export const getOrderItemDetails = () => {
+export const getOrderDetails = () => {
   return getOrder()
-    .then((data) => data.map((item) => item.order_items))
-    .then((idArrs) =>
+    .then((order) => order.map((item) => item.order_items))
+    .then((idLists) =>
       Promise.all(
-        idArrs.map((idArr) =>
-          Promise.all(idArr.map((id) => getProductDetail(id))),
+        idLists.map((idList) =>
+          Promise.all(idList.map((id) => getProductDetail(id))),
         ),
       ),
     );
 };
 
-export const getOrderItemQuantities = async () => {
-  const orderList = await getOrder();
-  return orderList.map((list) => list.order_quantity);
+export const getOrderQuantities = async () => {
+  const orders = await getOrder();
+  return orders.map((order) => order.order_quantity);
 };
