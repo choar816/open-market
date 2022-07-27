@@ -1,28 +1,28 @@
-import Img1 from '/public/assets/product-1.jpg';
-import Img2 from '/public/assets/product-2.jpg';
-import Img3 from '/public/assets/product-3.jpg';
-import Img4 from '/public/assets/product-4.jpg';
-import Img5 from '/public/assets/product-5.jpg';
+import Aurora from '/public/assets/img-aurora.jpg';
+import Deer from '/public/assets/img-deer.jpg';
+import Ocean from '/public/assets/img-ocean.jpg';
+import Squirrel from '/public/assets/img-squirrel.jpg';
+import Uyuni from '/public/assets/img-uyuni.jpg';
 
 export const carouselImgs = [
   {
-    src: Img1,
-    alt: 'img1',
+    src: Squirrel,
+    alt: 'Squirrel',
   },
   {
-    src: Img2,
-    alt: 'img2',
+    src: Ocean,
+    alt: 'Ocean',
   },
   {
-    src: Img3,
-    alt: 'img3',
+    src: Aurora,
+    alt: 'Aurora',
   },
   {
-    src: Img4,
-    alt: 'img4',
+    src: Deer,
+    alt: 'Deer',
   },
   {
-    src: Img5,
-    alt: 'img5',
+    src: Uyuni,
+    alt: 'Uyuni',
   },
 ];

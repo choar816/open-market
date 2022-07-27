@@ -25,12 +25,15 @@ const Carousel = () => {
     <Container>
       <ImageContainer activeIdx={activeIdx}>
         {carouselImgs.map((img, idx) => (
-          <Image key={idx} src={img.src} alt={img.alt} />
+          <Image key={`img_${idx}`} src={img.src} alt={img.alt} />
         ))}
       </ImageContainer>
       <IndicatorContainer activeIdx={activeIdx}>
         {carouselImgs.map((img, idx) => (
-          <Indicator key={idx} onClick={() => setActiveIdx(idx)} />
+          <Indicator
+            key={`indicator_${idx}`}
+            onClick={() => setActiveIdx(idx)}
+          />
         ))}
       </IndicatorContainer>
       <ButtonPrev onClick={onClickPrev} />
