@@ -41,6 +41,7 @@ const MyInfo = () => {
           receiver,
           receiver_phone_number,
           address,
+          address_message,
         } = orders[idxOrder];
 
         items.forEach((item, idxItem) => {
@@ -67,6 +68,10 @@ const MyInfo = () => {
             <Row>
               <Col span={4}>배송주소</Col>
               <Col span={20}>{address}</Col>
+            </Row>
+            <Row>
+              <Col span={4}>배송메세지</Col>
+              <Col span={20}>{address_message}</Col>
             </Row>
             <OrderList data={items} />
           </section>
