@@ -5,6 +5,17 @@ import { ProductPage } from './ProductPage';
 import { CartPage } from './CartPage';
 import { OrderPage } from './OrderPage';
 import { MyInfoPage } from './MyInfoPage';
+import { SellerCenterPage } from './SellerCenterPage';
 import { NotFoundPage } from './NotFoundPage';
 
-export { MainPage, LoginPage, JoinPage, ProductPage, CartPage, OrderPage, MyInfoPage, NotFoundPage };
+export {
+  MainPage,
+  LoginPage,
+  JoinPage,
+  ProductPage,
+  CartPage,
+  OrderPage,
+  MyInfoPage,
+  SellerCenterPage,
+  NotFoundPage,
+};

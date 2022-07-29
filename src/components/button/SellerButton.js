@@ -2,9 +2,9 @@
 import React from 'react';
 import styled from 'styled-components';
 
-const SellerButton = ({ iconSrc, children }) => {
+const SellerButton = ({ iconSrc, children, ...props }) => {
   return (
-    <Container>
+    <Container {...props}>
       {iconSrc && <img src={iconSrc} />}
       {children}
     </Container>

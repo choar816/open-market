@@ -1,21 +1,20 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import styled from 'styled-components';
 import Header from '/src/components/Header';
-import { Product } from './components/Product';
 import Footer from '/src/components/Footer';
+import { SellerCenter } from './components/SellerCenter';
 
-const ProductPage = () => {
-  useEffect(() => window.scrollTo(0, 0), []);
+const SellerCenterPage = () => {
   return (
     <Container>
       <Header />
-      <Product />
+      <SellerCenter />
       <Footer />
     </Container>
   );
 };
 
-export default ProductPage;
+export default SellerCenterPage;
 
 const Container = styled.section`
   display: flex;

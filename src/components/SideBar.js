@@ -18,6 +18,8 @@ export default SideBar;
 const Container = styled.section`
   display: flex;
   flex-direction: column;
+  width: 250px;
+  position: relative;
 `;
 
 const Button = styled.button`

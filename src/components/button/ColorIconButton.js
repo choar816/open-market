@@ -1,9 +1,9 @@
 import React from 'react';
 import styled from 'styled-components';
 
-const ColorIconButton = ({ iconSrc, children }) => {
+const ColorIconButton = ({ iconSrc, children, ...props }) => {
   return (
-    <Container>
+    <Container {...props}>
       {iconSrc && <img src={iconSrc} />}
       {children}
     </Container>
