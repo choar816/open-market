@@ -1,11 +1,11 @@
 import React from 'react';
 import styled from 'styled-components';
 
-const SideBar = () => {
+const SideBar = ({ chosenIndex, productCount }) => {
   return (
-    <Container>
-      <Button chosen>판매중인 상품</Button>
-      <Button>주문/배송</Button>
+    <Container chosenIndex={chosenIndex}>
+      <Button>판매중인 상품 ({productCount})</Button>
+      <Button num={2}>주문/배송</Button>
       <Button num={1}>문의/리뷰</Button>
       <Button>통계</Button>
       <Button>스토어 설정</Button>
@@ -20,28 +20,32 @@ const Container = styled.section`
   flex-direction: column;
   width: 250px;
   position: relative;
+
+  button {
+    color: #000000;
+    background-color: #ffffff;
+    &:hover {
+      background-color: #effff3;
+    }
+
+    &:nth-child(${({ chosenIndex }) => chosenIndex}) {
+      color: #ffffff;
+      background-color: #21bf48;
+    }
+  }
 `;
 
 const Button = styled.button`
   padding: 15px 20px;
   font-size: 16px;
   line-height: 20px;
-  color: #ffffff;
-  background-color: #21bf48;
   border: none;
   border-radius: 5px;
-  ${({ chosen }) =>
-    !chosen &&
-    `
-    color: #000000;
-    background-color: #FFFFFF;
-    &:hover {
-      background-color: #EFFFF3;
-    }
-  `}
+
   & + button {
     margin-top: 10px;
   }
+
   ${({ num }) =>
     num &&
     `

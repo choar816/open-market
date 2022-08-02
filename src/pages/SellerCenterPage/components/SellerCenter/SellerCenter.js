@@ -1,21 +1,41 @@
 import React from 'react';
 import styled from 'styled-components';
 import SideBar from '/src/components/SideBar';
+import Loading from '/src/components/Loading';
+import ColorIconButton from '/src/components/button/ColorIconButton';
 import { SideBarContent } from './components/SideBarContent';
 import iconPlus from '/public/assets/icon-plus-circle.svg';
-import ColorIconButton from '/src/components/button/ColorIconButton';
+import { useQuery } from 'react-query';
+import { API_URL } from '/src/utils/api';
+
+export const getSellerProducts = () => {
+  return fetch(`${API_URL}/seller/`, {
+    method: 'GET',
+    headers: {
+      'Content-Type': 'application/json',
+      Authorization: `JWT ${localStorage.getItem('token')}`,
+    },
+  }).then((res) => res.json());
+  // .then((data) => data.results);
+};
 
 const SellerCenter = () => {
-  const seller_name = 'asdf';
+  const { data: products, isLoading } = useQuery(
+    'sellerProducts',
+    getSellerProducts,
+  );
+
   const onProductUploadClicked = () => {
     console.log('상품 업로드 clicked');
   };
+
+  if (isLoading) return <Loading />;
 
   return (
     <Container>
       <Title>
         <h2>
-          대시보드 <span>{seller_name}</span>
+          대시보드 <span>{products.results[0].seller_store}</span>
         </h2>
         <ColorIconButton
           iconSrc={iconPlus}
@@ -24,8 +44,8 @@ const SellerCenter = () => {
         />
       </Title>
       <Content>
-        <SideBar />
-        <SideBarContent />
+        <SideBar chosenIndex={1} productCount={products.count} />
+        <SideBarContent products={products.results} />
       </Content>
     </Container>
   );

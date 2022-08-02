@@ -1,7 +1,8 @@
 import React from 'react';
+import { ProductItem } from './components/ProductItem';
 import styled from 'styled-components';
 
-const SideBarContent = () => {
+const SideBarContent = ({ products }) => {
   return (
     <Container>
       <Header>
@@ -11,10 +12,9 @@ const SideBarContent = () => {
         <div>삭제</div>
       </Header>
       <List>
-        <li>list item</li>
-        <li>list item</li>
-        <li>list item</li>
-        <li>list item</li>
+        {products.map((product) => (
+          <ProductItem {...product} />
+        ))}
       </List>
     </Container>
   );
@@ -24,7 +24,7 @@ export default SideBarContent;
 
 const Container = styled.section`
   flex-grow: 1;
-  height: 400px;
+  height: 800px;
   display: flex;
   flex-direction: column;
   border: 1px solid #c4c4c4;
@@ -50,11 +50,11 @@ const Header = styled.article`
       flex-grow: 1;
     }
     &:nth-child(2) {
-      width: 200px;
+      width: 300px;
     }
     &:nth-child(3),
     &:nth-child(4) {
-      width: 100px;
+      width: 150px;
     }
   }
 `;
