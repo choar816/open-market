@@ -1,4 +1,4 @@
-import { Dashboard } from './components/Dashboard/Dashboard';
-import { ProductUpload } from './components/ProductUpload/ProductUpload';
+import { Dashboard } from './components/Dashboard';
+import { UploadProduct } from './components/UploadProduct';
 
-export { Dashboard, ProductUpload };
+export { Dashboard, UploadProduct };

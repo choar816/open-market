@@ -10,9 +10,9 @@ import {
   Order,
   MyInfo,
   Dashboard,
-  ProductUpload,
+  UploadProduct,
 } from './pages/pageContents';
-import { PageWithHeaderFooter } from './pages/PageWithHeaderFooter';
+import { PageLayout } from './pages/PageLayout';
 import './App.css';
 
 const queryClient = new QueryClient();
@@ -23,7 +23,7 @@ const App = () => {
   return (
     <QueryClientProvider client={queryClient}>
       <Routes>
-        <Route path="/" element={<PageWithHeaderFooter />}>
+        <Route path="/" element={<PageLayout />}>
           <Route index element={<Main />} />
           <Route path="product/:id" element={<Product />} />
           <Route path="cart" element={<Cart />} />
@@ -31,7 +31,7 @@ const App = () => {
           <Route path="mypage" element={<MyInfo />} />
           <Route path="seller_center">
             <Route index element={<Dashboard />} />
-            <Route path="upload_product" element={<ProductUpload />} />
+            <Route path="upload_product" element={<UploadProduct />} />
           </Route>
         </Route>
         <Route path="login" element={<LoginPage />} />

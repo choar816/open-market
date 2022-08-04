@@ -4,7 +4,7 @@ import Header from '/src/components/Header';
 import Footer from '/src/components/Footer';
 import styled from 'styled-components';
 
-export const PageWithHeaderFooter = () => {
+export const PageLayout = () => {
   return (
     <Container>
       <Header />

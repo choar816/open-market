@@ -1,5 +1,5 @@
 import React from 'react';
 
-export const ProductUpload = () => {
+export const UploadProduct = () => {
   return <div>Product Upload</div>;
 };
