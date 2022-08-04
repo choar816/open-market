@@ -4,7 +4,7 @@ export const Container = styled.main`
   display: flex;
   flex-direction: column;
   gap: 40px;
-  padding: 40px 30px;
+  padding: 40px 50px;
 `;
 
 export const Title = styled.section`
