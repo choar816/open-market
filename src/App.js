@@ -2,17 +2,17 @@ import React, { useEffect } from 'react';
 import { Routes, Route } from 'react-router-dom';
 import { QueryClient, QueryClientProvider } from 'react-query';
 import { setMetaTag } from '/src/utils/meta';
+import { LoginPage, JoinPage, NotFoundPage } from './pages';
 import {
-  MainPage,
-  LoginPage,
-  JoinPage,
-  ProductPage,
-  CartPage,
-  OrderPage,
-  MyInfoPage,
-  NotFoundPage,
-  SellerCenterPage,
-} from './pages';
+  Main,
+  Product,
+  Cart,
+  Order,
+  MyInfo,
+  Dashboard,
+  ProductUpload,
+} from './pages/pageContents';
+import { PageWithHeaderFooter } from './pages/PageWithHeaderFooter';
 import './App.css';
 
 const queryClient = new QueryClient();
@@ -23,14 +23,19 @@ const App = () => {
   return (
     <QueryClientProvider client={queryClient}>
       <Routes>
-        <Route path="/" element={<MainPage />} />
-        <Route path="product/:id" element={<ProductPage />} />
+        <Route path="/" element={<PageWithHeaderFooter />}>
+          <Route index element={<Main />} />
+          <Route path="product/:id" element={<Product />} />
+          <Route path="cart" element={<Cart />} />
+          <Route path="order" element={<Order />} />
+          <Route path="mypage" element={<MyInfo />} />
+          <Route path="seller_center">
+            <Route index element={<Dashboard />} />
+            <Route path="upload_product" element={<ProductUpload />} />
+          </Route>
+        </Route>
         <Route path="login" element={<LoginPage />} />
         <Route path="join" element={<JoinPage />} />
-        <Route path="cart" element={<CartPage />} />
-        <Route path="order" element={<OrderPage />} />
-        <Route path="mypage" element={<MyInfoPage />} />
-        <Route path="seller_center" element={<SellerCenterPage />} />
         <Route path="*" element={<NotFoundPage />} />
       </Routes>
     </QueryClientProvider>
