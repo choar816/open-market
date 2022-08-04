@@ -2,7 +2,7 @@ import React from 'react';
 import { ProductItem } from './components/ProductItem';
 import styled from 'styled-components';
 
-const SideBarContent = ({ products }) => {
+export const SellerProducts = ({ products }) => {
   return (
     <Container>
       <Header>
@@ -13,14 +13,12 @@ const SideBarContent = ({ products }) => {
       </Header>
       <List>
         {products.map((product) => (
-          <ProductItem {...product} />
+          <ProductItem key={product.product_id} {...product} />
         ))}
       </List>
     </Container>
   );
 };
-
-export default SideBarContent;
 
 const Container = styled.section`
   flex-grow: 1;

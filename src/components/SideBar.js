@@ -1,14 +1,27 @@
 import React from 'react';
 import styled from 'styled-components';
 
-const SideBar = ({ chosenIndex, productCount }) => {
+const SideBar = ({ chosenIndex, productCount, onMenuClick }) => {
+  const barMenus = [
+    { index: 1, title: `판매중인 상품 (${productCount})` },
+    { index: 2, title: '주문/배송', num: 2 },
+    { index: 3, title: '문의/리뷰', num: 1 },
+    { index: 4, title: '통계' },
+    { index: 5, title: '스토어 설정' },
+  ];
+
   return (
     <Container chosenIndex={chosenIndex}>
-      <Button>판매중인 상품 ({productCount})</Button>
-      <Button num={2}>주문/배송</Button>
-      <Button num={1}>문의/리뷰</Button>
-      <Button>통계</Button>
-      <Button>스토어 설정</Button>
+      {barMenus.map((menu) => (
+        <Button
+          key={`barMenu_${menu.index}`}
+          num={menu.num}
+          data-index={menu.index}
+          onClick={onMenuClick}
+        >
+          {menu.title}
+        </Button>
+      ))}
     </Container>
   );
 };

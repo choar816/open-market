@@ -1,3 +1,4 @@
-import SideBarContent from './SideBarContent';
+import { SellerProducts } from './SellerProducts';
+import { MenuInPreparation } from './MenuInPreparation';
 
-export { SideBarContent };
+export { SellerProducts, MenuInPreparation };
