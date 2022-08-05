@@ -1,11 +1,17 @@
 import React from 'react';
 import styled from 'styled-components';
 
-const ColorButton = ({ width, size, color, onClick, children }) => {
+const ColorButton = ({ width, size, color, onClick, children, ...props }) => {
   return (
-    <Container width={width} size={size} color={color} onClick={onClick}>
+    <Button
+      width={width}
+      size={size}
+      color={color}
+      onClick={onClick}
+      {...props}
+    >
       {children}
-    </Container>
+    </Button>
   );
 };
 
@@ -50,7 +56,7 @@ const handleColor = (color) => {
   }
 };
 
-const Container = styled.button`
+const Button = styled.button`
   border: none;
   border-radius: 5px;
   color: #ffffff;

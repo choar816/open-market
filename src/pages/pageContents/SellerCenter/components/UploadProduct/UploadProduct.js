@@ -1,8 +1,41 @@
-import React from 'react';
-import styled from 'styled-components';
+import React, { useRef, useState } from 'react';
 import ColorButton from '/src/components/button/ColorButton';
+import { Container, Content, Warning, Form } from './style';
+import ImgUpload from '/public/assets/img-upload.png';
 
 export const UploadProduct = () => {
+  const [productInfo, setProductInfo] = useState({
+    product_name: '',
+    image: ImgUpload,
+    price: '',
+    shipping_method: 'DELIVERY',
+    shipping_fee: '',
+    stock: '',
+    products_info: '',
+    token: '',
+  });
+
+  const uploadImageRef = useRef();
+  const onChangeImage = (e) => {
+    const reader = new FileReader();
+    reader.onload = () => {
+      if (reader.readyState === 2) {
+        setProductInfo({ ...productInfo, image: reader.result });
+      }
+    };
+    reader.readAsDataURL(e.target.files[0]);
+  };
+  const onClickImage = (e) => {
+    e.preventDefault();
+    uploadImageRef.current.click();
+  };
+  const onClickShippingMethod = (e) => {
+    setProductInfo((info) => ({
+      ...info,
+      shipping_method: e.target.dataset.method,
+    }));
+  };
+
   return (
     <Container>
       <h2>상품 등록</h2>
@@ -29,7 +62,13 @@ export const UploadProduct = () => {
         <Form>
           <section>
             <label>상품 이미지</label>
-            <div>ㅁㄴㅇㄹ</div>
+            <img src={productInfo.image} onClick={onClickImage} />
+            <input
+              type="file"
+              accept="image/*"
+              ref={uploadImageRef}
+              onChange={onChangeImage}
+            />
           </section>
           <section>
             <label>상품명</label>
@@ -38,10 +77,26 @@ export const UploadProduct = () => {
             <input />
             <label>배송방법</label>
             <div>
-              <ColorButton width="220px" size="MS">
+              <ColorButton
+                size="MS"
+                width="220px"
+                data-method="DELIVERY"
+                onClick={onClickShippingMethod}
+                color={
+                  productInfo.shipping_method === 'DELIVERY' ? 'green' : 'white'
+                }
+              >
                 택배, 소포, 등기
               </ColorButton>
-              <ColorButton width="220px" size="MS" color="white">
+              <ColorButton
+                size="MS"
+                width="220px"
+                data-method="PARCEL"
+                onClick={onClickShippingMethod}
+                color={
+                  productInfo.shipping_method === 'PARCEL' ? 'green' : 'white'
+                }
+              >
                 직접배송(화물배달)
               </ColorButton>
             </div>
@@ -67,97 +122,3 @@ export const UploadProduct = () => {
     </Container>
   );
 };
-
-const Container = styled.main`
-  display: flex;
-  flex-direction: column;
-  gap: 40px;
-  padding: 40px 50px;
-
-  h2 {
-    font-weight: 700;
-    font-size: 36px;
-    line-height: 44px;
-  }
-`;
-
-const Content = styled.section`
-  display: flex;
-  gap: 80px;
-`;
-
-const Warning = styled.section`
-  flex-shrink: 0;
-  width: 320px;
-
-  h3 {
-    color: #eb5757;
-    font-weight: 500;
-    font-size: 16px;
-    line-height: 20px;
-  }
-  article {
-    margin-top: 10px;
-    padding: 20px;
-    background-color: #ffefe8;
-    border-radius: 5px;
-  }
-`;
-
-const Form = styled.section`
-  flex-grow: 1;
-  display: flex;
-  flex-wrap: wrap;
-  gap: 40px;
-
-  section:nth-child(1) {
-    div {
-      width: 460px;
-      height: 460px;
-      background-color: gray;
-    }
-  }
-  section:nth-child(2) {
-    flex-grow: 1;
-    input:nth-child(2) {
-      width: 100%;
-    }
-    div {
-      display: flex;
-      gap: 10px;
-      margin-bottom: 16px;
-    }
-  }
-  section:nth-child(3) {
-    width: 100%;
-    textarea {
-      width: 100%;
-      height: 500px;
-      resize: none;
-      border: 1px solid #c4c4c4;
-      border-radius: 5px;
-    }
-    div {
-      margin-top: 50px;
-      display: flex;
-      justify-content: flex-end;
-      gap: 14px;
-    }
-  }
-
-  label {
-    margin-bottom: 10px;
-    display: block;
-    color: #767676;
-    font-size: 16px;
-    line-height: 20px;
-  }
-  input {
-    padding: 16px;
-    border: 1px solid #c4c4c4;
-    border-radius: 5px;
-    & + label {
-      margin-top: 16px;
-    }
-  }
-`;
