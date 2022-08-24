@@ -3,6 +3,7 @@ import styled from 'styled-components';
 import InputBox from './InputBox';
 import MessageError from '../message/MessageError';
 import SelectBox from './SelectBox';
+import { onlyNumber } from '/src/utils/input';
 
 const InputPhone = ({
   title,
@@ -18,11 +19,6 @@ const InputPhone = ({
     setPhone(newPhone);
   };
 
-  // need to improve : non-accepted character showing for a split-second before being erased
-  const onlyNumber = () => {
-    phone[1] = phone[1].replace(/[^0-9]/g, '');
-    phone[2] = phone[2].replace(/[^0-9]/g, '');
-  };
 
   return (
     <Container>
@@ -37,8 +33,8 @@ const InputPhone = ({
         <InputBox
           name="phoneSecond"
           value={phone[1]}
+          onInput={onlyNumber}
           onChange={handleChange}
-          onkeydown={onlyNumber()}
           type="text"
           maxLength="4"
           {...props}
@@ -46,8 +42,8 @@ const InputPhone = ({
         <InputBox
           name="phoneThird"
           value={phone[2]}
+          onInput={onlyNumber}
           onChange={handleChange}
-          onkeydown={onlyNumber()}
           maxLength="4"
           {...props}
         />

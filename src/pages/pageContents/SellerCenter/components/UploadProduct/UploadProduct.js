@@ -2,17 +2,19 @@ import React, { useRef, useState } from 'react';
 import ColorButton from '/src/components/button/ColorButton';
 import { Container, Content, Warning, Form } from './style';
 import ImgUpload from '/public/assets/img-upload.png';
+import { onlyNumber } from '/src/utils/input';
+import { uploadProduct } from '../../utils/sellerRequest';
 
 export const UploadProduct = () => {
+  const [imageSrc, setImageSrc] = useState(ImgUpload);
   const [productInfo, setProductInfo] = useState({
     product_name: '',
-    image: ImgUpload,
+    image: '',
     price: '',
     shipping_method: 'DELIVERY',
     shipping_fee: '',
     stock: '',
-    products_info: '',
-    token: '',
+    product_info: '',
   });
 
   const uploadImageRef = useRef();
@@ -20,10 +22,14 @@ export const UploadProduct = () => {
     const reader = new FileReader();
     reader.onload = () => {
       if (reader.readyState === 2) {
-        setProductInfo({ ...productInfo, image: reader.result });
+        setImageSrc(reader.result);
       }
     };
     reader.readAsDataURL(e.target.files[0]);
+    setProductInfo({ ...productInfo, image: e.target.files[0] });
+  };
+  const onChangeProductInfo = (e) => {
+    setProductInfo((info) => ({ ...info, [e.target.name]: e.target.value }));
   };
   const onClickImage = (e) => {
     e.preventDefault();
@@ -34,6 +40,19 @@ export const UploadProduct = () => {
       ...info,
       shipping_method: e.target.dataset.method,
     }));
+  };
+  const onClickSave = () => {
+    const formData = new FormData();
+    formData.append('product_name', productInfo.product_name);
+    formData.append('image', productInfo.image);
+    formData.append('price', productInfo.price);
+    formData.append('shipping_method', productInfo.shipping_method);
+    formData.append('shipping_fee', productInfo.shipping_fee);
+    formData.append('stock', productInfo.stock);
+    formData.append('product_info', productInfo.product_info);
+    uploadProduct(formData)
+      .then((data) => console.log(data))
+      .catch((err) => console.log(err));
   };
 
   return (
@@ -62,7 +81,7 @@ export const UploadProduct = () => {
         <Form>
           <section>
             <label>상품 이미지</label>
-            <img src={productInfo.image} onClick={onClickImage} />
+            <img src={imageSrc} value={productInfo.image} onClick={onClickImage} />
             <input
               type="file"
               accept="image/*"
@@ -72,9 +91,20 @@ export const UploadProduct = () => {
           </section>
           <section>
             <label>상품명</label>
-            <input />
+            <input
+              name="product_name"
+              value={productInfo.product_name}
+              onChange={onChangeProductInfo}
+              maxLength={50}
+            />
             <label>판매가</label>
-            <input />
+            <input
+              name="price"
+              value={productInfo.price}
+              onInput={onlyNumber}
+              onChange={onChangeProductInfo}
+              maxLength={10}
+            />
             <label>배송방법</label>
             <div>
               <ColorButton
@@ -101,18 +131,34 @@ export const UploadProduct = () => {
               </ColorButton>
             </div>
             <label>기본 배송비</label>
-            <input />
+            <input
+              name="shipping_fee"
+              value={productInfo.shipping_fee}
+              onInput={onlyNumber}
+              onChange={onChangeProductInfo}
+              maxLength={7}
+            />
             <label>재고</label>
-            <input />
+            <input
+              name="stock"
+              value={productInfo.stock}
+              onInput={onlyNumber}
+              onChange={onChangeProductInfo}
+              maxLength={7}
+            />
           </section>
           <section>
             <label>상품 상세 정보</label>
-            <textarea />
+            <textarea
+              name="product_info"
+              value={productInfo.product_info}
+              onChange={onChangeProductInfo}
+            />
             <div>
               <ColorButton width="200px" size="M" color="white">
                 취소
               </ColorButton>
-              <ColorButton width="200px" size="M">
+              <ColorButton width="200px" size="M" onClick={onClickSave}>
                 저장하기
               </ColorButton>
             </div>
