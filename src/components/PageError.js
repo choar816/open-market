@@ -1,7 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
 
-const ErrorMessage = ({ emoji, message }) => {
+export const PageError = ({ emoji, message }) => {
   return (
     <Container>
       <span>{emoji}</span>
@@ -10,8 +10,6 @@ const ErrorMessage = ({ emoji, message }) => {
     </Container>
   );
 };
-
-export default ErrorMessage;
 
 const Container = styled.article`
   margin: 150px auto 150px;

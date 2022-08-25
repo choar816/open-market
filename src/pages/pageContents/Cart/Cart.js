@@ -3,7 +3,7 @@ import { useQuery } from 'react-query';
 import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
 import Loading from '/src/components/Loading';
-import ErrorMessage from '/src/components/ErrorMessage';
+import { PageError } from '/src/components/PageError';
 import CartNothing from './CartNothing';
 import CartNoaccess from './CartNoaccess';
 import { CartHeader } from './components/CartHeader';
@@ -47,7 +47,7 @@ const Cart = () => {
   if (isSeller) return <CartNoaccess type={'seller'} />;
   if (isLoading) return <Loading />;
   if (error)
-    return <ErrorMessage emoji="😭" message={`에러 발생: ${error.message}`} />;
+    return <PageError emoji="😭" message={`에러 발생: ${error.message}`} />;
 
   return (
     <CartContainer>

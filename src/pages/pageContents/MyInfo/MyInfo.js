@@ -1,7 +1,7 @@
 import React from 'react';
 import { useQuery } from 'react-query';
 import Loading from '/src/components/Loading';
-import ErrorMessage from '/src/components/ErrorMessage';
+import { PageError } from '/src/components/PageError';
 import { OrderList } from '/src/pages/pageContents/Order/components/OrderList';
 import {
   getOrder,
@@ -25,10 +25,13 @@ const MyInfo = () => {
     error: errorQuantities,
   } = useQuery('orderQuantities', getOrderQuantities);
 
+  if (localStorage.getItem('userType') === 'SELLER')
+    return <PageError emoji={'⛔🙅🏼‍♀️⛔'} message="판매자는 마이페이지 접근 권한이 없어요." />;
+
   if (isLoading || isLoadingDetails || isLoadingQuantities) return <Loading />;
 
   if (error || errorDetails || errorQuantities)
-    return <ErrorMessage emoji={'😭'} message="에러가 발생혰어요." />;
+    return <PageError emoji={'😭'} message="에러가 발생혰어요." />;
 
   return (
     <Container>
