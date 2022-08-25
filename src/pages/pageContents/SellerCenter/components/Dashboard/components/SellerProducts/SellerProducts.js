@@ -44,15 +44,13 @@ const Header = styled.article`
     font-size: 18px;
     line-height: 23px;
 
-    &:nth-child(1) {
-      flex-grow: 1;
-    }
+    &:nth-child(1),
     &:nth-child(2) {
-      width: 300px;
+      flex: 2;
     }
     &:nth-child(3),
     &:nth-child(4) {
-      width: 150px;
+      flex: 1;
     }
   }
 `;

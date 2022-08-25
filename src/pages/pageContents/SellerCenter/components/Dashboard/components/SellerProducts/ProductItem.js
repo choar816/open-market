@@ -5,10 +5,12 @@ import ColorButton from '/src/components/button/ColorButton';
 export const ProductItem = ({ image, product_name, stock, price }) => {
   return (
     <Container>
-      <img src={image} />
       <div>
-        <ProductName>{product_name}</ProductName>
-        <Stock>재고 : {stock}개</Stock>
+        <img src={image} />
+        <div>
+          <ProductName>{product_name}</ProductName>
+          <Stock>재고 : {stock}개</Stock>
+        </div>
       </div>
       <div>{price.toLocaleString('ko-KR')}원</div>
       <div>
@@ -36,27 +38,30 @@ const Container = styled.article`
 
   img {
     margin-left: 30px;
-    margin-right: 30px;
     width: 70px;
     height: 70px;
     border-radius: 100px;
+    object-fit: cover;
   }
   div {
-    &:nth-child(2) {
-      flex-grow: 1;
+    &:nth-child(1) {
+      flex: 2;
+      display: flex;
+      align-items: center;
+      gap: 30px;
       text-align: left;
       p + p {
         margin-top: 10px;
       }
     }
-    &:nth-child(3) {
-      width: 300px;
+    &:nth-child(2) {
+      flex: 2;
       font-size: 18px;
       line-height: 22px;
     }
-    &:nth-child(4),
-    &:nth-child(5) {
-      width: 150px;
+    &:nth-child(3),
+    &:nth-child(4) {
+      flex: 1;
     }
   }
 `;
