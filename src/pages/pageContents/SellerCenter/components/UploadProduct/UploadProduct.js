@@ -1,17 +1,28 @@
 import React, { useRef, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import ColorButton from '/src/components/button/ColorButton';
 import { Container, Content, Warning, Form } from './style';
 import ImgUpload from '/public/assets/img-upload.png';
 import { onlyNumber } from '/src/utils/input';
-import { uploadProduct } from '../../utils/sellerRequest';
+import { trySave } from '../../utils/sellerRequest';
+import MessageError from './MessageError';
 
 export const UploadProduct = () => {
+  const navigate = useNavigate();
   const [imageSrc, setImageSrc] = useState(ImgUpload);
   const [productInfo, setProductInfo] = useState({
     product_name: '',
     image: '',
     price: '',
     shipping_method: 'DELIVERY',
+    shipping_fee: '',
+    stock: '',
+    product_info: '',
+  });
+  const [productError, setProductError] = useState({
+    product_name: '',
+    image: '',
+    price: '',
     shipping_fee: '',
     stock: '',
     product_info: '',
@@ -41,18 +52,18 @@ export const UploadProduct = () => {
       shipping_method: e.target.dataset.method,
     }));
   };
-  const onClickSave = () => {
-    const formData = new FormData();
-    formData.append('product_name', productInfo.product_name);
-    formData.append('image', productInfo.image);
-    formData.append('price', productInfo.price);
-    formData.append('shipping_method', productInfo.shipping_method);
-    formData.append('shipping_fee', productInfo.shipping_fee);
-    formData.append('stock', productInfo.stock);
-    formData.append('product_info', productInfo.product_info);
-    uploadProduct(formData)
-      .then((data) => console.log(data))
-      .catch((err) => console.log(err));
+
+  const onClickSave = async () => {
+    const result = await trySave(productInfo);
+
+    if (result === true) {
+      navigate('/');
+    } else {
+      for (const key of Object.keys(productError)) {
+        setProductError((error) => ({ ...error, [key]: '' }));
+      }
+      setProductError(result);
+    }
   };
 
   return (
@@ -81,13 +92,20 @@ export const UploadProduct = () => {
         <Form>
           <section>
             <label>상품 이미지</label>
-            <img src={imageSrc} value={productInfo.image} onClick={onClickImage} />
+            <img
+              src={imageSrc}
+              value={productInfo.image}
+              onClick={onClickImage}
+            />
             <input
               type="file"
               accept="image/*"
               ref={uploadImageRef}
               onChange={onChangeImage}
             />
+            {productError.image && (
+              <MessageError content={productError.image} />
+            )}
           </section>
           <section>
             <label>상품명</label>
@@ -97,6 +115,9 @@ export const UploadProduct = () => {
               onChange={onChangeProductInfo}
               maxLength={50}
             />
+            {productError.product_name && (
+              <MessageError content={productError.product_name} />
+            )}
             <label>판매가</label>
             <input
               name="price"
@@ -105,6 +126,9 @@ export const UploadProduct = () => {
               onChange={onChangeProductInfo}
               maxLength={10}
             />
+            {productError.price && (
+              <MessageError content={productError.price} />
+            )}
             <label>배송방법</label>
             <div>
               <ColorButton
@@ -138,6 +162,9 @@ export const UploadProduct = () => {
               onChange={onChangeProductInfo}
               maxLength={7}
             />
+            {productError.shipping_fee && (
+              <MessageError content={productError.shipping_fee} />
+            )}
             <label>재고</label>
             <input
               name="stock"
@@ -146,6 +173,9 @@ export const UploadProduct = () => {
               onChange={onChangeProductInfo}
               maxLength={7}
             />
+            {productError.stock && (
+              <MessageError content={productError.stock} />
+            )}
           </section>
           <section>
             <label>상품 상세 정보</label>
@@ -154,6 +184,9 @@ export const UploadProduct = () => {
               value={productInfo.product_info}
               onChange={onChangeProductInfo}
             />
+            {productError.product_info && (
+              <MessageError content={productError.product_info} />
+            )}
             <div>
               <ColorButton width="200px" size="M" color="white">
                 취소

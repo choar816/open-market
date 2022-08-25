@@ -19,3 +19,42 @@ export const uploadProduct = (formData) => {
     body: formData,
   }).then((res) => res.json());
 };
+
+export const trySave = async ({
+  product_name,
+  image,
+  price,
+  shipping_method,
+  shipping_fee,
+  stock,
+  product_info,
+}) => {
+  const formData = new FormData();
+  formData.append('product_name', product_name);
+  formData.append('image', image);
+  formData.append('price', price);
+  formData.append('shipping_method', shipping_method);
+  formData.append('shipping_fee', shipping_fee);
+  formData.append('stock', stock);
+  formData.append('product_info', product_info);
+
+  let result;
+  await uploadProduct(formData)
+    .then((data) => {
+      // 상품 업로드 성공
+      if (data.product_id) {
+        result = true;
+      }
+      // 상품 업로드 실패
+      else {
+        let errorObject = {};
+        for (const [key, value] of Object.entries(data)) {
+          errorObject[key] = value.join(' ');
+        }
+        result = errorObject;
+      }
+    })
+    .catch((err) => console.log(err));
+
+  return result;
+};
