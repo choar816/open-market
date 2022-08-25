@@ -1,14 +1,17 @@
 import React, { useRef, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import ColorButton from '/src/components/button/ColorButton';
-import { Container, Content, Warning, Form } from './style';
-import ImgUpload from '/public/assets/img-upload.png';
-import { onlyNumber } from '/src/utils/input';
-import { trySave } from '../../utils/sellerRequest';
 import MessageError from './MessageError';
+import { onlyNumber } from '/src/utils/input';
+import { openNotification } from '/src/utils/notification';
+import { trySave } from '../../utils/sellerRequest';
+import ImgUpload from '/public/assets/img-upload.png';
+import { Container, Content, Warning, Form } from './style';
+import { Button, Modal } from 'antd';
 
 export const UploadProduct = () => {
   const navigate = useNavigate();
+  const [isModalVisible, setIsModalVisible] = useState(false);
   const [imageSrc, setImageSrc] = useState(ImgUpload);
   const [productInfo, setProductInfo] = useState({
     product_name: '',
@@ -53,16 +56,27 @@ export const UploadProduct = () => {
     }));
   };
 
+  const onClickUploadMore = () => {
+    setIsModalVisible(false);
+    window.location.reload();
+    window.scrollTo(0, 0);
+  };
   const onClickSave = async () => {
     const result = await trySave(productInfo);
 
     if (result === true) {
-      navigate('/');
+      setIsModalVisible(true);
     } else {
       for (const key of Object.keys(productError)) {
         setProductError((error) => ({ ...error, [key]: '' }));
       }
       setProductError(result);
+      openNotification({
+        type: 'error',
+        message: '상품 등록에 실패했습니다.',
+        description: '각 입력창 하단 에러 메시지를 참고하세요.',
+        placement: 'bottomLeft',
+      });
     }
   };
 
@@ -198,6 +212,21 @@ export const UploadProduct = () => {
           </section>
         </Form>
       </Content>
+      <Modal
+        title="상품 등록 성공 🥳"
+        visible={isModalVisible}
+        footer={[
+          <Button key="back" onClick={onClickUploadMore}>
+            상품 더 등록하기
+          </Button>,
+          <Button key="link" type="primary" onClick={() => navigate('/')}>
+            메인 화면 가기
+          </Button>,
+        ]}
+        centered
+      >
+        <p>상품 등록에 성공하셨습니다!</p>
+      </Modal>
     </Container>
   );
 };
