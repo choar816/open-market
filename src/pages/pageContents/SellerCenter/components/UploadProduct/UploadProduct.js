@@ -33,6 +33,7 @@ export const UploadProduct = () => {
 
   const uploadImageRef = useRef();
   const onChangeImage = (e) => {
+    console.log(e.target.files);
     const reader = new FileReader();
     reader.onload = () => {
       if (reader.readyState === 2) {
@@ -56,10 +57,8 @@ export const UploadProduct = () => {
     }));
   };
 
-  const onClickUploadMore = () => {
-    setIsModalVisible(false);
-    window.location.reload();
-    window.scrollTo(0, 0);
+  const onClickCancel = () => {
+    navigate('/seller_center');
   };
   const onClickSave = async () => {
     const result = await trySave(productInfo);
@@ -78,6 +77,11 @@ export const UploadProduct = () => {
         placement: 'bottomLeft',
       });
     }
+  };
+  const onClickUploadMore = () => {
+    setIsModalVisible(false);
+    window.location.reload();
+    window.scrollTo(0, 0);
   };
 
   return (
@@ -202,7 +206,12 @@ export const UploadProduct = () => {
               <MessageError content={productError.product_info} />
             )}
             <div>
-              <ColorButton width="200px" size="M" color="white">
+              <ColorButton
+                width="200px"
+                size="M"
+                color="white"
+                onClick={onClickCancel}
+              >
                 취소
               </ColorButton>
               <ColorButton width="200px" size="M" onClick={onClickSave}>
@@ -219,8 +228,12 @@ export const UploadProduct = () => {
           <Button key="back" onClick={onClickUploadMore}>
             상품 더 등록하기
           </Button>,
-          <Button key="link" type="primary" onClick={() => navigate('/')}>
-            메인 화면 가기
+          <Button
+            key="link"
+            type="primary"
+            onClick={() => navigate('/seller_center')}
+          >
+            판매자 센터 가기
           </Button>,
         ]}
         centered

@@ -45,5 +45,11 @@ module.exports = {
   ],
   devServer: {
     historyApiFallback: true,
+    proxy: {
+      '/get_image/': {
+        target: 'https://openmarket.weniv.co.kr/media/products/2022/08/31/%E1%84%82%E1%85%A9%E1%86%BC%E1%84%83%E1%85%A1%E1%86%B7%E1%84%80%E1%85%A9%E1%86%B7_z6TxVoY.jpeg',
+        changeOrigin: true,
+      },
+    },
   },
 };

@@ -3,6 +3,6 @@ import { Cart } from './Cart';
 import { MyInfo } from './MyInfo';
 import { Order } from './Order';
 import { Product } from './Product';
-import { Dashboard, UploadProduct } from './SellerCenter';
+import { Dashboard, UploadProduct, EditProduct } from './SellerCenter';
 
-export { Main, Product, Cart, Order, MyInfo, Dashboard, UploadProduct };
+export { Main, Product, Cart, Order, MyInfo, Dashboard, UploadProduct, EditProduct };

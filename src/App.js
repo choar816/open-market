@@ -11,6 +11,7 @@ import {
   MyInfo,
   Dashboard,
   UploadProduct,
+  EditProduct,
 } from './pages/pageContents';
 import { PageLayout } from './pages/PageLayout';
 import './App.css';
@@ -32,6 +33,7 @@ const App = () => {
           <Route path="seller_center">
             <Route index element={<Dashboard />} />
             <Route path="upload_product" element={<UploadProduct />} />
+            <Route path="edit_product/:id" element={<EditProduct />} />
           </Route>
         </Route>
         <Route path="login" element={<LoginPage />} />

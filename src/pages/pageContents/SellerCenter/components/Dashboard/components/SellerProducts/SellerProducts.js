@@ -13,7 +13,7 @@ export const SellerProducts = ({ products }) => {
       </Header>
       <List>
         {products.map((product) => (
-          <ProductItem key={product.product_id} {...product} />
+          <ProductItem key={`seller_product_${product.product_id}`} {...product} />
         ))}
       </List>
     </Container>

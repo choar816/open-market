@@ -1,8 +1,14 @@
 import React from 'react';
+import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
 import ColorButton from '/src/components/button/ColorButton';
 
-export const ProductItem = ({ image, product_name, stock, price }) => {
+export const ProductItem = ({ product_id, image, product_name, stock, price }) => {
+  const navigate = useNavigate();
+  const onClickEdit = () => {
+    navigate(`edit_product/${product_id}`);
+  };
+
   return (
     <Container>
       <div>
@@ -14,7 +20,7 @@ export const ProductItem = ({ image, product_name, stock, price }) => {
       </div>
       <div>{price.toLocaleString('ko-KR')}원</div>
       <div>
-        <ColorButton size="S" width="80px">
+        <ColorButton size="S" width="80px" onClick={onClickEdit}>
           수정
         </ColorButton>
       </div>
