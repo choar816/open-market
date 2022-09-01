@@ -1,20 +1,18 @@
-import React, { useEffect, useRef, useState } from 'react';
-import { useQuery } from 'react-query';
+import React, { useEffect, useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
-import ColorButton from '/src/components/button/ColorButton';
-import MessageError from './MessageError';
-import { onlyNumber } from '/src/utils/input';
+import { useQuery } from 'react-query';
 import { openNotification } from '/src/utils/notification';
-import { tryEdit } from '../../utils/sellerRequest';
-import { Container, Form } from './style';
-import { Button, Modal } from 'antd';
 import { getProductDetail } from '/src/utils/product';
+import { tryEdit } from '../../utils/sellerRequest';
 import Loading from '/src/components/Loading';
 import { PageError } from '/src/components/PageError';
+import { ProductForm } from '../ProductForm';
+import { Button, Modal } from 'antd';
+import { Container } from './style';
 
 // TODO : 이미지 바꾸지 않으면 원래 이미지 그대로 수정되게 하기
 // data.image가 이미지 URL이라 파일로 취급되지 않음
-// EditProduct, UploadProduct 공통 요소 ProductForm 컴포넌트화
+// (지금 - 이미지 바꿔야만 수정 완료)
 export const EditProduct = () => {
   const navigate = useNavigate();
   const params = useParams();
@@ -47,31 +45,6 @@ export const EditProduct = () => {
     product_info: '',
   });
 
-  const uploadImageRef = useRef();
-  const onChangeImage = (e) => {
-    const reader = new FileReader();
-    reader.onload = () => {
-      if (reader.readyState === 2) {
-        setImageSrc(reader.result);
-      }
-    };
-    reader.readAsDataURL(e.target.files[0]);
-    setProductInfo({ ...productInfo, image: e.target.files[0] });
-  };
-  const onChangeProductInfo = (e) => {
-    setProductInfo((info) => ({ ...info, [e.target.name]: e.target.value }));
-  };
-  const onClickImage = (e) => {
-    e.preventDefault();
-    uploadImageRef.current.click();
-  };
-  const onClickShippingMethod = (e) => {
-    setProductInfo((info) => ({
-      ...info,
-      shipping_method: e.target.dataset.method,
-    }));
-  };
-
   const onClickCancel = () => {
     navigate('/seller_center');
   };
@@ -103,115 +76,18 @@ export const EditProduct = () => {
   return (
     <Container>
       <h2>상품 수정</h2>
-      <Form>
-        <section>
-          <label>상품 이미지</label>
-          <img
-            src={imageSrc}
-            value={productInfo.image}
-            onClick={onClickImage}
-          />
-          <input
-            type="file"
-            accept="image/*"
-            ref={uploadImageRef}
-            onChange={onChangeImage}
-          />
-          {productError.image && <MessageError content={productError.image} />}
-        </section>
-        <section>
-          <label>상품명</label>
-          <input
-            name="product_name"
-            value={productInfo.product_name}
-            onChange={onChangeProductInfo}
-            maxLength={50}
-          />
-          {productError.product_name && (
-            <MessageError content={productError.product_name} />
-          )}
-          <label>판매가</label>
-          <input
-            name="price"
-            value={productInfo.price}
-            onInput={onlyNumber}
-            onChange={onChangeProductInfo}
-            maxLength={10}
-          />
-          {productError.price && <MessageError content={productError.price} />}
-          <label>배송방법</label>
-          <div>
-            <ColorButton
-              size="MS"
-              width="220px"
-              data-method="DELIVERY"
-              onClick={onClickShippingMethod}
-              color={
-                productInfo.shipping_method === 'DELIVERY' ? 'green' : 'white'
-              }
-            >
-              택배, 소포, 등기
-            </ColorButton>
-            <ColorButton
-              size="MS"
-              width="220px"
-              data-method="PARCEL"
-              onClick={onClickShippingMethod}
-              color={
-                productInfo.shipping_method === 'PARCEL' ? 'green' : 'white'
-              }
-            >
-              직접배송(화물배달)
-            </ColorButton>
-          </div>
-          <label>기본 배송비</label>
-          <input
-            name="shipping_fee"
-            value={productInfo.shipping_fee}
-            onInput={onlyNumber}
-            onChange={onChangeProductInfo}
-            maxLength={7}
-          />
-          {productError.shipping_fee && (
-            <MessageError content={productError.shipping_fee} />
-          )}
-          <label>재고</label>
-          <input
-            name="stock"
-            value={productInfo.stock}
-            onInput={onlyNumber}
-            onChange={onChangeProductInfo}
-            maxLength={7}
-          />
-          {productError.stock && <MessageError content={productError.stock} />}
-        </section>
-        <section>
-          <label>상품 상세 정보</label>
-          <textarea
-            name="product_info"
-            value={productInfo.product_info}
-            onChange={onChangeProductInfo}
-          />
-          {productError.product_info && (
-            <MessageError content={productError.product_info} />
-          )}
-          <div>
-            <ColorButton
-              width="200px"
-              size="M"
-              color="white"
-              onClick={onClickCancel}
-            >
-              취소
-            </ColorButton>
-            <ColorButton width="200px" size="M" onClick={onClickSave}>
-              저장하기
-            </ColorButton>
-          </div>
-        </section>
-      </Form>
+      <ProductForm
+        productInfo={productInfo}
+        setProductInfo={setProductInfo}
+        productError={productError}
+        setProductError={setProductError}
+        imageSrc={imageSrc}
+        setImageSrc={setImageSrc}
+        onClickCancel={onClickCancel}
+        onClickSave={onClickSave}
+      />
       <Modal
-        title="상품 수정 성공 🥳"
+        title="상품 등록 성공 🥳"
         visible={isModalVisible}
         footer={[
           <Button key="back" onClick={() => navigate('/seller_center')}>
