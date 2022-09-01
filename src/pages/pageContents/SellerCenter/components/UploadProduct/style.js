@@ -16,11 +16,18 @@ export const Container = styled.main`
 export const Content = styled.section`
   display: flex;
   gap: 80px;
+  @media screen and (max-width: 1000px) {
+    gap: 40px;
+    flex-wrap: wrap;
+  }
 `;
 
 export const Warning = styled.section`
   flex-shrink: 0;
   width: 320px;
+  @media screen and (max-width: 1000px) {
+    width: 100%;
+  }
 
   h3 {
     color: #eb5757;
