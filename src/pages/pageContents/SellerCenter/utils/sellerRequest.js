@@ -24,8 +24,7 @@ export const removeProduct = (product_id) => {
     headers: {
       Authorization: `JWT ${localStorage.getItem('token')}`,
     },
-  })
-    .catch((err) => console.log(err));
+  }).catch((err) => console.log(err));
 };
 
 export const uploadProduct = (formData) => {
@@ -66,20 +65,19 @@ export const trySave = async ({
   formData.append('stock', stock);
   formData.append('product_info', product_info);
 
-  let result;
+  let result = {};
   await uploadProduct(formData)
     .then((data) => {
       // 상품 업로드 성공
       if (data.product_id) {
-        result = true;
+        result.is_succeeded = true;
       }
       // 상품 업로드 실패
       else {
-        let errorData = {};
         for (const [key, value] of Object.entries(data)) {
-          errorData[key] = value.join(' ');
+          result[key] = value.join(' ');
         }
-        result = errorData;
+        result.is_succeeded = false;
       }
     })
     .catch((err) => console.log(err));
@@ -113,20 +111,19 @@ export const tryEdit = async ({
   formData.append('stock', stock);
   formData.append('product_info', product_info);
 
-  let result;
+  let result = {};
   await editProduct(formData, product_id)
     .then((data) => {
       // 상품 수정 성공
       if (data.product_id) {
-        result = true;
+        result.is_succeeded = true;
       }
       // 상품 수정 실패
       else {
-        let errorData = {};
         for (const [key, value] of Object.entries(data)) {
-          errorData[key] = value.join(' ');
+          result[key] = value.join(' ');
         }
-        result = errorData;
+        result.is_succeeded = false;
       }
     })
     .catch((err) => console.log(err));

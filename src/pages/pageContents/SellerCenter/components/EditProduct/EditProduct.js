@@ -50,17 +50,17 @@ export const EditProduct = () => {
   };
   const onClickSave = async () => {
     const result = await tryEdit(productInfo);
+    for (const key of Object.keys(productError)) {
+      setProductError((error) => ({ ...error, [key]: '' }));
+    }
 
-    if (result === true) {
+    if (result.is_succeeded) {
       setIsModalVisible(true);
     } else {
-      for (const key of Object.keys(productError)) {
-        setProductError((error) => ({ ...error, [key]: '' }));
-      }
       setProductError(result);
       openNotification({
         type: 'error',
-        message: '상품 등록에 실패했습니다.',
+        message: '상품 수정에 실패했습니다.',
         description: '각 입력창 하단 에러 메시지를 참고하세요.',
         placement: 'bottomLeft',
       });

@@ -34,13 +34,13 @@ export const UploadProduct = () => {
   };
   const onClickSave = async () => {
     const result = await trySave(productInfo);
+    for (const key of Object.keys(productError)) {
+      setProductError((error) => ({ ...error, [key]: '' }));
+    }
 
-    if (result === true) {
+    if (result.is_succeeded) {
       setIsModalVisible(true);
     } else {
-      for (const key of Object.keys(productError)) {
-        setProductError((error) => ({ ...error, [key]: '' }));
-      }
       setProductError(result);
       openNotification({
         type: 'error',
