@@ -4,7 +4,7 @@ import { openNotification } from '/src/utils/notification';
 import { trySave } from '../../utils/sellerRequest';
 import { ProductForm } from '../ProductForm';
 import { Container, Content, Warning } from './style';
-import { Button, Modal } from 'antd';
+import { Modal } from 'antd';
 import ImgUpload from '/public/assets/img-upload.png';
 
 export const UploadProduct = () => {
@@ -93,18 +93,10 @@ export const UploadProduct = () => {
       <Modal
         title="상품 등록 성공 🥳"
         visible={isModalVisible}
-        footer={[
-          <Button key="back" onClick={onClickUploadMore}>
-            상품 더 등록하기
-          </Button>,
-          <Button
-            key="link"
-            type="primary"
-            onClick={() => navigate('/seller_center')}
-          >
-            판매자 센터 가기
-          </Button>,
-        ]}
+        onOk={() => navigate('/seller_center')}
+        onCancel={onClickUploadMore}
+        okText={'판매자 센터 가기'}
+        cancelText={'상품 더 등록하기'}
         centered
       >
         <p>상품 등록에 성공하셨습니다!</p>

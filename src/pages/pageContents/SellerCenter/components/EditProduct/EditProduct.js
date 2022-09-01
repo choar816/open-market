@@ -7,7 +7,7 @@ import { tryEdit } from '../../utils/sellerRequest';
 import Loading from '/src/components/Loading';
 import { PageError } from '/src/components/PageError';
 import { ProductForm } from '../ProductForm';
-import { Button, Modal } from 'antd';
+import { Modal } from 'antd';
 import { Container } from './style';
 
 // TODO : 이미지 바꾸지 않으면 원래 이미지 그대로 수정되게 하기
@@ -87,16 +87,12 @@ export const EditProduct = () => {
         onClickSave={onClickSave}
       />
       <Modal
-        title="상품 등록 성공 🥳"
+        title="상품 수정 성공 🥳"
         visible={isModalVisible}
-        footer={[
-          <Button key="back" onClick={() => navigate('/seller_center')}>
-            판매자 센터 가기
-          </Button>,
-          <Button key="link" type="primary" onClick={() => navigate('/')}>
-            메인 화면 가기
-          </Button>,
-        ]}
+        onOk={() => navigate('/')}
+        onCancel={() => navigate('/seller_center')}
+        okText={'메인 화면 가기'}
+        cancelText={'판매자 센터 가기'}
         centered
       >
         <p>상품 수정에 성공하셨습니다!</p>
