@@ -11,7 +11,7 @@ import iconPlus from '/public/assets/icon-plus-circle.svg';
 import { Container, Title, Content } from './style';
 
 export const Dashboard = () => {
-  const { data, isLoading } = useQuery('sellerProducts', getSellerProducts);
+  const { data, isLoading, refetch } = useQuery('sellerProducts', getSellerProducts);
   const navigate = useNavigate();
   const [chosenIndex, setChosenIndex] = useState(1);
 
@@ -26,7 +26,7 @@ export const Dashboard = () => {
   const getSideBarContent = (index) => {
     switch (index) {
       case 1:
-        return <SellerProducts products={data.results} />;
+        return <SellerProducts products={data.results} refetch={refetch} />;
       case 2:
       case 3:
       case 4:

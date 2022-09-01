@@ -1,12 +1,36 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import styled from 'styled-components';
 import ColorButton from '/src/components/button/ColorButton';
+import styled from 'styled-components';
+import { Button, Modal } from 'antd';
+import { removeProduct } from '../../../../utils/sellerRequest';
 
-export const ProductItem = ({ product_id, image, product_name, stock, price }) => {
+export const ProductItem = ({
+  product_id,
+  image,
+  product_name,
+  stock,
+  price,
+  refetch,
+}) => {
   const navigate = useNavigate();
+  const [isModalVisible, setIsModalVisible] = useState(false);
+  const [confirmLoading, setConfirmLoading] = useState(false);
   const onClickEdit = () => {
     navigate(`edit_product/${product_id}`);
+  };
+  const onClickRemove = () => {
+    setIsModalVisible(true);
+  };
+  const onClickModalCancel = () => {
+    setIsModalVisible(false);
+  };
+  const onClickModalRemove = async () => {
+    setConfirmLoading(true);
+    const res = await removeProduct(product_id);
+    if (res.ok) setConfirmLoading(false);
+    refetch();
+    setIsModalVisible(false);
   };
 
   return (
@@ -25,10 +49,27 @@ export const ProductItem = ({ product_id, image, product_name, stock, price }) =
         </ColorButton>
       </div>
       <div>
-        <ColorButton size="S" width="80px" color="white">
+        <ColorButton
+          size="S"
+          width="80px"
+          color="white"
+          onClick={onClickRemove}
+        >
           삭제
         </ColorButton>
       </div>
+      <Modal
+        title="상품 삭제"
+        visible={isModalVisible}
+        confirmLoading={confirmLoading}
+        onOk={onClickModalRemove}
+        onCancel={onClickModalCancel}
+        okText={'삭제'}
+        cancelText={'취소'}
+        centered
+      >
+        <p>'{product_name}' 상품을 정말 삭제하시겠습니까?</p>
+      </Modal>
     </Container>
   );
 };

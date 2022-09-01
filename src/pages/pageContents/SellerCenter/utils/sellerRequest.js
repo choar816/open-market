@@ -18,6 +18,16 @@ export const getSellerProducts = () => {
   }).then((res) => res.json());
 };
 
+export const removeProduct = (product_id) => {
+  return fetch(`${API_URL}/products/${product_id}/`, {
+    method: 'DELETE',
+    headers: {
+      Authorization: `JWT ${localStorage.getItem('token')}`,
+    },
+  })
+    .catch((err) => console.log(err));
+};
+
 export const uploadProduct = (formData) => {
   return fetch(`${API_URL}/products/`, {
     method: 'POST',

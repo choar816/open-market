@@ -2,7 +2,7 @@ import React from 'react';
 import { ProductItem } from './ProductItem';
 import styled from 'styled-components';
 
-export const SellerProducts = ({ products }) => {
+export const SellerProducts = ({ products, refetch }) => {
   return (
     <Container>
       <Header>
@@ -13,7 +13,11 @@ export const SellerProducts = ({ products }) => {
       </Header>
       <List>
         {products.map((product) => (
-          <ProductItem key={`seller_product_${product.product_id}`} {...product} />
+          <ProductItem
+            key={`seller_product_${product.product_id}`}
+            {...product}
+            refetch={refetch}
+          />
         ))}
       </List>
     </Container>
