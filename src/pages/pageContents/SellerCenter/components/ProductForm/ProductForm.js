@@ -24,9 +24,6 @@ export const ProductForm = ({
     reader.readAsDataURL(e.target.files[0]);
     setProductInfo({ ...productInfo, image: e.target.files[0] });
   };
-  const onChangeProductInfo = (e) => {
-    setProductInfo((info) => ({ ...info, [e.target.name]: e.target.value }));
-  };
   const onClickImage = (e) => {
     e.preventDefault();
     uploadImageRef.current.click();
@@ -36,6 +33,9 @@ export const ProductForm = ({
       ...info,
       shipping_method: e.target.dataset.method,
     }));
+  };
+  const onChangeProductInfo = (e) => {
+    setProductInfo((info) => ({ ...info, [e.target.name]: e.target.value }));
   };
 
   return (

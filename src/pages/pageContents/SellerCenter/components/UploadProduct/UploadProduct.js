@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { openNotification } from '/src/utils/notification';
-import { trySave } from '../../utils/sellerRequest';
+import { tryUpload } from '../../utils/sellerRequest';
 import { ProductForm } from '../ProductForm';
 import { Container, Content, Warning } from './style';
 import { Modal } from 'antd';
@@ -33,7 +33,7 @@ export const UploadProduct = () => {
     navigate('/seller_center');
   };
   const onClickSave = async () => {
-    const result = await trySave(productInfo);
+    const result = await tryUpload(productInfo);
     for (const key of Object.keys(productError)) {
       setProductError((error) => ({ ...error, [key]: '' }));
     }

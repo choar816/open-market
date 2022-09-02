@@ -47,7 +47,7 @@ export const editProduct = (formData, product_id) => {
   }).then((res) => res.json());
 };
 
-export const trySave = async ({
+export const tryUpload = async ({
   product_name,
   image,
   price,
