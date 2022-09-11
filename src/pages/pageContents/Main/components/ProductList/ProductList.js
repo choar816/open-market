@@ -27,7 +27,7 @@ const ProductList = () => {
         <Container>
           {products.map((item) => (
             <ProductItem
-              key={item.product_id}
+              key={`product_item_${item.product_id}`}
               item={item}
               onClick={() => {
                 navigate(`/product/${item.product_id}`);

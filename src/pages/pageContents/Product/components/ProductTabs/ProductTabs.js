@@ -11,7 +11,7 @@ const ProductTabs = () => {
       <TabContainer>
         {tabList.map((tabTitle, idx) => (
           <TabButton
-            key={idx}
+            key={`tab_button_${idx}`}
             chosen={idx === chosenTab}
             onClick={() => setChosenTab(idx)}
           >

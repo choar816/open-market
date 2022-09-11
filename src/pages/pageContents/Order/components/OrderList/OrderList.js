@@ -12,7 +12,7 @@ const OrderList = ({ data }) => {
         <div>주문금액</div>
       </Header>
       {data.map((item) => (
-        <OrderItem {...item} />
+        <OrderItem key={`order_item_${item.product_name}`} {...item} />
       ))}
       <PriceTotal>
         총 주문금액{' '}

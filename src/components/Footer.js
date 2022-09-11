@@ -17,7 +17,7 @@ const Footer = () => {
         </LinkContainer>
         <SocialContainer>
           {socials.map((item, idx) => (
-            <li key={idx}>
+            <li key={`social_${idx}`}>
               <Button
                 imgSrc={item.imgSrc}
                 onClick={() => window.open(item.url, '_blank')}
@@ -29,7 +29,7 @@ const Footer = () => {
       <Divider />
       <InfoContainer>
         {companyInfo.map((item, idx) => (
-          <li key={idx}>{item}</li>
+          <li key={`info_${idx}`}>{item}</li>
         ))}
       </InfoContainer>
     </Container>

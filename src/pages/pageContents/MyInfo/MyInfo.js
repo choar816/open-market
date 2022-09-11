@@ -52,7 +52,7 @@ const MyInfo = () => {
         });
 
         return (
-          <section key={order_number}>
+          <section key={`order_number_${order_number}`}>
             <h3>주문번호 {order_number}</h3>
             <Row>
               <Col span={4}>주문일자</Col>

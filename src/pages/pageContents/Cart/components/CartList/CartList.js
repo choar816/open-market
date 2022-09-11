@@ -22,7 +22,7 @@ const CartList = ({
     <>
       {cartItems.map((item) => (
         <CartItem
-          key={item.cart_item_id}
+          key={`cart_item_${item.cart_item_id}`}
           item={item}
           refetch={refetch}
           onClickCartOrderOne={onClickCartOrderOne}

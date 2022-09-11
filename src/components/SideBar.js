@@ -14,7 +14,7 @@ const SideBar = ({ chosenIndex, productCount, onMenuClick }) => {
     <Container chosenIndex={chosenIndex}>
       {barMenus.map((menu) => (
         <Button
-          key={`barMenu_${menu.index}`}
+          key={`bar_menu_${menu.index}`}
           num={menu.num}
           data-index={menu.index}
           onClick={onMenuClick}
