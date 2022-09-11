@@ -91,7 +91,6 @@ export const Order = () => {
     )
       .then((res) => res.json())
       .then((data) => {
-        console.log(data);
         if (!data.delivery_status) {
           setOrderFormError(data);
         } else {

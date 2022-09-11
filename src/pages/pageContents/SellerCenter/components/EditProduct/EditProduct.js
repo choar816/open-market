@@ -50,6 +50,7 @@ export const EditProduct = () => {
   };
   const onClickSave = async () => {
     const result = await tryEdit(productInfo);
+    // console.log(result);
     for (const key of Object.keys(productError)) {
       setProductError((error) => ({ ...error, [key]: '' }));
     }

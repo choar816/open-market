@@ -1,8 +1,8 @@
 import { API_URL } from '/src/utils/api';
 
-const urlToObject = async (url) => {
+const urlToObject = async () => {
   // here image is url/location of image
-  const response = await fetch(url);
+  const response = await fetch('/get_image/');
   const blob = await response.blob();
   const file = new File([blob], 'image.jpg', { type: blob.type });
   return file;
@@ -24,7 +24,7 @@ export const removeProduct = (product_id) => {
     headers: {
       Authorization: `JWT ${localStorage.getItem('token')}`,
     },
-  }).catch((err) => console.log(err));
+  }).catch((err) => console.error(err));
 };
 
 export const uploadProduct = (formData) => {
@@ -80,7 +80,7 @@ export const tryUpload = async ({
         result.is_succeeded = false;
       }
     })
-    .catch((err) => console.log(err));
+    .catch((err) => console.error(err));
 
   return result;
 };
@@ -95,12 +95,12 @@ export const tryEdit = async ({
   stock,
   product_info,
 }) => {
+  // console.log(image);
   // const imageFile = await toDataURL(image).then((dataUrl) => {
   //   return dataURLtoFile(dataUrl, 'imageName.jpg');
   // });
+  const imageFile = await urlToObject(image);
   // console.log(imageFile);
-  // const imageFile1 = urlToObject(image);
-  // console.log(imageFile1);
 
   const formData = new FormData();
   formData.append('product_name', product_name);
@@ -126,7 +126,7 @@ export const tryEdit = async ({
         result.is_succeeded = false;
       }
     })
-    .catch((err) => console.log(err));
+    .catch((err) => console.error(err));
 
   return result;
 };
