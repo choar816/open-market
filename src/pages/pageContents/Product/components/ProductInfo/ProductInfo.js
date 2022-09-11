@@ -32,9 +32,18 @@ const ProductInfo = ({ id, data }) => {
   } = data;
 
   const isLogined = localStorage.getItem('token');
+  const userType = localStorage.getItem('userType');
+  const navigate = useNavigate();
+
   const [amount, setAmount] = useState(0);
   const [modalOn, setModalOn] = useState(false);
   const [modalContent, setModalContent] = useState('content');
+  const [canClickOrder, setCanClickOrder] = useState(
+    userType !== 'SELLER' && amount !== 0,
+  );
+  useEffect(() => {
+    setCanClickOrder(userType !== 'SELLER' && amount !== 0);
+  }, [amount]);
   const onIncrease = () =>
     setAmount((amount) => (amount < stock ? amount + 1 : amount));
   const onDecrease = () => setAmount((amount) => (amount > 0 ? amount - 1 : 0));
@@ -50,12 +59,10 @@ const ProductInfo = ({ id, data }) => {
       setModal('장바구니는 로그인 후 이용 가능합니다.', true);
       return;
     }
-
     if (!check) {
       setModal('0개를 담을 수 없습니다.', true);
       return;
     }
-
     addProductToCart(product_id.toString(), quantity, true).then((data) => {
       if (data?.FAIL_message) {
         setModal('현재 재고보다 더 많은 수량을 담을 수 없습니다.', true);
@@ -65,7 +72,6 @@ const ProductInfo = ({ id, data }) => {
     });
   };
 
-  const navigate = useNavigate();
   const onClickOrder = () => {
     const itemToOrder = {
       image,
@@ -128,9 +134,14 @@ const ProductInfo = ({ id, data }) => {
             </div>
           </PartPrice>
           <PartBtn>
-            <ColorButton onClick={onClickOrder}>바로 구매</ColorButton>
             <ColorButton
-              color={'charcoal'}
+              color={canClickOrder ? 'green' : 'gray'}
+              onClick={canClickOrder ? onClickOrder: () => {}}
+            >
+              바로 구매
+            </ColorButton>
+            <ColorButton
+              color={'gray'}
               width={'200px'}
               onClick={() => onClickCart(product_id, amount, amount !== 0)}
             >
