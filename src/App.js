@@ -24,7 +24,7 @@ const App = () => {
   return (
     <QueryClientProvider client={queryClient}>
       <Routes>
-        <Route path="/" element={<PageLayout />}>
+        <Route path="" element={<PageLayout />}>
           <Route index element={<Main />} />
           <Route path="product/:id" element={<Product />} />
           <Route path="cart" element={<Cart />} />
