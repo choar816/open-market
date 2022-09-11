@@ -58,11 +58,11 @@ export const FormType = styled.article`
     content: '';
     position: absolute;
     z-index: 30;
-    top: 64px;
+    bottom: 0;
     left: 50%;
     transform: translateX(-50%);
     width: 20px;
-    height: 25px;
+    height: 19px;
     background-color: #fff;
   }
 `;
