@@ -2,7 +2,7 @@ import styled from 'styled-components';
 
 export const Container = styled.main`
   width: 100vw;
-  padding-top: 80px;
+  padding-top: 70px;
   padding-bottom: 80px;
   align-self: center;
   display: flex;
@@ -12,6 +12,11 @@ export const Container = styled.main`
 
   @media screen and (max-width: 1400px) {
     gap: 70px;
+  }
+  @media screen and (max-width: 1080px) {
+    gap: 40px;
+    padding-top: 50px;
+    padding-bottom: 50px;
   }
 `;
 

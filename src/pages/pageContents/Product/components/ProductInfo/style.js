@@ -86,12 +86,18 @@ export const ProductPrice = styled.p`
     font-size: 36px;
     line-height: 45px;
   }
+  @media screen and (max-width: 1400px) {
+    margin-top: 10px;
+  }
 `;
 
 export const Delivery = styled.p`
   font-size: 16px;
   line-height: 20px;
   color: #767676;
+  @media screen and (max-width: 1080px) {
+    margin-top: 10px;
+  }
 `;
 
 export const TotalAmount = styled.p`
