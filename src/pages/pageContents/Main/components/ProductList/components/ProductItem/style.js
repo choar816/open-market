@@ -1,4 +1,4 @@
-import styled from "styled-components";
+import styled from 'styled-components';
 
 export const Container = styled.article`
   justify-self: center;
@@ -33,11 +33,18 @@ export const Desc = styled.p`
   margin-top: 16px;
   font-size: 16px;
   line-height: 22px;
+  width: 300px;
   color: #767676;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
   @media screen and (max-width: 768px) {
     margin-top: 12px;
     font-size: 12px;
     line-height: 18px;
+    width: 200px;
   }
 `;
 
